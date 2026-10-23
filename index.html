@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5">
 <meta name="theme-color" content="#1e40af">
-<title>Выработка ЭЭ по регионам РФ · v5.0</title>
+<title>Выработка ЭЭ по регионам РФ · v5.1</title>
 
 <style>
   :root{
@@ -116,9 +116,7 @@
   @keyframes loadbar{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
   @keyframes spin{to{transform:rotate(360deg)}}
-  @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 
-  /* ============ SPLASH ============ */
   #splash{
     position:fixed; inset:0; z-index:99999;
     background:radial-gradient(circle at 30% 20%, #1e40af 0%, #0c1a3d 50%, #050a1a 100%);
@@ -139,109 +137,45 @@
   }
   #splash h1{font-size:24px; margin:0 0 8px; letter-spacing:-.02em}
   #splash .sp-sub{font-size:13px; opacity:.75; margin-bottom:28px}
-  #splash .sp-progress{
-    width:220px; max-width:80vw; height:3px; background:rgba(255,255,255,.15);
-    border-radius:2px; overflow:hidden; margin-bottom:14px;
-  }
-  #splash .sp-progress .bar{
-    height:100%; width:0; background:linear-gradient(90deg, #3b82f6, #06b6d4);
-    animation: spLoad 2s ease-out forwards;
-  }
+  #splash .sp-progress{width:220px; max-width:80vw; height:3px; background:rgba(255,255,255,.15); border-radius:2px; overflow:hidden; margin-bottom:14px}
+  #splash .sp-progress .bar{height:100%; width:0; background:linear-gradient(90deg, #3b82f6, #06b6d4); animation: spLoad 2s ease-out forwards}
   @keyframes spLoad{0%{width:0}50%{width:60%}100%{width:100%}}
   #splash .sp-pct{font-size:11px; opacity:.7; letter-spacing:.05em; margin-bottom:24px; font-family:var(--font-mono)}
-  #splash .sp-features{
-    display:flex; flex-wrap:wrap; gap:12px; justify-content:center;
-    font-size:11.5px; opacity:.8; padding:0 16px;
-  }
-  #splash .sp-features span{
-    display:inline-flex; align-items:center; gap:5px;
-    background:rgba(255,255,255,.08); padding:5px 10px; border-radius:999px;
-    border:1px solid rgba(255,255,255,.1);
-  }
-  #splash .sp-skip{
-    margin-top:32px; background:rgba(255,255,255,.1); color:#fff;
-    border:1px solid rgba(255,255,255,.2); padding:8px 20px;
-    border-radius:999px; font-size:12px; cursor:pointer;
-    transition:.2s;
-  }
+  #splash .sp-features{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; font-size:11.5px; opacity:.8; padding:0 16px}
+  #splash .sp-features span{display:inline-flex; align-items:center; gap:5px; background:rgba(255,255,255,.08); padding:5px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.1)}
+  #splash .sp-skip{margin-top:32px; background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.2); padding:8px 20px; border-radius:999px; font-size:12px; cursor:pointer; transition:.2s}
   #splash .sp-skip:hover{background:rgba(255,255,255,.2)}
 
-  /* ============ LAYOUT ============ */
-  .app{
-    display:grid;
-    grid-template-columns:270px 1fr;
-    min-height:100dvh;
-  }
+  .app{display:grid; grid-template-columns:270px 1fr; min-height:100dvh}
   .side{
-    position:sticky; top:0; height:100dvh;
-    overflow-y:auto;
-    background:var(--panel);
-    border-right:1px solid var(--border);
-    padding:18px 14px 20px;
-    display:flex; flex-direction:column; gap:12px;
-    scrollbar-width:thin;
-    z-index:50;
+    position:sticky; top:0; height:100dvh; overflow-y:auto;
+    background:var(--panel); border-right:1px solid var(--border);
+    padding:18px 14px 20px; display:flex; flex-direction:column; gap:12px;
+    scrollbar-width:thin; z-index:50;
   }
-  main{
-    padding:22px 26px 80px;
-    max-width:1600px; min-width:0;
-    width:100%;
-  }
+  main{padding:22px 26px 80px; max-width:1600px; min-width:0; width:100%}
 
-  /* Mobile nav bar - единственная нижняя панель */
   .mobile-nav{
-    display:none;
-    position:fixed; bottom:0; left:0; right:0;
-    z-index:800;
-    background:var(--panel);
-    border-top:1px solid var(--border);
+    display:none; position:fixed; bottom:0; left:0; right:0; z-index:800;
+    background:var(--panel); border-top:1px solid var(--border);
     box-shadow:0 -2px 12px rgba(10,22,40,.06);
     padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
     height:var(--mobile-nav-height);
   }
-  .mobile-nav .nav-items{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    height:100%;
-  }
-  .mobile-nav a{
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:3px; color:var(--muted); font-size:10px; text-decoration:none;
-    border-radius:8px; margin:0 2px; padding:4px;
-    -webkit-tap-highlight-color:transparent;
-    transition:.15s;
-    cursor:pointer;
-  }
+  .mobile-nav .nav-items{display:grid; grid-template-columns:repeat(5,1fr); height:100%}
+  .mobile-nav a{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; color:var(--muted); font-size:10px; text-decoration:none; border-radius:8px; margin:0 2px; padding:4px; -webkit-tap-highlight-color:transparent; transition:.15s; cursor:pointer}
   .mobile-nav a .ico{font-size:19px; line-height:1}
   .mobile-nav a.active{color:var(--accent); background:var(--accent-soft-2)}
   .mobile-nav a:active{background:var(--accent-soft)}
 
-  /* Mobile drawer */
-  .drawer-backdrop{
-    display:none; position:fixed; inset:0; background:rgba(0,0,0,.5);
-    z-index:870; animation:fadeIn .2s;
-  }
+  .drawer-backdrop{display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:870; animation:fadeIn .2s}
   .drawer-backdrop.open{display:block}
-  .drawer{
-    position:fixed; left:0; right:0; bottom:0;
-    max-height:85dvh; overflow-y:auto;
-    background:var(--panel);
-    border-radius:20px 20px 0 0;
-    padding:20px 18px calc(20px + env(safe-area-inset-bottom));
-    transform:translateY(100%);
-    transition:transform .3s cubic-bezier(.4,0,.2,1);
-    -webkit-overflow-scrolling:touch;
-  }
+  .drawer{position:fixed; left:0; right:0; bottom:0; max-height:85dvh; overflow-y:auto; background:var(--panel); border-radius:20px 20px 0 0; padding:20px 18px calc(20px + env(safe-area-inset-bottom)); transform:translateY(100%); transition:transform .3s cubic-bezier(.4,0,.2,1); -webkit-overflow-scrolling:touch}
   .drawer-backdrop.open .drawer{transform:translateY(0)}
   .drawer h3{font-size:15px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center}
   .drawer h3 button{padding:6px 10px; background:transparent; border:1px solid var(--border); border-radius:8px; font-size:14px; cursor:pointer; color:var(--text)}
   .drawer .group-title{font-size:10.5px; text-transform:uppercase; color:var(--muted); letter-spacing:.08em; margin:16px 0 8px; font-weight:600}
-  .drawer a{
-    display:flex; align-items:center; gap:12px;
-    padding:11px 14px; border-radius:10px; color:var(--text-soft);
-    font-size:14px; text-decoration:none; margin-bottom:2px;
-    -webkit-tap-highlight-color:transparent;
-  }
+  .drawer a{display:flex; align-items:center; gap:12px; padding:11px 14px; border-radius:10px; color:var(--text-soft); font-size:14px; text-decoration:none; margin-bottom:2px; -webkit-tap-highlight-color:transparent}
   .drawer a.active{background:var(--accent-soft); color:var(--accent); font-weight:600}
   .drawer a:active{background:var(--accent-soft-2)}
 
@@ -265,9 +199,7 @@
       font-size:16px; padding:10px 12px; min-height:var(--touch); width:100%;
       -webkit-appearance:none; appearance:none;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
-      background-repeat:no-repeat;
-      background-position:right 12px center;
-      padding-right:32px;
+      background-repeat:no-repeat; background-position:right 12px center; padding-right:32px;
     }
     select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L2 4h8z'/%3E%3C/svg%3E")}
     label.inline{flex-direction:column; align-items:stretch; gap:4px; width:100%}
@@ -281,12 +213,6 @@
     .consent{left:8px; right:8px; bottom:calc(var(--mobile-nav-height) + 8px + env(safe-area-inset-bottom)); max-width:none; padding:14px}
     .palette{top:8px; left:8px; right:8px; transform:none; width:auto}
     .onb{padding:22px 18px; width:calc(100vw - 16px); max-height:85dvh}
-    .doc-nav{position:static; flex-direction:row; overflow-x:auto; white-space:nowrap; flex-wrap:nowrap; -webkit-overflow-scrolling:touch; scrollbar-width:none}
-    .doc-nav::-webkit-scrollbar{display:none}
-    .doc-nav a{padding:8px 12px; font-size:12px; flex-shrink:0}
-    .doc-hero{padding:22px 18px}
-    .doc-hero h1{font-size:19px}
-    .doc-hero p{font-size:13px}
   }
   @media(max-width:360px){
     .kpis{grid-template-columns:1fr}
@@ -294,51 +220,41 @@
     .mobile-nav a .ico{font-size:17px}
   }
 
-  /* Sidebar items */
   .brand{display:flex; gap:10px; align-items:center; padding-bottom:14px; border-bottom:1px solid var(--border-soft)}
-  .brand .logo{
-    width:38px;height:38px;border-radius:10px; flex:0 0 38px;
-    background:linear-gradient(135deg, var(--accent), var(--accent-2));
-    display:flex; align-items:center; justify-content:center;
-    color:#fff; font-weight:800; font-size:14px;
-    box-shadow:var(--shadow-sm);
-  }
+  .brand .logo{width:38px;height:38px;border-radius:10px; flex:0 0 38px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:14px; box-shadow:var(--shadow-sm)}
   .brand h1{font-size:12.5px; line-height:1.2}
   .brand .sub{font-size:10px; color:var(--muted); margin-top:2px}
 
   .nav-group{display:flex; flex-direction:column; gap:1px; margin-bottom:8px}
-  .group-title{
-    font-size:10px; text-transform:uppercase; letter-spacing:.08em;
-    color:var(--muted); padding:10px 10px 4px; font-weight:600;
-  }
-  .nav a{
-    display:flex; align-items:center; gap:9px;
-    padding:7px 10px; border-radius:var(--radius-sm); text-decoration:none; color:var(--text-soft);
-    font-size:12px; border:1px solid transparent; transition:.15s; cursor:pointer;
-  }
+  .group-title{font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); padding:10px 10px 4px; font-weight:600}
+  .nav a{display:flex; align-items:center; gap:9px; padding:7px 10px; border-radius:var(--radius-sm); text-decoration:none; color:var(--text-soft); font-size:12px; border:1px solid transparent; transition:.15s; cursor:pointer}
   .nav a:hover{background:var(--accent-soft-2); color:var(--text)}
   .nav a.active{background:var(--accent-soft); color:var(--accent); font-weight:600}
   .nav a .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.4; flex:0 0 5px}
   .nav a.active .dot{opacity:1}
 
   .side-footer{margin-top:auto; font-size:10.5px; color:var(--muted); line-height:1.5}
+  .side-footer a{font-size:10.5px}
   .toggle{display:flex; gap:6px; margin-top:8px}
   .toggle button{flex:1; font-size:11.5px; padding:7px}
   .history-bar{display:flex; gap:4px; align-items:center; font-size:10.5px; color:var(--muted); margin-top:4px}
   .history-bar button{padding:4px 7px; font-size:10px; min-height:auto}
 
-  /* MAIN CONTENT */
+  .ghost-link{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:8px 14px; border-radius:var(--radius-sm);
+    border:1px solid var(--border); background:transparent;
+    color:var(--text); font-size:13px; font-family:var(--font-ui);
+    text-decoration:none; transition:.15s; cursor:pointer;
+  }
+  .ghost-link:hover{border-color:var(--accent); color:var(--accent); text-decoration:none}
+
   .page-head{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:flex-end; margin-bottom:20px}
   .page-head .lead{color:var(--muted); font-size:13px; max-width:760px; margin-top:4px}
-  .pill{display:inline-flex; align-items:center; gap:6px; font-size:11.5px;
-    padding:5px 11px; border-radius:var(--radius-pill); border:1px solid var(--border); color:var(--text-soft); background:var(--panel)}
+  .pill{display:inline-flex; align-items:center; gap:6px; font-size:11.5px; padding:5px 11px; border-radius:var(--radius-pill); border:1px solid var(--border); color:var(--text-soft); background:var(--panel)}
   .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--ok); animation:pulse 2s infinite}
 
-  .card{
-    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-lg);
-    padding:18px 20px; box-shadow:var(--shadow-xs); margin-bottom:16px;
-    transition:box-shadow .2s;
-  }
+  .card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; box-shadow:var(--shadow-xs); margin-bottom:16px; transition:box-shadow .2s}
   .card:hover{box-shadow:var(--shadow-sm)}
   .card .head{display:flex; justify-content:space-between; align-items:center; gap:14px; margin-bottom:12px; flex-wrap:wrap}
   .card h3{font-size:14px}
@@ -350,18 +266,11 @@
   .card.danger{border-left:3px solid var(--err)}
 
   .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; margin-bottom:16px}
-  .kpi{
-    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
-    padding:12px 14px; box-shadow:var(--shadow-xs);
-    position:relative; overflow:hidden; transition:transform .2s, box-shadow .2s;
-  }
+  .kpi{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:12px 14px; box-shadow:var(--shadow-xs); position:relative; overflow:hidden; transition:transform .2s, box-shadow .2s}
   .kpi:hover{transform:translateY(-2px); box-shadow:var(--shadow-sm)}
-  .kpi::before{content:""; position:absolute; left:0; top:0; right:0; height:2px;
-    background:linear-gradient(90deg, var(--accent), var(--accent-2))}
+  .kpi::before{content:""; position:absolute; left:0; top:0; right:0; height:2px; background:linear-gradient(90deg, var(--accent), var(--accent-2))}
   .kpi .label{font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; font-weight:600; display:flex; align-items:center; gap:4px}
-  .kpi .label .q{display:inline-flex; width:13px; height:13px; border-radius:50%;
-    background:var(--accent-soft); color:var(--accent); align-items:center; justify-content:center;
-    font-size:9px; font-weight:800; cursor:help}
+  .kpi .label .q{display:inline-flex; width:13px; height:13px; border-radius:50%; background:var(--accent-soft); color:var(--accent); align-items:center; justify-content:center; font-size:9px; font-weight:800; cursor:help}
   .kpi .val{font-size:19px; font-weight:700; margin-top:5px; letter-spacing:-.015em}
   .kpi .val small{font-size:10.5px; font-weight:500; color:var(--muted); margin-left:3px}
   .kpi .delta{margin-top:3px; font-size:11px; color:var(--muted)}
@@ -372,12 +281,7 @@
   .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
   @media(max-width:1100px){.grid-2, .grid-3{grid-template-columns:1fr}}
 
-  button{
-    cursor:pointer; border:1px solid var(--border); background:var(--panel); color:var(--text);
-    padding:8px 13px; border-radius:var(--radius-sm); font-size:12.5px; font-weight:500;
-    transition:.15s; position:relative; overflow:hidden; letter-spacing:-.005em;
-    -webkit-tap-highlight-color:transparent;
-  }
+  button{cursor:pointer; border:1px solid var(--border); background:var(--panel); color:var(--text); padding:8px 13px; border-radius:var(--radius-sm); font-size:12.5px; font-weight:500; transition:.15s; position:relative; overflow:hidden; letter-spacing:-.005em; -webkit-tap-highlight-color:transparent}
   button:hover:not(:disabled){border-color:var(--accent); color:var(--accent)}
   button:active:not(:disabled){transform:scale(.98)}
   button.primary{background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600}
@@ -385,28 +289,16 @@
   button.danger{color:var(--err); border-color:rgba(220,38,38,.3)}
   button.ghost{background:transparent}
   button:disabled{opacity:.5; cursor:not-allowed}
-  button.loading::after{
-    content:""; position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--accent-2);
-    animation:loadbar 1s linear infinite;
-  }
+  button.loading::after{content:""; position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--accent-2); animation:loadbar 1s linear infinite}
 
-  select,input[type=text],input[type=number],input[type=date],textarea{
-    font-family:var(--font-ui); font-size:12.5px; background:var(--panel); color:var(--text);
-    border:1px solid var(--border); border-radius:var(--radius-sm); padding:7px 10px;
-    outline:none; transition:.15s; max-width:100%;
-  }
+  select,input[type=text],input[type=number],input[type=date],textarea{font-family:var(--font-ui); font-size:12.5px; background:var(--panel); color:var(--text); border:1px solid var(--border); border-radius:var(--radius-sm); padding:7px 10px; outline:none; transition:.15s; max-width:100%}
   select:focus,input:focus,textarea:focus{border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft)}
   textarea{width:100%; min-height:120px; resize:vertical; font-family:var(--font-mono); font-size:11.5px}
   label.inline{display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--text-soft)}
   label.field{display:flex; flex-direction:column; gap:5px; font-size:12px; color:var(--text-soft)}
 
   .chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px}
-  .chip{
-    display:inline-flex; align-items:center; gap:6px; padding:6px 11px; border:1px solid var(--border);
-    border-radius:var(--radius-pill); font-size:11.5px; background:var(--panel);
-    cursor:pointer; user-select:none; transition:.15s; color:var(--text-soft);
-    -webkit-tap-highlight-color:transparent;
-  }
+  .chip{display:inline-flex; align-items:center; gap:6px; padding:6px 11px; border:1px solid var(--border); border-radius:var(--radius-pill); font-size:11.5px; background:var(--panel); cursor:pointer; user-select:none; transition:.15s; color:var(--text-soft); -webkit-tap-highlight-color:transparent}
   .chip:hover{border-color:var(--accent); color:var(--accent)}
   .chip input{display:none}
   .chip.active{border-color:var(--accent); background:var(--accent-soft); color:var(--accent); font-weight:600}
@@ -442,11 +334,7 @@
 
   .exp-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:8px}
   .export-modes{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px}
-  .export-modes label{
-    display:flex; align-items:center; gap:6px; padding:7px 13px; border:1px solid var(--border);
-    border-radius:var(--radius-pill); font-size:12px; cursor:pointer;
-    background:var(--panel); transition:.15s; color:var(--text-soft);
-  }
+  .export-modes label{display:flex; align-items:center; gap:6px; padding:7px 13px; border:1px solid var(--border); border-radius:var(--radius-pill); font-size:12px; cursor:pointer; background:var(--panel); transition:.15s; color:var(--text-soft)}
   .export-modes label:has(input:checked){border-color:var(--accent); background:var(--accent-soft); color:var(--accent); font-weight:600}
   .export-modes input{display:none}
 
@@ -455,55 +343,27 @@
   .divider{height:1px; background:var(--border-soft); margin:12px 0}
   .empty{padding:22px; text-align:center; color:var(--muted); font-size:12.5px}
 
-  #banner{display:none; background:var(--err-soft); border:1px solid var(--err); color:var(--err);
-    padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:12px; font-size:12px}
+  #banner{display:none; background:var(--err-soft); border:1px solid var(--err); color:var(--err); padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:12px; font-size:12px}
   #banner.show{display:block}
   #banner code{background:rgba(0,0,0,.08); padding:1px 5px; border-radius:4px}
 
   #toasts{position:fixed; right:14px; bottom:70px; z-index:9999; display:flex; flex-direction:column; gap:6px; pointer-events:none}
-  .toast{
-    background:var(--panel); color:var(--text); border:1px solid var(--border); border-radius:var(--radius-sm);
-    padding:9px 13px; box-shadow:var(--shadow-lg);
-    font-size:12px; max-width:340px;
-    transform:translateY(10px); opacity:0; transition:.25s; pointer-events:auto; border-left:3px solid var(--accent);
-  }
+  .toast{background:var(--panel); color:var(--text); border:1px solid var(--border); border-radius:var(--radius-sm); padding:9px 13px; box-shadow:var(--shadow-lg); font-size:12px; max-width:340px; transform:translateY(10px); opacity:0; transition:.25s; pointer-events:auto; border-left:3px solid var(--accent)}
   .toast.show{transform:none; opacity:1}
   .toast.ok{border-left-color:var(--ok)}
   .toast.err{border-left-color:var(--err)}
   .toast.warn{border-left-color:var(--warn)}
 
-  #tooltip{
-    position:fixed; z-index:9998; background:var(--text); color:var(--panel);
-    border-radius:var(--radius-sm); padding:5px 9px;
-    font-size:11px; max-width:280px; line-height:1.4;
-    box-shadow:var(--shadow-lg); display:none; pointer-events:none;
-  }
+  #tooltip{position:fixed; z-index:9998; background:var(--text); color:var(--panel); border-radius:var(--radius-sm); padding:5px 9px; font-size:11px; max-width:280px; line-height:1.4; box-shadow:var(--shadow-lg); display:none; pointer-events:none}
 
   #exportStage{position:fixed; left:-99999px; top:0; width:1200px; height:700px; background:#fff; z-index:-1}
 
-  /* ============ TERMINAL ============ */
-  .term-toggle{
-    position:fixed; right:14px; bottom:14px; z-index:850;
-    width:48px; height:48px; border-radius:50%; background:var(--accent); color:#fff;
-    border:none; box-shadow:var(--shadow-lg); font-size:18px; cursor:pointer;
-    display:flex; align-items:center; justify-content:center; transition:transform .2s;
-    -webkit-tap-highlight-color:transparent;
-  }
+  .term-toggle{position:fixed; right:14px; bottom:14px; z-index:850; width:48px; height:48px; border-radius:50%; background:var(--accent); color:#fff; border:none; box-shadow:var(--shadow-lg); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:transform .2s; -webkit-tap-highlight-color:transparent}
   .term-toggle:hover{transform:scale(1.05); background:var(--accent-hover)}
-  .terminal{
-    position:fixed; left:0; right:0; bottom:0; height:52dvh;
-    background:var(--term-bg); color:var(--term-fg);
-    font-family:var(--font-mono); font-size:12px;
-    transform:translateY(100%); transition:transform .25s ease; z-index:950;
-    display:flex; flex-direction:column; box-shadow:0 -8px 30px rgba(0,0,0,.4);
-    border-top:2px solid var(--accent);
-  }
+  .terminal{position:fixed; left:0; right:0; bottom:0; height:52dvh; background:var(--term-bg); color:var(--term-fg); font-family:var(--font-mono); font-size:12px; transform:translateY(100%); transition:transform .25s ease; z-index:950; display:flex; flex-direction:column; box-shadow:0 -8px 30px rgba(0,0,0,.4); border-top:2px solid var(--accent)}
   .terminal.open{transform:none}
   .term-tabs{display:flex; gap:1px; padding:6px 8px 0; border-bottom:1px solid #1c263a; flex-wrap:wrap; align-items:center; background:#08111c}
-  .term-tabs button{
-    background:transparent; border:none; color:#8fa2c4; padding:7px 12px; font-size:11.5px;
-    border-radius:5px 5px 0 0; cursor:pointer; font-weight:500;
-  }
+  .term-tabs button{background:transparent; border:none; color:#8fa2c4; padding:7px 12px; font-size:11.5px; border-radius:5px 5px 0 0; cursor:pointer; font-weight:500}
   .term-tabs button:hover{background:#131c30; color:#fff}
   .term-tabs button.active{background:#0f1730; color:#7fb1ff; border-bottom:2px solid var(--accent)}
   .term-tabs .spacer{flex:1}
@@ -518,57 +378,30 @@
   .term-body .t-cmd{color:#c084fc}
   .term-quick{display:flex; gap:5px; padding:7px 12px; border-top:1px solid #1c263a; background:#050810; overflow-x:auto; flex-wrap:nowrap; -webkit-overflow-scrolling:touch; scrollbar-width:none}
   .term-quick::-webkit-scrollbar{display:none}
-  .term-quick button{
-    background:#131c30; color:#7fb1ff; border:1px solid #24314a;
-    padding:4px 9px; font-size:10.5px; border-radius:5px; cursor:pointer; white-space:nowrap;
-    min-height:auto; font-family:var(--font-mono); flex-shrink:0;
-  }
+  .term-quick button{background:#131c30; color:#7fb1ff; border:1px solid #24314a; padding:4px 9px; font-size:10.5px; border-radius:5px; cursor:pointer; white-space:nowrap; min-height:auto; font-family:var(--font-mono); flex-shrink:0}
   .term-quick button:hover{background:#1a2942; border-color:var(--accent)}
-  .term-input{
-    display:flex; gap:6px; padding:8px 12px calc(8px + env(safe-area-inset-bottom)); border-top:1px solid #1c263a; background:#050810;
-  }
-  .term-input input{
-    flex:1; background:#0b1220; color:#e6edf7; border:1px solid #24314a;
-    padding:9px 11px; border-radius:5px; font-family:inherit; font-size:12.5px;
-  }
+  .term-input{display:flex; gap:6px; padding:8px 12px calc(8px + env(safe-area-inset-bottom)); border-top:1px solid #1c263a; background:#050810}
+  .term-input input{flex:1; background:#0b1220; color:#e6edf7; border:1px solid #24314a; padding:9px 11px; border-radius:5px; font-family:inherit; font-size:12.5px}
   .term-input input:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 2px rgba(91,141,239,.2)}
   .term-input .prompt{color:#4ade80; padding:9px 4px; user-select:none; font-weight:600}
   .term-tab-panel{display:none}
   .term-tab-panel.active{display:block}
 
-  /* Commands catalog */
   .cmd-grid{display:flex; flex-direction:column; gap:6px}
-  .cmd-item{
-    background:#0f1730; border:1px solid #1c263a; border-radius:6px;
-    padding:10px 12px; cursor:pointer; transition:.15s;
-  }
+  .cmd-item{background:#0f1730; border:1px solid #1c263a; border-radius:6px; padding:10px 12px; cursor:pointer; transition:.15s}
   .cmd-item:hover{background:#152040; border-color:#2a3d5c}
   .cmd-item .cmd-name{color:#7fb1ff; font-weight:600; font-size:12.5px; font-family:var(--font-mono); margin-bottom:3px}
   .cmd-item .cmd-desc{color:#94a3b8; font-size:11.5px; line-height:1.5}
   .cmd-item .cmd-usage{color:#c084fc; font-size:11px; font-family:var(--font-mono); margin-top:4px}
   .cmd-cat{color:#4ade80; font-size:10px; text-transform:uppercase; letter-spacing:.08em; margin:14px 0 6px; font-weight:600}
 
-  /* ============ PALETTE ============ */
   .palette-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:960; display:none; animation:fadeIn .15s}
   .palette-backdrop.open{display:block}
-  .palette{
-    position:fixed; top:80px; left:50%; transform:translateX(-50%);
-    width:min(580px, calc(100vw - 32px)); background:var(--panel);
-    border:1px solid var(--border); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg);
-    z-index:961; display:none; overflow:hidden;
-  }
+  .palette{position:fixed; top:80px; left:50%; transform:translateX(-50%); width:min(580px, calc(100vw - 32px)); background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); z-index:961; display:none; overflow:hidden}
   .palette.open{display:block; animation:fadeSlide .2s ease}
-  .palette input{
-    width:100%; border:none; border-bottom:1px solid var(--border);
-    padding:14px 16px; font-size:14px; font-family:var(--font-ui);
-    background:var(--panel); color:var(--text); outline:none; border-radius:0;
-  }
+  .palette input{width:100%; border:none; border-bottom:1px solid var(--border); padding:14px 16px; font-size:14px; font-family:var(--font-ui); background:var(--panel); color:var(--text); outline:none; border-radius:0}
   .palette .results{max-height:400px; overflow:auto; -webkit-overflow-scrolling:touch}
-  .palette .item{
-    padding:10px 16px; cursor:pointer; font-size:12.5px;
-    border-bottom:1px solid var(--border-soft); display:flex; justify-content:space-between; gap:10px;
-    color:var(--text-soft);
-  }
+  .palette .item{padding:10px 16px; cursor:pointer; font-size:12.5px; border-bottom:1px solid var(--border-soft); display:flex; justify-content:space-between; gap:10px; color:var(--text-soft)}
   .palette .item:hover, .palette .item.selected{background:var(--accent-soft); color:var(--accent)}
   .palette .item .cat{font-size:10.5px; color:var(--muted)}
 
@@ -582,108 +415,24 @@
   .matrix-cell.has{background:var(--accent)}
   .matrix-cell.no{background:var(--border)}
 
-  /* ============ ONBOARDING ============ */
   .onb-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:970; display:none}
   .onb-backdrop.open{display:block; animation:fadeIn .25s}
-  .onb{
-    position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
-    width:min(560px, calc(100vw - 32px)); max-height:90dvh; overflow-y:auto;
-    background:var(--panel); color:var(--text);
-    border-radius:var(--radius-lg); padding:26px 28px; box-shadow:var(--shadow-lg);
-    z-index:971; display:none; animation:fadeSlide .3s ease;
-  }
+  .onb{position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); width:min(560px, calc(100vw - 32px)); max-height:90dvh; overflow-y:auto; background:var(--panel); color:var(--text); border-radius:var(--radius-lg); padding:26px 28px; box-shadow:var(--shadow-lg); z-index:971; display:none; animation:fadeSlide .3s ease}
   .onb.open{display:block}
   .onb h2{margin:0 0 12px; font-size:19px}
   .onb p{font-size:13.5px; line-height:1.6; color:var(--text-soft)}
   .onb ul{font-size:12.5px; line-height:1.7; padding-left:18px; color:var(--text-soft)}
   .onb .actions{display:flex; justify-content:flex-end; gap:8px; margin-top:18px; flex-wrap:wrap}
 
-  /* ============ CONSENT ============ */
-  .consent{
-    position:fixed; left:16px; right:16px; bottom:70px; z-index:980;
-    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-lg);
-    box-shadow:var(--shadow-lg); padding:16px 18px;
-    display:none; animation:fadeSlide .3s ease;
-    max-width:520px;
-  }
+  .consent{position:fixed; left:16px; right:16px; bottom:70px; z-index:980; background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); padding:16px 18px; display:none; animation:fadeSlide .3s ease; max-width:520px}
   .consent.open{display:block}
   .consent h3{font-size:13.5px; margin-bottom:6px; display:flex; align-items:center; gap:6px}
   .consent p{font-size:12px; color:var(--text-soft); line-height:1.5; margin-bottom:10px}
   .consent .actions{display:flex; gap:6px; flex-wrap:wrap}
   .consent .actions button{font-size:11.5px; padding:7px 13px}
 
-  /* Docs */
-  .doc-hero{
-    background:linear-gradient(135deg, var(--accent) 0%, var(--accent-3) 100%);
-    color:#fff; padding:30px 32px; border-radius:var(--radius-lg); margin-bottom:20px;
-    box-shadow:var(--shadow); position:relative; overflow:hidden;
-  }
-  .doc-hero::before{
-    content:""; position:absolute; right:-40px; top:-40px; width:160px; height:160px;
-    background:radial-gradient(circle, rgba(255,255,255,.2), transparent 70%);
-    border-radius:50%;
-  }
-  .doc-hero h1{font-size:24px; margin:0 0 8px; position:relative}
-  .doc-hero p{font-size:13.5px; opacity:.95; max-width:700px; margin:0; line-height:1.6; position:relative}
-  .doc-nav{
-    display:flex; gap:4px; flex-wrap:wrap; padding:8px; background:var(--panel);
-    border:1px solid var(--border); border-radius:var(--radius); margin-bottom:16px;
-    position:sticky; top:12px; z-index:10; box-shadow:var(--shadow-xs);
-  }
-  .doc-nav a{
-    padding:6px 11px; border-radius:var(--radius-sm); font-size:12px; color:var(--text-soft);
-    transition:.15s; text-decoration:none; white-space:nowrap;
-  }
-  .doc-nav a:hover{background:var(--accent-soft); color:var(--accent); text-decoration:none}
-  .doc-section{margin-bottom:28px; scroll-margin-top:70px}
-  .doc-section h2{font-size:19px; margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid var(--border-soft)}
-  .doc-section h3{font-size:14.5px; margin:18px 0 8px; color:var(--text)}
-  .doc-section h4{font-size:13px; margin:14px 0 6px; color:var(--text-soft); font-weight:600}
-  .doc-section p{font-size:13.5px; line-height:1.7; color:var(--text-soft); margin:8px 0}
-  .doc-section ul, .doc-section ol{font-size:13.5px; line-height:1.7; color:var(--text-soft); margin:8px 0; padding-left:22px}
-  .doc-section li{margin:4px 0}
-
-  .formula{
-    background:var(--code-bg); color:var(--code-fg); padding:14px 18px; border-radius:var(--radius);
-    font-family:var(--font-mono); font-size:12.5px; margin:10px 0; line-height:1.7;
-    border-left:3px solid var(--accent); overflow-x:auto;
-  }
-  .formula .label{color:#7fb1ff; font-weight:600; display:block; margin-bottom:6px; font-size:11px; text-transform:uppercase; letter-spacing:.05em}
-
-  .callout{
-    padding:12px 16px; border-radius:var(--radius); border-left:3px solid var(--accent);
-    background:var(--accent-soft-2); margin:12px 0; font-size:13px; color:var(--text-soft); line-height:1.6;
-  }
-  .callout.ok{border-left-color:var(--ok); background:var(--ok-soft)}
-  .callout.warn{border-left-color:var(--warn); background:var(--warn-soft)}
-  .callout.danger{border-left-color:var(--err); background:var(--err-soft)}
-  .callout strong{color:var(--text)}
-
-  .link-list{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:10px; margin:12px 0}
-  .link-card{
-    padding:14px 16px; border:1px solid var(--border); border-radius:var(--radius); background:var(--panel);
-    transition:.15s; text-decoration:none; color:var(--text); display:block;
-  }
-  .link-card:hover{border-color:var(--accent); box-shadow:var(--shadow-sm); text-decoration:none}
-  .link-card .title{font-weight:600; font-size:13px; margin-bottom:3px; color:var(--accent)}
-  .link-card .desc{font-size:11.5px; color:var(--muted); line-height:1.5}
-  .link-card .url{font-size:10.5px; color:var(--muted); font-family:var(--font-mono); margin-top:4px; word-break:break-all}
-
-  .stat-box{background:var(--panel-alt); border:1px solid var(--border); border-radius:var(--radius); padding:12px 14px; margin:8px 0}
-  .stat-box .label{font-size:10.5px; text-transform:uppercase; color:var(--muted); letter-spacing:.05em; font-weight:600; margin-bottom:3px}
-  .stat-box .value{font-size:17px; font-weight:700; color:var(--text)}
-
-  .faq-item{border-bottom:1px solid var(--border-soft); padding:12px 0}
-  .faq-item:last-child{border-bottom:none}
-  .faq-item .q{font-weight:600; font-size:13.5px; margin-bottom:5px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; color:var(--text)}
-  .faq-item .q:hover{color:var(--accent)}
-  .faq-item .q .arrow{transition:.2s; color:var(--muted)}
-  .faq-item.open .q .arrow{transform:rotate(180deg)}
-  .faq-item .a{font-size:13px; color:var(--text-soft); line-height:1.7; max-height:0; overflow:hidden; transition:.3s; padding-left:2px}
-  .faq-item.open .a{max-height:800px; padding-top:6px}
-
   @media print{
-    .side, .mobile-nav, .page-head, .kpis, #toasts, #tooltip, #banner, .term-toggle, .terminal, .palette, .palette-backdrop, .onb, .onb-backdrop, .doc-nav, .consent, #splash, .drawer-backdrop, .drawer{display:none !important}
+    .side, .mobile-nav, .page-head, .kpis, #toasts, #tooltip, #banner, .term-toggle, .terminal, .palette, .palette-backdrop, .onb, .onb-backdrop, .consent, #splash, .drawer-backdrop, .drawer{display:none !important}
     main{padding:0; max-width:none}
     .card{border:none; box-shadow:none; padding:0; margin:0 0 12px 0}
     .page{display:block !important}
@@ -692,13 +441,12 @@
 </head>
 <body>
 
-<!-- SPLASH -->
 <div id="splash">
   <canvas id="splash-canvas"></canvas>
   <div class="sp-content">
     <div class="sp-logo">Э</div>
     <h1>Выработка ЭЭ по регионам РФ</h1>
-    <div class="sp-sub">Аналитическая платформа · v5.0</div>
+    <div class="sp-sub">Аналитическая платформа · v5.1</div>
     <div class="sp-progress"><div class="bar"></div></div>
     <div class="sp-pct" id="splashPct">0%</div>
     <div class="sp-features">
@@ -718,7 +466,7 @@
       <div class="logo">Э</div>
       <div>
         <h1>Выработка ЭЭ · РФ</h1>
-        <div class="sub">v5.0 · аналитика</div>
+        <div class="sub">v5.1 · аналитика</div>
       </div>
     </div>
 
@@ -759,9 +507,12 @@
     <div class="nav-group">
       <div class="group-title">Справка</div>
       <nav class="nav">
-        <a data-page="docs"><span class="dot"></span>Документация</a>
-        <a data-page="sources"><span class="dot"></span>Источники</a>
-        <a data-page="about"><span class="dot"></span>О программе</a>
+        <a href="docs.html" target="_blank" rel="noopener"><span class="dot"></span>Документация ↗</a>
+        <a href="sources.html" target="_blank" rel="noopener"><span class="dot"></span>Источники ↗</a>
+        <a href="methodology.html" target="_blank" rel="noopener"><span class="dot"></span>Методика ↗</a>
+        <a href="changelog.html" target="_blank" rel="noopener"><span class="dot"></span>История версий ↗</a>
+        <a href="license.html" target="_blank" rel="noopener"><span class="dot"></span>Лицензия ↗</a>
+        <a href="privacy.html" target="_blank" rel="noopener"><span class="dot"></span>Политика ↗</a>
       </nav>
     </div>
 
@@ -778,7 +529,10 @@
 
     <div class="side-footer">
       Все расчёты в браузере.<br>
-      Автосохранение в localStorage.
+      Автосохранение в localStorage.<br><br>
+      <a href="docs.html" target="_blank" rel="noopener">Документация</a> ·
+      <a href="methodology.html" target="_blank" rel="noopener">Методика</a> ·
+      <a href="license.html" target="_blank" rel="noopener">MIT</a>
     </div>
   </aside>
 
@@ -788,7 +542,7 @@
     <div class="page-head">
       <div>
         <h1>Аналитика выработки электроэнергии</h1>
-        <div class="lead">Данные → качество → графики → аналитика → сценарии → отчёт. Терминал — <b>~</b>, палитра — <b>Ctrl+K</b>. Документация — «Справка».</div>
+        <div class="lead">Данные → качество → графики → аналитика → сценарии → отчёт. Терминал — <b>~</b>, палитра — <b>Ctrl+K</b>. Документация — в блоке «Справка».</div>
       </div>
       <div>
         <span class="pill"><span class="dot"></span><span id="statusText">Данных нет</span></span>
@@ -868,7 +622,7 @@
     <section class="page" id="page-deepseek">
       <div class="card accent">
         <div class="head"><h3>Извлечение через DeepSeek</h3></div>
-        <p class="desc">Приложите документы в чат, вставьте промт, верните JSON в «Ввод».</p>
+        <p class="desc">Приложите документы в чат, вставьте промт, верните JSON в «Ввод». Подробности — <a href="docs.html" target="_blank" rel="noopener">в документации</a>.</p>
         <div class="row" style="margin-bottom:10px">
           <button id="btnOpenDS" class="primary" type="button">Открыть DeepSeek →</button>
           <button id="btnCopyPrompt" class="ghost" type="button">📋 Копировать</button>
@@ -934,7 +688,7 @@
             <button id="btnBuildTrend" class="primary" type="button">Построить</button>
           </div>
         </div>
-        <p class="desc">Линейный, полином-2, экспонента — выбирается лучшая по R².</p>
+        <p class="desc">Линейный, полином-2, экспонента — выбирается лучшая по R². Формулы — <a href="methodology.html" target="_blank" rel="noopener">в методике</a>.</p>
         <div id="trendChart"></div>
       </div>
       <div class="card"><div class="tbl-wrap small">
@@ -1067,6 +821,7 @@
           <button id="btnSaveSettings" class="primary" type="button">Сохранить</button>
           <button id="btnResetSettings" class="ghost" type="button">Сбросить</button>
           <button id="btnOpenConsent" class="ghost" type="button">🔒 Согласие и cookies</button>
+          <a href="privacy.html" target="_blank" rel="noopener" class="ghost-link">Политика ↗</a>
         </div>
       </div>
       <div class="card">
@@ -1087,7 +842,7 @@
           <label><input type="radio" name="expMode" value="short" checked> Краткий</label>
           <label><input type="radio" name="expMode" value="full"> Полный</label>
         </div>
-        <div class="callout">PDF откроется в новом окне — Ctrl+P → «Сохранить как PDF».</div>
+        <div class="callout">PDF откроется в новом окне — Ctrl+P → «Сохранить как PDF». Формат отчёта и методическая справка описаны в <a href="methodology.html" target="_blank" rel="noopener">методике</a>.</div>
       </div>
       <div class="card">
         <div class="head"><h3>Экспорт (12)</h3></div>
@@ -1114,241 +869,9 @@
         </div>
       </div>
     </section>
-
-    <section class="page" id="page-docs">
-      <div class="doc-hero">
-        <h1>📘 Документация</h1>
-        <p>Полное руководство по платформе. Отдельная страница также доступна по адресу <code>docs.html</code> — её удобно открывать по ссылке и делиться.</p>
-      </div>
-      <div class="doc-nav">
-        <a href="#doc-about">О платформе</a>
-        <a href="#doc-quickstart">Быстрый старт</a>
-        <a href="#doc-glossary">Глоссарий</a>
-        <a href="#doc-formulas">Формулы</a>
-        <a href="#doc-terminal">Терминал</a>
-        <a href="#doc-export">Экспорт</a>
-        <a href="#doc-limits">Ограничения</a>
-        <a href="#doc-faq">FAQ</a>
-      </div>
-
-      <div class="doc-section" id="doc-about">
-        <h2>О платформе</h2>
-        <p><b>Выработка ЭЭ по регионам РФ</b> — аналитическая платформа для работы с данными о годовой выработке электроэнергии по субъектам РФ. Работает полностью в браузере, без серверной части.</p>
-        <h3>Ключевые принципы</h3>
-        <ul>
-          <li><b>Полностью клиентская работа.</b> Все расчёты в браузере. Данные не отправляются на серверы.</li>
-          <li><b>Открытые формулы.</b> Каждая метрика описана, её можно проверить вручную.</li>
-          <li><b>Честные данные.</b> Прогнозы помечены, экстраполяции не выдаются за факты.</li>
-          <li><b>Официальное оформление.</b> PDF/DOCX/HTML под документооборот.</li>
-          <li><b>Автосохранение</b> в localStorage (при согласии).</li>
-        </ul>
-        <h3>Технологии</h3>
-        <ul>
-          <li>Plotly.js — графики</li>
-          <li>SheetJS — XLSX</li>
-          <li>docx — DOCX</li>
-          <li>JSZip — ZIP</li>
-          <li>Vanilla JS — всё остальное</li>
-        </ul>
-      </div>
-
-      <div class="doc-section" id="doc-quickstart">
-        <h2>Быстрый старт</h2>
-        <h3>1. Загрузите данные</h3>
-        <ul>
-          <li><b>Кнопка «Загрузить базу»</b> — если рядом лежит файл <code>data.js</code> с seed-данными.</li>
-          <li><b>Вручную</b> — «+ Строка».</li>
-          <li><b>CSV/JSON</b> — вставка в поле.</li>
-          <li><b>Файл</b> — .csv, .tsv, .json, .xlsx.</li>
-          <li><b>Демо</b> — 10 регионов × 10 лет (синтетика).</li>
-        </ul>
-        <h3>Формат CSV</h3>
-        <div class="formula">Регион;Год;Значение;Статус;Примечание
-Кемеровская обл.;2019;34.5;факт;Отчёт Минэнерго 2019
-Москва;2019;68.2;факт;Мосэнерго
-Москва;2020;65.4;оценка;</div>
-        <h3>Формат JSON</h3>
-        <div class="formula">[{"region":"Кемеровская обл.","year":2019,"value":34.5,"status":"факт","note":"Отчёт"}]</div>
-        <h3>2. Проверьте качество</h3>
-        <p>«Паспорт» — заполненность, пропуски, скачки, статусы.</p>
-        <h3>3. Анализируйте</h3>
-        <p>Разделы анализа слева.</p>
-        <h3>4. Оформите отчёт</h3>
-        <p>«Оформление» → «Экспорт» → PDF/DOCX/HTML.</p>
-        <h3>5. Сохраните проект</h3>
-        <p>«Настройки» → «Скачать проект».</p>
-      </div>
-
-      <div class="doc-section" id="doc-glossary">
-        <h2>Глоссарий</h2>
-        <h4>Выработка</h4>
-        <p>Годовой объём производства электроэнергии, <b>млрд кВт·ч</b>.</p>
-        <h4>Статус</h4>
-        <ul>
-          <li><b>факт</b> — подтверждённое значение;</li>
-          <li><b>оценка</b> — экспертная/расчётная;</li>
-          <li><b>прогноз</b> — модельная экстраполяция.</li>
-        </ul>
-        <h4>Регион</h4>
-        <p>Субъект РФ. Алиасы: МСК → Москва, СПб → Санкт-Петербург.</p>
-        <h4>HHI</h4>
-        <p>Индекс Херфиндаля–Хиршмана — концентрация (0–10 000).</p>
-        <h4>CAGR</h4>
-        <p>Среднегодовой темп роста.</p>
-        <h4>z-score</h4>
-        <p>Стандартизованное отклонение от среднего.</p>
-      </div>
-
-      <div class="doc-section" id="doc-formulas">
-        <h2>Формулы</h2>
-        <div class="formula"><span class="label">Среднее</span>x̄ = (Σ xᵢ) / n</div>
-        <div class="formula"><span class="label">Медиана</span>нечётное n: x₍ₙ₊₁₎/₂; чётное: (x₍ₙ/₂₎ + x₍ₙ/₂₊₁₎) / 2</div>
-        <div class="formula"><span class="label">σ</span>σ = √[Σ(xᵢ−x̄)² / (n−1)]</div>
-        <div class="formula"><span class="label">CV</span>CV = (σ / x̄) · 100%</div>
-        <div class="formula"><span class="label">CAGR</span>CAGR = [(x_послед / x_первый)^(1/n) − 1] · 100%</div>
-        <div class="formula"><span class="label">МНК</span>ŷ = a + b·t; b = Σ(tᵢ−t̄)(yᵢ−ȳ)/Σ(tᵢ−t̄)²; a = ȳ − b·t̄</div>
-        <div class="formula"><span class="label">R²</span>R² = 1 − SS_res/SS_tot</div>
-        <div class="formula"><span class="label">MAPE</span>MAPE = (100/n)·Σ|(yᵢ−ŷᵢ)/yᵢ|</div>
-        <div class="formula"><span class="label">z-score</span>z = (x−x̄)/σ; |z|&gt;2 — выброс</div>
-        <div class="formula"><span class="label">IQR</span>Q1, Q3; IQR=Q3−Q1; выброс x&lt;Q1−1.5·IQR или x&gt;Q3+1.5·IQR</div>
-        <div class="formula"><span class="label">MAD</span>MAD=median(|xᵢ−median(x)|); выброс |xᵢ−median(x)|&gt;3·MAD</div>
-        <div class="formula"><span class="label">HHI</span>HHI=Σsᵢ², sᵢ=доля в %</div>
-        <div class="formula"><span class="label">Джини</span>G=Σᵢ(2i−n−1)x₍ᵢ₎/(n·Σx)</div>
-        <div class="formula"><span class="label">CR-k</span>CR_k = (Σ топ-k / Σ всех)·100%</div>
-        <div class="formula"><span class="label">Энтропия</span>H=−Σpᵢ·ln(pᵢ)</div>
-        <div class="formula"><span class="label">Пирсон</span>r = Σ(xᵢ−x̄)(yᵢ−ȳ) / √[Σ(xᵢ−x̄)²·Σ(yᵢ−ȳ)²]</div>
-        <div class="formula"><span class="label">ACF</span>ρ(k)=Σ(xᵢ−x̄)(xᵢ₊ₖ−x̄)/Σ(xᵢ−x̄)²</div>
-        <div class="formula"><span class="label">Манн-Кендалл</span>S=ΣᵢΣⱼ₌ᵢ₊₁sign(xⱼ−xᵢ); Z=(S−sign(S))/√Var(S)</div>
-      </div>
-
-      <div class="doc-section" id="doc-terminal">
-        <h2>Терминал</h2>
-        <p>Открывается клавишей <code>~</code> или кнопкой ⌘. Вкладка «Команды» — список всех команд с описаниями и примерами.</p>
-        <h3>Горячие клавиши</h3>
-        <ul>
-          <li><code>~</code> — терминал</li>
-          <li><code>Ctrl+K</code> — палитра</li>
-          <li><code>Ctrl+Z / Ctrl+Y</code> — undo/redo</li>
-          <li><code>↑ / ↓</code> в терминале — история</li>
-          <li><code>Tab</code> — автодополнение</li>
-          <li><code>Esc</code> — закрыть</li>
-        </ul>
-      </div>
-
-      <div class="doc-section" id="doc-export">
-        <h2>Экспорт</h2>
-        <ul>
-          <li><b>PNG/JPEG/WEBP/SVG</b> — картинки 1600×900, белый фон.</li>
-          <li><b>PDF/HTML/DOCX</b> — отчёты.</li>
-          <li><b>CSV/XLSX/JSON/MD/ZIP</b> — данные.</li>
-        </ul>
-        <p>Режим «Полный» добавляет тренды, аномалии, методику.</p>
-      </div>
-
-      <div class="doc-section" id="doc-limits">
-        <h2>Ограничения</h2>
-        <ul>
-          <li>Данные — результат ввода пользователя.</li>
-          <li>Прогнозы — линейная/полином/экспонента, без структурных сдвигов.</li>
-          <li>localStorage ~5 МБ.</li>
-          <li>Интернет нужен при первом открытии.</li>
-          <li>МНК при &lt; 3 точках недостоверен.</li>
-        </ul>
-      </div>
-
-      <div class="doc-section" id="doc-faq">
-        <h2>FAQ</h2>
-        <div class="faq-item"><div class="q">Данные отправляются на сервер?<span class="arrow">▾</span></div><div class="a">Нет. Всё в браузере. Автосохранение — в localStorage (при согласии).</div></div>
-        <div class="faq-item"><div class="q">PDF без кракозябр?<span class="arrow">▾</span></div><div class="a">Да, через печать браузера — используется системный шрифт.</div></div>
-        <div class="faq-item"><div class="q">Как добавить регион?<span class="arrow">▾</span></div><div class="a">Ввести вручную в таблице — добавится автоматически.</div></div>
-        <div class="faq-item"><div class="q">Работает на телефоне?<span class="arrow">▾</span></div><div class="a">Да. Нижняя панель, крупные кнопки, инпуты 16px.</div></div>
-        <div class="faq-item"><div class="q">Где формулы?<span class="arrow">▾</span></div><div class="a">Раздел «Формулы» здесь + в полном PDF/DOCX.</div></div>
-      </div>
-    </section>
-
-    <section class="page" id="page-sources">
-      <div class="doc-hero">
-        <h1>🔗 Источники данных</h1>
-        <p>Официальные и открытые источники для загрузки данных по выработке электроэнергии в РФ. Все ссылки открываются в новой вкладке.</p>
-      </div>
-
-      <div class="card">
-        <div class="head"><h3>Официальные</h3></div>
-        <div class="link-list">
-          <a class="link-card" href="https://minenergo.gov.ru/activity/statistic" target="_blank" rel="noopener">
-            <div class="title">Минэнерго России — статистика</div>
-            <div class="desc">Официальные отчёты, сводки, СиПР.</div>
-            <div class="url">minenergo.gov.ru/activity/statistic</div>
-          </a>
-          <a class="link-card" href="https://rosstat.gov.ru/enterprise_electric" target="_blank" rel="noopener">
-            <div class="title">Росстат — электроэнергетика</div>
-            <div class="desc">Топливно-энергетический баланс, регионы.</div>
-            <div class="url">rosstat.gov.ru/enterprise_electric</div>
-          </a>
-          <a class="link-card" href="https://www.so-ups.ru/functioning/ees/" target="_blank" rel="noopener">
-            <div class="title">СО ЕЭС — функционирование ЕЭС</div>
-            <div class="desc">Отчёты о работе ЕЭС России.</div>
-            <div class="url">so-ups.ru/functioning/ees</div>
-          </a>
-          <a class="link-card" href="https://www.atsenergo.ru/" target="_blank" rel="noopener">
-            <div class="title">АТС — оптовый рынок</div>
-            <div class="desc">Данные оптового рынка электроэнергии.</div>
-            <div class="url">atsenergo.ru</div>
-          </a>
-          <a class="link-card" href="https://www.eias.ru/" target="_blank" rel="noopener">
-            <div class="title">ЕИАС</div>
-            <div class="desc">Единая информационно-аналитическая система.</div>
-            <div class="url">eias.ru</div>
-          </a>
-          <a class="link-card" href="https://data.gov.ru/" target="_blank" rel="noopener">
-            <div class="title">Портал открытых данных</div>
-            <div class="desc">Государственные наборы данных.</div>
-            <div class="url">data.gov.ru</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="card warn">
-        <div class="head"><h3>⚠ Важно</h3></div>
-        <p class="desc">Платформа <b>не поставляет</b> данные. Все цифры — то, что вы ввели. Для официальных отчётов указывайте конкретный источник и дату выгрузки. Seed-база <code>data.js</code> — набор открытых цифр из публичных источников, требует проверки.</p>
-      </div>
-    </section>
-
-    <section class="page" id="page-about">
-      <div class="doc-hero">
-        <h1>ℹ О программе</h1>
-        <p>Открытая аналитическая платформа для работы с выработкой электроэнергии по регионам РФ.</p>
-      </div>
-      <div class="card">
-        <div class="grid-2">
-          <div>
-            <div class="stat-box"><div class="label">Версия</div><div class="value">5.0</div></div>
-            <div class="stat-box"><div class="label">Лицензия</div><div class="value">MIT</div></div>
-            <div class="stat-box"><div class="label">Стек</div><div class="value">Vanilla JS + Plotly + SheetJS + docx + JSZip</div></div>
-          </div>
-          <div>
-            <h3>Возможности</h3>
-            <ul style="line-height:1.9; color:var(--text-soft); padding-left:20px; font-size:13px">
-              <li>14 разделов анализа</li>
-              <li>12 форматов экспорта</li>
-              <li>Терминал с 30+ командами</li>
-              <li>Undo/Redo + автосохранение</li>
-              <li>Мобильная адаптация</li>
-              <li>Открытая документация</li>
-              <li>Согласие и cookies</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="head"><h3>Дисклеймер</h3></div>
-        <p class="desc">Программа предоставляется «как есть». Разработчик не несёт ответственности за точность расчётов и последствия их использования. Для официальных отчётов используйте проверенные источники.</p>
-      </div>
-    </section>
   </main>
 </div>
 
-<!-- Mobile nav -->
 <nav class="mobile-nav" id="mobileNav">
   <div class="nav-items">
     <a data-page="data" class="active"><span class="ico">📝</span>Данные</a>
@@ -1359,7 +882,6 @@
   </div>
 </nav>
 
-<!-- Mobile drawer -->
 <div class="drawer-backdrop" id="drawerBackdrop">
   <div class="drawer">
     <h3>Меню <button id="drawerClose">✕</button></h3>
@@ -1383,10 +905,13 @@
     <a data-page="export">📤 Экспорт</a>
     <a data-page="settings">⚙️ Настройки</a>
     <div class="group-title">Справка</div>
-    <a data-page="docs">📘 Документация</a>
-    <a data-page="sources">🔗 Источники</a>
-    <a data-page="about">ℹ️ О программе</a>
-    <div class="group-title">Настройки</div>
+    <a href="docs.html" target="_blank" rel="noopener">📘 Документация ↗</a>
+    <a href="sources.html" target="_blank" rel="noopener">🔗 Источники ↗</a>
+    <a href="methodology.html" target="_blank" rel="noopener">📐 Методика ↗</a>
+    <a href="changelog.html" target="_blank" rel="noopener">📝 История версий ↗</a>
+    <a href="license.html" target="_blank" rel="noopener">⚖️ Лицензия ↗</a>
+    <a href="privacy.html" target="_blank" rel="noopener">🔒 Политика ↗</a>
+    <div class="group-title">Тема</div>
     <div class="row" style="margin-top:8px">
       <button id="drawerThemeLight" class="ghost" style="flex:1">☀ Светлая</button>
       <button id="drawerThemeDark" class="ghost" style="flex:1">🌙 Тёмная</button>
@@ -1398,7 +923,6 @@
   </div>
 </div>
 
-<!-- Terminal -->
 <button class="term-toggle" id="termToggle" title="Терминал (~)">⌘</button>
 <div class="terminal" id="terminal">
   <div class="term-tabs">
@@ -1435,14 +959,12 @@
   </div>
 </div>
 
-<!-- Palette -->
 <div class="palette-backdrop" id="paletteBackdrop"></div>
 <div class="palette" id="palette">
   <input type="text" id="paletteInput" placeholder="Поиск команды… (Esc — закрыть)">
   <div class="results" id="paletteResults"></div>
 </div>
 
-<!-- Onboarding -->
 <div class="onb-backdrop" id="onbBackdrop"></div>
 <div class="onb" id="onb">
   <h2>👋 Добро пожаловать</h2>
@@ -1452,19 +974,18 @@
     <li><b>Паспорт</b> — проверка качества.</li>
     <li><b>Терминал</b> — кнопка ⌘ внизу справа или <b>~</b>.</li>
     <li><b>Палитра</b> — <b>Ctrl+K</b>.</li>
-    <li><b>Документация</b> — «Справка → Документация».</li>
+    <li><b>Документация</b> — ссылки в разделе «Справка».</li>
   </ul>
   <div class="actions">
-    <button id="onbDocs" class="ghost" type="button">Документация</button>
+    <a href="docs.html" target="_blank" rel="noopener" class="ghost-link">Документация ↗</a>
     <button id="onbSkip" class="ghost" type="button">Пропустить</button>
     <button id="onbStart" class="primary" type="button">Начать с демо</button>
   </div>
 </div>
 
-<!-- Consent -->
 <div class="consent" id="consent">
   <h3>🔒 Согласие на cookies и localStorage</h3>
-  <p>Платформа работает полностью в браузере. Мы используем localStorage для автосохранения данных и настроек. Персональные данные не собираются. Отозвать — в «Настройках».</p>
+  <p>Платформа работает полностью в браузере. Мы используем localStorage для автосохранения данных и настроек. Персональные данные не собираются. Отозвать — в «Настройках». Подробнее — <a href="privacy.html" target="_blank" rel="noopener">Политика конфиденциальности</a>.</p>
   <div class="actions">
     <button id="consentAccept" class="primary" type="button">Принять</button>
     <button id="consentNecessary" class="ghost" type="button">Только необходимые</button>
@@ -1475,13 +996,9 @@
 <div id="toasts"></div>
 <div id="tooltip"></div>
 
-<!-- Опциональный seed-файл: если есть data.js рядом — используется кнопкой «Загрузить базу» -->
 <script src="data.js" onerror="window.__noSeedFile=true"></script>
 
 <script>
-/* ============================================================
-   ОКРУЖЕНИЕ
-============================================================ */
 function $(id){ return document.getElementById(id); }
 function qsa(sel){ return Array.prototype.slice.call(document.querySelectorAll(sel)); }
 function on(el, ev, fn){ if(el){ el.addEventListener(ev, fn); } }
@@ -1505,9 +1022,6 @@ var state = {
   consent: null
 };
 
-/* ============================================================
-   ЛОГИ
-============================================================ */
 var LOG = { info: [], err: [], warn: [] };
 function tlog(level, msg){
   var e = { t: new Date(), level: level, msg: msg };
@@ -1542,9 +1056,6 @@ function renderDataPanel(){
     '<div class="t-muted">consent: '+(state.consent||"—")+'</div>';
 }
 
-/* ============================================================
-   ТОСТЫ / ТУЛТИПЫ
-============================================================ */
 function toast(text, kind){
   var t = document.createElement("div");
   t.className = "toast " + (kind||"ok");
@@ -1604,9 +1115,6 @@ function convertUnits(v){
   return v;
 }
 
-/* ============================================================
-   МАТЕМАТИКА
-============================================================ */
 function mean(a){ if(!a.length) return null; var s=0; for(var i=0;i<a.length;i++) s+=a[i]; return s/a.length; }
 function median(a){
   if(!a.length) return null;
@@ -1808,9 +1316,6 @@ function pca2d(points){
   };
 }
 
-/* ============================================================
-   ДАННЫЕ
-============================================================ */
 function yearsAll(){
   var m = {}, res=[];
   for(var i=0;i<state.data.length;i++) m[state.data[i].year]=1;
@@ -1873,9 +1378,6 @@ function ensureRegionInList(region){
   }
 }
 
-/* ============================================================
-   UNDO / REDO / AUTOSAVE
-============================================================ */
 var undoStack = [], redoStack = [];
 function pushHistory(snapshot){
   undoStack.push(JSON.stringify(snapshot));
@@ -1918,9 +1420,6 @@ function autoload(){
   }catch(e){ return false; }
 }
 
-/* ============================================================
-   ПАРСИНГ / ВАЛИДАЦИЯ
-============================================================ */
 function parseFlexible(text){
   text = String(text==null?"":text).trim();
   if(!text) throw new Error("Пустая вставка.");
@@ -1990,9 +1489,6 @@ function mergeData(old, add){
   return res;
 }
 
-/* ============================================================
-   РЕНДЕР
-============================================================ */
 function renderChips(container){
   if(!container) return;
   container.innerHTML = "";
@@ -2209,9 +1705,6 @@ function renderDetail(){
   }).join("");
 }
 
-/* ============================================================
-   ГРАФИКИ
-============================================================ */
 function gridColor(){ return state.theme==="dark"?"#1a2637":"#e1e7f2"; }
 var PLOT_CFG = {responsive:true, displayModeBar:false};
 function baseLayout(extra){
@@ -2778,9 +2271,6 @@ function updateStatus(){
   el.textContent = state.data.length+" строк · "+years[0]+"–"+years[years.length-1]+" · "+regionsWithData().length+" регионов";
 }
 
-/* ============================================================
-   СКАЧИВАНИЕ
-============================================================ */
 function downloadBlob(blob, filename){
   try{
     var url = URL.createObjectURL(blob);
@@ -2798,9 +2288,6 @@ function fileBase(){
   return "Выработка_ЭЭ_"+d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate());
 }
 
-/* ============================================================
-   ЭКСПОРТ
-============================================================ */
 function buildExportChart(divId, buildTracesFn, opts){
   opts = opts || {};
   var stage = $("exportStage");
@@ -2917,8 +2404,7 @@ function buildReportHtml(imgDataUrl, mode){
       '<p><b>Единица:</b> '+unitLabel()+'.</p>'+
       '<p><b>Среднее</b>, <b>медиана</b>, <b>σ</b>, <b>CV</b>, <b>CAGR</b>, <b>тренд</b> — стандартные статистические методы.</p>'+
       '<p><b>HHI</b> — сумма квадратов долей. <b>z-score</b>, <b>IQR</b>, <b>MAD</b> — аномалии.</p>'+
-      '<p><b>Джини</b>, <b>CR-3/CR-5</b>, <b>энтропия</b> — структура.</p>'+
-      '<p>Все расчёты открыты, формулы — в разделе «Документация».</p>';
+      '<p>Полные формулы — <a href="methodology.html">methodology.html</a>.</p>';
   }
   var dataRows = state.data.slice().sort(function(a,b){ var c = a.region.localeCompare(b.region,"ru"); return c!==0?c:a.year-b.year; })
     .map(function(d){ return '<tr><td>'+escapeHtml(d.region)+'</td><td class="num">'+d.year+'</td><td class="num">'+fmtNum(convertUnits(d.value),2)+'</td><td>'+escapeHtml(d.status||"факт")+'</td><td>'+escapeHtml(d.note||"")+'</td></tr>'; }).join("");
@@ -3092,9 +2578,6 @@ function exportData(fmt){
   throw new Error("Неизвестный формат: "+fmt);
 }
 
-/* ============================================================
-   DEEPSEEK ПРОМТ
-============================================================ */
 var PROMPT = (
 "Ты — старший аналитик ТЭК РФ. Работаешь с официальными источниками: Минэнерго РФ, Росстат, СО ЕЭС, СиПР.\n\n" +
 "ЦЕЛЬ. Из приложенных документов извлечь значения годовой выработки электроэнергии по заданным регионам и вернуть в строгом JSON для загрузки в аналитическую платформу.\n\n" +
@@ -3109,28 +2592,25 @@ var PROMPT = (
 "Начинай сразу с код-блока JSON."
 );
 
-/* ============================================================
-   КОМАНДЫ
-============================================================ */
 var COMMANDS = {
-  help: {cat:"Основные", desc:"Список всех команд", usage:"help", run: function(){ return "Всего команд: " + Object.keys(COMMANDS).length + ". Открой вкладку «Команды» для списка с описаниями."; }},
+  help: {cat:"Основные", desc:"Список всех команд", usage:"help", run: function(){ return "Всего команд: " + Object.keys(COMMANDS).length + ". Открой вкладку «Команды»."; }},
   clear: {cat:"Данные", desc:"Очистить все данные", usage:"clear", run: function(){ pushHistory(currentSnapshot()); state.data=[]; state.selected={}; refreshAll(); renderAllChips(); return "Данные очищены"; }},
-  "load demo": {cat:"Данные", desc:"Загрузить демо-данные (10 регионов × 10 лет)", usage:"load demo", run: function(){ pushHistory(currentSnapshot()); loadDemo(); return "Демо загружено"; }},
-  schema: {cat:"Данные", desc:"Показать схему данных", usage:"schema", run: function(){ return "Схема: [{region: string, year: number (1990–2100), value: number ≥ 0, status: 'факт'|'оценка'|'прогноз', note: string}]"; }},
+  "load demo": {cat:"Данные", desc:"Демо-данные", usage:"load demo", run: function(){ pushHistory(currentSnapshot()); loadDemo(); return "Демо загружено"; }},
+  schema: {cat:"Данные", desc:"Схема данных", usage:"schema", run: function(){ return "Схема: [{region, year, value, status, note}]"; }},
   count: {cat:"Данные", desc:"Число строк/регионов/лет", usage:"count", run: function(){ return state.data.length+" строк · "+regionsWithData().length+" регионов · "+yearsAll().length+" лет"; }},
-  regions: {cat:"Данные", desc:"Список регионов с данными", usage:"regions", run: function(){ return regionsWithData().join("\n") || "Нет данных"; }},
-  years: {cat:"Данные", desc:"Список лет в данных", usage:"years", run: function(){ return yearsAll().join(", ") || "Нет данных"; }},
-  head: {cat:"Данные", desc:"Первые N строк", usage:"head [N]", run: function(a){ var n=Number(a[0])||10; return state.data.slice(0,n).map(function(d){ return d.year+" "+d.region+": "+d.value; }).join("\n") || "Пусто"; }},
-  tail: {cat:"Данные", desc:"Последние N строк", usage:"tail [N]", run: function(a){ var n=Number(a[0])||10; return state.data.slice(-n).map(function(d){ return d.year+" "+d.region+": "+d.value; }).join("\n") || "Пусто"; }},
-  sample: {cat:"Данные", desc:"Случайные N строк", usage:"sample [N]", run: function(a){ var n=Number(a[0])||10; var c = state.data.slice(); c.sort(function(){return Math.random()-0.5;}); return c.slice(0,n).map(function(d){ return d.year+" "+d.region+": "+d.value; }).join("\n") || "Пусто"; }},
+  regions: {cat:"Данные", desc:"Регионы с данными", usage:"regions", run: function(){ return regionsWithData().join("\n") || "Нет данных"; }},
+  years: {cat:"Данные", desc:"Годы в данных", usage:"years", run: function(){ return yearsAll().join(", ") || "Нет данных"; }},
+  head: {cat:"Данные", desc:"Первые N", usage:"head [N]", run: function(a){ var n=Number(a[0])||10; return state.data.slice(0,n).map(function(d){ return d.year+" "+d.region+": "+d.value; }).join("\n") || "Пусто"; }},
+  tail: {cat:"Данные", desc:"Последние N", usage:"tail [N]", run: function(a){ var n=Number(a[0])||10; return state.data.slice(-n).map(function(d){ return d.year+" "+d.region+": "+d.value; }).join("\n") || "Пусто"; }},
+  sample: {cat:"Данные", desc:"Случайные N", usage:"sample [N]", run: function(a){ var n=Number(a[0])||10; var c = state.data.slice(); c.sort(function(){return Math.random()-0.5;}); return c.slice(0,n).map(function(d){ return d.year+" "+d.region+": "+d.value; }).join("\n") || "Пусто"; }},
   cat: {cat:"Данные", desc:"Все данные", usage:"cat", run: function(){ return state.data.map(function(d){ return d.year+" "+d.region+": "+d.value; }).join("\n") || "Пусто"; }},
-  missing: {cat:"Данные", desc:"Пропущенные пары регион+год", usage:"missing", run: function(){
+  missing: {cat:"Данные", desc:"Пропуски", usage:"missing", run: function(){
     var years = yearsAll(), regions = regionsWithData();
     var out = [];
     regions.forEach(function(r){ var s = seriesFor(r); var set = {}; s.years.forEach(function(y){set[y]=1;}); var gaps = years.filter(function(y){return !set[y];}); if(gaps.length) out.push(r+": "+gaps.join(", ")); });
     return out.length ? out.join("\n") : "Пропусков нет";
   }},
-  dup: {cat:"Данные", desc:"Дубликаты (регион+год)", usage:"dup", run: function(){
+  dup: {cat:"Данные", desc:"Дубликаты", usage:"dup", run: function(){
     var m = {}, dups = [];
     state.data.forEach(function(d){ var k = d.region+"|"+d.year; if(m[k]) dups.push(d.region+" "+d.year); m[k]=1; });
     return dups.length ? dups.join("\n") : "Дубликатов нет";
@@ -3144,31 +2624,31 @@ var COMMANDS = {
     });
     return out.length ? out.join("\n") : "Аномалий нет";
   }},
-  top: {cat:"Анализ", desc:"Топ-5 регионов (последний год)", usage:"top", run: function(){
+  top: {cat:"Анализ", desc:"Топ-5", usage:"top", run: function(){
     var yl = yearsAll(); if(!yl.length) return "Нет данных";
     var lastY = yl[yl.length-1];
     var arr = regionsWithData().map(function(r){ return {region:r, val:valueAt(r,lastY)||0}; }).sort(function(a,b){ return b.val-a.val; }).slice(0,5);
     return arr.map(function(r){ return r.region+": "+fmtNum(r.val,1); }).join("\n");
   }},
-  bottom: {cat:"Анализ", desc:"Топ-5 худших регионов", usage:"bottom", run: function(){
+  bottom: {cat:"Анализ", desc:"Худшие 5", usage:"bottom", run: function(){
     var yl = yearsAll(); if(!yl.length) return "Нет данных";
     var lastY = yl[yl.length-1];
     var arr = regionsWithData().map(function(r){ return {region:r, val:valueAt(r,lastY)||0}; }).sort(function(a,b){ return a.val-b.val; }).slice(0,5);
     return arr.map(function(r){ return r.region+": "+fmtNum(r.val,1); }).join("\n");
   }},
-  stats: {cat:"Анализ", desc:"KPI по всем регионам", usage:"stats", run: function(){
+  stats: {cat:"Анализ", desc:"KPI по всем", usage:"stats", run: function(){
     return buildStats().map(function(r){ return r.region+": Σ="+fmtNum(r.sum,1)+", ср="+fmtNum(r.mean,2)+", CAGR="+(r.cagr!=null?fmtNum(r.cagr,2)+"%":"—"); }).join("\n") || "Нет данных";
   }},
-  validate: {cat:"Анализ", desc:"Прогнать валидацию", usage:"validate", run: function(){ var r = validateRows(state.data); return "OK: "+r.clean.length+" · ошибок: "+r.errors.length+" · предупреждений: "+r.warnings.length; }},
-  cagr: {cat:"Анализ", desc:"CAGR для региона", usage:"cagr <регион>", run: function(a){ if(!a[0]) return "Укажите регион"; var s = seriesFor(a[0]); var c = cagrFromSeries(s.years, s.values); return c!=null?a[0]+": "+fmtNum(c,2)+"%/год":"Нет данных"; }},
-  forecast: {cat:"Анализ", desc:"Прогноз для региона", usage:"forecast <регион> [лет]", run: function(a){ if(!a[0]) return "Укажите регион"; var s = seriesFor(a[0]); if(!s.values.length) return "Нет данных"; var h = Number(a[1])||3; var best = pickBestModel(s.values); if(!best) return "Мало данных"; var out = "Прогноз "+a[0]+" ("+best.name+"):\n"; for(var k=1;k<=h;k++) out += "Y+"+k+": "+fmtNum(best.predict(s.values.length-1+k),2)+"\n"; return out; }},
-  corr: {cat:"Анализ", desc:"Корреляция двух регионов", usage:"corr <r1> <r2>", run: function(a){ if(!a[0] || !a[1]) return "Укажите два региона"; var years = yearsAll().filter(function(y){return valueAt(a[0],y)!=null && valueAt(a[1],y)!=null;}); if(years.length<2) return "Мало общих лет"; var r = pearson(years.map(function(y){return valueAt(a[0],y);}), years.map(function(y){return valueAt(a[1],y);})); return "r("+a[0]+", "+a[1]+") = "+(r!=null?fmtNum(r,3):"—"); }},
-  gini: {cat:"Анализ", desc:"Индекс Джини (последний год)", usage:"gini", run: function(){
+  validate: {cat:"Анализ", desc:"Валидация", usage:"validate", run: function(){ var r = validateRows(state.data); return "OK: "+r.clean.length+" · ошибок: "+r.errors.length+" · предупреждений: "+r.warnings.length; }},
+  cagr: {cat:"Анализ", desc:"CAGR", usage:"cagr <регион>", run: function(a){ if(!a[0]) return "Укажите регион"; var s = seriesFor(a[0]); var c = cagrFromSeries(s.years, s.values); return c!=null?a[0]+": "+fmtNum(c,2)+"%/год":"Нет данных"; }},
+  forecast: {cat:"Анализ", desc:"Прогноз", usage:"forecast <регион> [лет]", run: function(a){ if(!a[0]) return "Укажите регион"; var s = seriesFor(a[0]); if(!s.values.length) return "Нет данных"; var h = Number(a[1])||3; var best = pickBestModel(s.values); if(!best) return "Мало данных"; var out = "Прогноз "+a[0]+" ("+best.name+"):\n"; for(var k=1;k<=h;k++) out += "Y+"+k+": "+fmtNum(best.predict(s.values.length-1+k),2)+"\n"; return out; }},
+  corr: {cat:"Анализ", desc:"Корреляция", usage:"corr <r1> <r2>", run: function(a){ if(!a[0] || !a[1]) return "Укажите два региона"; var years = yearsAll().filter(function(y){return valueAt(a[0],y)!=null && valueAt(a[1],y)!=null;}); if(years.length<2) return "Мало общих лет"; var r = pearson(years.map(function(y){return valueAt(a[0],y);}), years.map(function(y){return valueAt(a[1],y);})); return "r("+a[0]+", "+a[1]+") = "+(r!=null?fmtNum(r,3):"—"); }},
+  gini: {cat:"Анализ", desc:"Джини", usage:"gini", run: function(){
     var yl = yearsAll(); if(!yl.length) return "Нет данных";
     var lastY = yl[yl.length-1]; var vals = REGIONS.filter(function(r){return state.selected[r];}).map(function(r){return valueAt(r,lastY);}).filter(function(v){return v!=null;});
     var g = gini(vals); return "Джини ("+lastY+"): "+(g!=null?fmtNum(g,3):"—");
   }},
-  hhi: {cat:"Анализ", desc:"HHI за год", usage:"hhi [год]", run: function(a){
+  hhi: {cat:"Анализ", desc:"HHI", usage:"hhi [год]", run: function(a){
     var yl = yearsAll(); if(!yl.length) return "Нет данных";
     var y = Number(a[0]) || yl[yl.length-1];
     var vals = REGIONS.filter(function(r){return state.selected[r];}).map(function(r){return valueAt(r,y);}).filter(function(v){return v!=null;});
@@ -3176,9 +2656,9 @@ var COMMANDS = {
     var h=0; vals.forEach(function(v){ var s=v/tt*100; h+=s*s; });
     return "HHI ("+y+"): "+fmtNum(h,0);
   }},
-  mk: {cat:"Анализ", desc:"Манн-Кендалл тест", usage:"mk <регион>", run: function(a){ if(!a[0]) return "Укажите регион"; var s = seriesFor(a[0]); var mk = mannKendall(s.values); if(mk.Z==null) return "Мало данных"; var trend = mk.Z>1.96?"рост":(mk.Z<-1.96?"падение":"нет"); return "S="+mk.S+"; Z="+fmtNum(mk.Z,2)+"; p="+fmtNum(mk.p,4)+"; тренд: "+trend; }},
-  theme: {cat:"Система", desc:"Сменить тему", usage:"theme dark|light", run: function(a){ var t = a[0]||"dark"; state.theme = t; document.documentElement.setAttribute("data-theme", t); refreshAll(); return "Тема: "+t; }},
-  select: {cat:"Система", desc:"Выбрать регионы", usage:"select all|clear|only-with-data", run: function(a){
+  mk: {cat:"Анализ", desc:"Манн-Кендалл", usage:"mk <регион>", run: function(a){ if(!a[0]) return "Укажите регион"; var s = seriesFor(a[0]); var mk = mannKendall(s.values); if(mk.Z==null) return "Мало данных"; var trend = mk.Z>1.96?"рост":(mk.Z<-1.96?"падение":"нет"); return "S="+mk.S+"; Z="+fmtNum(mk.Z,2)+"; p="+fmtNum(mk.p,4)+"; тренд: "+trend; }},
+  theme: {cat:"Система", desc:"Тема", usage:"theme dark|light", run: function(a){ var t = a[0]||"dark"; state.theme = t; document.documentElement.setAttribute("data-theme", t); refreshAll(); return "Тема: "+t; }},
+  select: {cat:"Система", desc:"Выбор регионов", usage:"select all|clear|only-with-data", run: function(a){
     var m = a[0]||"all";
     if(m==="all") REGIONS.forEach(function(r){state.selected[r]=true;});
     else if(m==="clear") state.selected = {};
@@ -3186,15 +2666,20 @@ var COMMANDS = {
     renderAllChips(); refreshAll();
     return "Выбрано: "+Object.keys(state.selected).filter(function(k){return state.selected[k];}).length;
   }},
-  open: {cat:"Система", desc:"Перейти на страницу", usage:"open <page>", run: function(a){ if(!a[0]) return "Укажите страницу (data, view, stats, export…)"; goTo(a[0]); return "Открыто: "+a[0]; }},
-  docs: {cat:"Система", desc:"Открыть документацию", usage:"docs", run: function(){ goTo("docs"); return "Документация открыта"; }},
-  about: {cat:"Система", desc:"О программе", usage:"about", run: function(){ goTo("about"); return "О программе"; }},
-  export: {cat:"Экспорт", desc:"Экспорт в формате", usage:"export <fmt>", run: function(a){ if(!a[0]) return "Форматы: png, jpeg, svg, pdf, html, csv, xlsx, json, docx, md, zip"; var r = exportData(a[0]); if(r && r.then) r.catch(function(e){tErr("Экспорт: "+e.message);}); return "Экспорт "+a[0].toUpperCase()+" запущен"; }},
-  save: {cat:"Экспорт", desc:"Скачать проект JSON", usage:"save", run: function(){ var p = {data:state.data, selected:state.selected, theme:state.theme}; downloadBlob(new Blob([JSON.stringify(p,null,2)], {type:"application/json"}), fileBase()+"_project.json"); return "Проект скачан"; }},
+  open: {cat:"Система", desc:"Перейти на страницу", usage:"open <page>", run: function(a){ if(!a[0]) return "Укажите страницу"; goTo(a[0]); return "Открыто: "+a[0]; }},
+  docs: {cat:"Система", desc:"Документация (docs.html)", usage:"docs", run: function(){ window.open("docs.html","_blank","noopener"); return "Открыто: docs.html"; }},
+  sources: {cat:"Система", desc:"Источники (sources.html)", usage:"sources", run: function(){ window.open("sources.html","_blank","noopener"); return "Открыто: sources.html"; }},
+  methodology: {cat:"Система", desc:"Методика (methodology.html)", usage:"methodology", run: function(){ window.open("methodology.html","_blank","noopener"); return "Открыто: methodology.html"; }},
+  changelog: {cat:"Система", desc:"История (changelog.html)", usage:"changelog", run: function(){ window.open("changelog.html","_blank","noopener"); return "Открыто: changelog.html"; }},
+  license: {cat:"Система", desc:"Лицензия (license.html)", usage:"license", run: function(){ window.open("license.html","_blank","noopener"); return "Открыто: license.html"; }},
+  privacy: {cat:"Система", desc:"Политика (privacy.html)", usage:"privacy", run: function(){ window.open("privacy.html","_blank","noopener"); return "Открыто: privacy.html"; }},
+  about: {cat:"Система", desc:"О программе", usage:"about", run: function(){ return "Выработка ЭЭ по регионам РФ · v5.1 · MIT License · 2026"; }},
+  export: {cat:"Экспорт", desc:"Экспорт", usage:"export <fmt>", run: function(a){ if(!a[0]) return "Форматы: png, jpeg, svg, pdf, html, csv, xlsx, json, docx, md, zip"; var r = exportData(a[0]); if(r && r.then) r.catch(function(e){tErr("Экспорт: "+e.message);}); return "Экспорт "+a[0].toUpperCase()+" запущен"; }},
+  save: {cat:"Экспорт", desc:"Скачать проект", usage:"save", run: function(){ var p = {data:state.data, selected:state.selected, theme:state.theme}; downloadBlob(new Blob([JSON.stringify(p,null,2)], {type:"application/json"}), fileBase()+"_project.json"); return "Проект скачан"; }},
   undo: {cat:"Система", desc:"Отменить", usage:"undo", run: function(){ undo(); return "Отменено"; }},
   redo: {cat:"Система", desc:"Повторить", usage:"redo", run: function(){ redo(); return "Повторено"; }},
-  "check libs": {cat:"Система", desc:"Состояние библиотек", usage:"check libs", run: function(){ return "Plotly: "+(plotlyReady()?"✓":"✗")+"; XLSX: "+(xlsxReady()?"✓":"✗")+"; docx: "+(docxReady()?"✓":"✗")+"; JSZip: "+(jszipReady()?"✓":"✗"); }},
-  reload: {cat:"Система", desc:"Перезагрузить страницу", usage:"reload", run: function(){ location.reload(); return ""; }}
+  "check libs": {cat:"Система", desc:"Библиотеки", usage:"check libs", run: function(){ return "Plotly: "+(plotlyReady()?"✓":"✗")+"; XLSX: "+(xlsxReady()?"✓":"✗")+"; docx: "+(docxReady()?"✓":"✗")+"; JSZip: "+(jszipReady()?"✓":"✗"); }},
+  reload: {cat:"Система", desc:"Перезагрузить", usage:"reload", run: function(){ location.reload(); return ""; }}
 };
 function runCommand(line){
   var parts = line.trim().split(/\s+/), cmd = parts[0], args = parts.slice(1);
@@ -3252,19 +2737,15 @@ function renderHelpPanel(){
     '<div class="line"><span class="t-ok">↑ / ↓</span> — история команд</div>'+
     '<div class="line"><span class="t-ok">Tab</span> — автодополнение</div>'+
     '<div class="line"><span class="t-ok">Esc</span> — закрыть</div>'+
-    '<div style="margin-top:12px" class="t-muted">Примеры:</div>'+
-    '<div class="line"><span class="t-cmd">stats</span> — KPI по всем</div>'+
-    '<div class="line"><span class="t-cmd">forecast Москва 5</span> — прогноз</div>'+
-    '<div class="line"><span class="t-cmd">corr Москва СПб</span> — корреляция</div>'+
-    '<div class="line"><span class="t-cmd">outliers</span> — аномалии</div>'+
-    '<div class="line"><span class="t-cmd">missing</span> — пропуски</div>'+
-    '<div class="line"><span class="t-cmd">gini</span>, <span class="t-cmd">hhi</span> — неравенство</div>'+
-    '<div class="line"><span class="t-cmd">export pdf</span> — экспорт</div>';
+    '<div style="margin-top:12px" class="t-muted">Документация:</div>'+
+    '<div class="line"><span class="t-cmd">docs</span> — docs.html</div>'+
+    '<div class="line"><span class="t-cmd">sources</span> — sources.html</div>'+
+    '<div class="line"><span class="t-cmd">methodology</span> — methodology.html</div>'+
+    '<div class="line"><span class="t-cmd">changelog</span> — changelog.html</div>'+
+    '<div class="line"><span class="t-cmd">license</span> — license.html</div>'+
+    '<div class="line"><span class="t-cmd">privacy</span> — privacy.html</div>';
 }
 
-/* ============================================================
-   ДЕМО
-============================================================ */
 function loadDemo(){
   var demo = [];
   var base = {
@@ -3289,13 +2770,10 @@ function loadDemo(){
   tInfo("Демо-данные загружены");
 }
 
-/* ============================================================
-   SEED (опциональная data.js)
-============================================================ */
 function loadSeed(){
   if(typeof window.SEED_DATA === "undefined"){
     toast("Файл data.js не найден рядом с index.html", "warn");
-    tWarn("data.js не найден. Положите его рядом с index.html.");
+    tWarn("data.js не найден. Положите рядом с index.html.");
     return;
   }
   var seed = window.SEED_DATA;
@@ -3310,9 +2788,6 @@ function loadSeed(){
   tInfo("Seed: "+res.clean.length+" строк");
 }
 
-/* ============================================================
-   ПАЛИТРА
-============================================================ */
 var PALETTE_ITEMS = [
   {cat:"Данные", name:"Загрузить базу (data.js)", action: function(){ loadSeed(); }},
   {cat:"Данные", name:"Демо-данные", action: function(){ loadDemo(); }},
@@ -3324,10 +2799,14 @@ var PALETTE_ITEMS = [
   {cat:"Экспорт", name:"XLSX", action: function(){ exportData("xlsx"); }},
   {cat:"Экспорт", name:"ZIP по регионам", action: function(){ exportData("zip"); }},
   {cat:"Терминал", name:"Открыть терминал", action: function(){ $("terminal").classList.add("open"); }},
-  {cat:"Справка", name:"Документация", action: function(){ goTo("docs"); }},
-  {cat:"Справка", name:"Источники", action: function(){ goTo("sources"); }},
+  {cat:"Справка", name:"Документация (docs.html)", action: function(){ window.open("docs.html","_blank","noopener"); }},
+  {cat:"Справка", name:"Источники (sources.html)", action: function(){ window.open("sources.html","_blank","noopener"); }},
+  {cat:"Справка", name:"Методика (methodology.html)", action: function(){ window.open("methodology.html","_blank","noopener"); }},
+  {cat:"Справка", name:"История (changelog.html)", action: function(){ window.open("changelog.html","_blank","noopener"); }},
+  {cat:"Справка", name:"Лицензия (license.html)", action: function(){ window.open("license.html","_blank","noopener"); }},
+  {cat:"Справка", name:"Политика (privacy.html)", action: function(){ window.open("privacy.html","_blank","noopener"); }},
   {cat:"Навигация", name:"Графики", action: function(){ goTo("view"); }},
-  {cat:"Навигация", name:"Продвинутая аналитика", action: function(){ goTo("advanced"); }},
+  {cat:"Навигация", name:"Продвинутая", action: function(){ goTo("advanced"); }},
   {cat:"Навигация", name:"Сценарии", action: function(){ goTo("scenario"); }},
   {cat:"Навигация", name:"Расчёты", action: function(){ goTo("stats"); }}
 ];
@@ -3357,9 +2836,6 @@ function renderPaletteResults(q){
   });
 }
 
-/* ============================================================
-   ТЕРМИНАЛ UI
-============================================================ */
 function toggleTerminal(){ $("terminal").classList.toggle("open"); }
 function setupTerminal(){
   on($("termToggle"), "click", toggleTerminal);
@@ -3403,9 +2879,6 @@ function setupTerminal(){
   renderHelpPanel();
 }
 
-/* ============================================================
-   SETTINGS
-============================================================ */
 function applySettings(){
   state.optUnit = $("optUnit").value;
   state.optPrec = Number($("optPrec").value);
@@ -3421,9 +2894,6 @@ function loadSettingsToUI(){
   if($("optTheme")) $("optTheme").value = state.theme;
 }
 
-/* ============================================================
-   CONSENT
-============================================================ */
 function showConsent(){ $("consent").classList.add("open"); }
 function hideConsent(){ $("consent").classList.remove("open"); }
 function setConsent(kind){
@@ -3454,15 +2924,9 @@ function loadConsent(){
   return false;
 }
 
-/* ============================================================
-   DRAWER
-============================================================ */
 function openDrawer(){ $("drawerBackdrop").classList.add("open"); }
 function closeDrawer(){ $("drawerBackdrop").classList.remove("open"); }
 
-/* ============================================================
-   BINDINGS
-============================================================ */
 function safe(fn, label){
   return function(ev){
     try{ fn(ev); }catch(e){
@@ -3656,11 +3120,8 @@ function bindAll(){
     if(e.key==="Escape"){ closePalette(); closeDrawer(); }
   });
 
-  qsa(".faq-item .q").forEach(function(q){ q.addEventListener("click", function(){ q.parentElement.classList.toggle("open"); }); });
-
   on($("onbSkip"), "click", closeOnb);
   on($("onbStart"), "click", function(){ closeOnb(); loadDemo(); });
-  on($("onbDocs"), "click", function(){ closeOnb(); goTo("docs"); });
   on($("onbBackdrop"), "click", closeOnb);
 }
 function closeOnb(){
@@ -3669,9 +3130,6 @@ function closeOnb(){
   try{ localStorage.setItem("energy_onb", "1"); }catch(e){}
 }
 
-/* ============================================================
-   SPLASH CANVAS
-============================================================ */
 function setupSplashCanvas(){
   var canvas = $("splash-canvas");
   if(!canvas) return;
@@ -3682,13 +3140,7 @@ function setupSplashCanvas(){
   function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
   window.addEventListener("resize", resize);
   for(var i=0;i<70;i++){
-    particles.push({
-      x: Math.random()*W,
-      y: Math.random()*H,
-      vx: (Math.random()-0.5)*0.3,
-      vy: (Math.random()-0.5)*0.3,
-      r: Math.random()*1.8+0.4
-    });
+    particles.push({ x: Math.random()*W, y: Math.random()*H, vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3, r: Math.random()*1.8+0.4 });
   }
   var pct = 0;
   function draw(){
@@ -3703,7 +3155,6 @@ function setupSplashCanvas(){
       ctx.fillStyle = "rgba(255,255,255," + (0.3 + Math.random()*0.3) + ")";
       ctx.fill();
     }
-    // Соединяющие линии
     for(var a=0;a<particles.length;a++){
       for(var b=a+1;b<particles.length;b++){
         var dx = particles[a].x - particles[b].x;
@@ -3722,7 +3173,6 @@ function setupSplashCanvas(){
     requestAnimationFrame(draw);
   }
   draw();
-  // Прогресс
   var pctEl = $("splashPct");
   var start = Date.now();
   var dur = 2000;
@@ -3741,9 +3191,6 @@ function hideSplash(){
   setTimeout(function(){ if(s) s.remove(); }, 700);
 }
 
-/* ============================================================
-   START
-============================================================ */
 function checkLibs(){
   var miss = [];
   if(!plotlyReady()) miss.push("Plotly");
@@ -3781,7 +3228,7 @@ function start(){
     setTimeout(function(){ showConsent(); refreshAll(); goTo("data"); }, 2400);
   }
 
-  tInfo("Платформа запущена · v5.0");
+  tInfo("Платформа запущена · v5.1");
   setTimeout(function(){
     if(!localStorage.getItem("energy_onb") && consentLoaded){
       $("onb").classList.add("open");

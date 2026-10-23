@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Методика расчётов · Выработка ЭЭ по регионам РФ</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --paper:#ffffff; --ink:#111418; --ink-soft:#3a4150; --muted:#6b7280;
+    --rule:#d6dbe3; --rule-soft:#e8ecf2; --accent:#1e3a8a; --accent-soft:#eff3fb;
+    --code-bg:#f3f4f6; --ink-code:#111418;
+    --warn-bg:#fef6e7; --warn-border:#b45309;
+    --ok-bg:#ecfdf3; --ok-border:#047857;
+    --font-doc:"Times New Roman","PT Serif",Georgia,serif;
+    --font-ui:"Inter","Segoe UI",system-ui,sans-serif;
+    --font-mono:ui-monospace,"Cascadia Code",Consolas,monospace;
+  }
+  html[data-theme="dark"]{
+    --bg:#0c1220; --paper:#111a2b; --ink:#e6ecf5; --ink-soft:#b8c2d4; --muted:#8b98ac;
+    --rule:#25324a; --rule-soft:#1a2438; --accent:#7ba3f0; --accent-soft:#15213a;
+    --code-bg:#0a1220; --ink-code:#d6dde8; --warn-bg:#2a1f0c; --warn-border:#fbbf24;
+    --ok-bg:#0c2418; --ok-border:#34d399;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-doc); font-size:15px; line-height:1.7; -webkit-text-size-adjust:100%}
+  .ui{font-family:var(--font-ui)}
+  .topbar{position:sticky; top:0; z-index:100; background:var(--paper); border-bottom:1px solid var(--rule); padding:12px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .topbar .brand{display:flex; align-items:center; gap:12px; font-family:var(--font-ui)}
+  .topbar .logo{width:36px; height:36px; border-radius:8px; background:linear-gradient(135deg, var(--accent), #0891b2); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px}
+  .topbar .title{font-size:13px; font-weight:600}
+  .topbar .subtitle{font-size:11px; color:var(--muted); margin-top:1px}
+  .topbar .nav{display:flex; gap:6px; font-family:var(--font-ui); font-size:12px; flex-wrap:wrap}
+  .topbar .nav a{padding:6px 12px; border-radius:6px; color:var(--ink-soft); text-decoration:none; border:1px solid transparent}
+  .topbar .nav a:hover{border-color:var(--rule); background:var(--accent-soft); color:var(--accent)}
+  .topbar .nav a.active{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .layout{display:grid; grid-template-columns:280px 1fr; max-width:1400px; margin:0 auto; gap:32px; padding:32px 24px 80px}
+  @media(max-width:1000px){ .layout{grid-template-columns:1fr; gap:20px; padding:20px 16px 60px} .toc{position:static !important; max-height:none !important} }
+  .toc{position:sticky; top:80px; align-self:start; max-height:calc(100vh - 100px); overflow-y:auto; font-family:var(--font-ui); font-size:13px; padding-right:8px}
+  .toc h3{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 12px; padding-bottom:8px; border-bottom:1px solid var(--rule); font-weight:600}
+  .toc ol{margin:0; padding:0; list-style:none; counter-reset:tocnum}
+  .toc li{counter-increment:tocnum; margin-bottom:2px}
+  .toc li::before{content:counter(tocnum) ". "; color:var(--muted); font-family:var(--font-mono); font-size:11px}
+  .toc a{color:var(--ink-soft); text-decoration:none; line-height:1.6}
+  .toc a:hover{color:var(--accent); text-decoration:underline}
+  .paper{background:var(--paper); border:1px solid var(--rule); box-shadow:0 1px 3px rgba(0,0,0,.04); padding:48px 56px; max-width:900px}
+  @media(max-width:1000px){ .paper{padding:24px 20px} }
+  @media(max-width:600px){ .paper{padding:18px 14px; font-size:14px} }
+  .doc-header{border-bottom:2px solid var(--ink); padding-bottom:16px; margin-bottom:28px}
+  .doc-header .stamp{font-family:var(--font-ui); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:8px}
+  .doc-header h1{font-size:26px; margin:0 0 8px; letter-spacing:-.02em; line-height:1.25}
+  .doc-header .meta{font-family:var(--font-ui); font-size:12px; color:var(--muted); display:flex; gap:16px; flex-wrap:wrap; margin-top:12px}
+  section{margin-bottom:36px; scroll-margin-top:80px}
+  section h2{font-size:21px; margin:0 0 14px; border-bottom:1px solid var(--rule); padding-bottom:8px; display:flex; align-items:baseline; gap:12px; line-height:1.3}
+  section h2 .num{font-family:var(--font-mono); font-size:14px; color:var(--muted); font-weight:400; min-width:24px}
+  section h3{font-size:16px; margin:22px 0 10px}
+  section h4{font-size:14px; margin:18px 0 8px; color:var(--ink-soft)}
+  p{margin:10px 0; color:var(--ink-soft)}
+  ul, ol{padding-left:24px; margin:10px 0; color:var(--ink-soft)}
+  li{margin:5px 0}
+  code{font-family:var(--font-mono); font-size:.9em; background:var(--code-bg); color:var(--ink-code); padding:1px 6px; border-radius:3px; border:1px solid var(--rule-soft)}
+  pre{background:var(--code-bg); color:var(--ink-code); padding:14px 18px; border-radius:6px; overflow:auto; font-family:var(--font-mono); font-size:12.5px; line-height:1.6; border:1px solid var(--rule-soft)}
+  table{border-collapse:collapse; width:100%; margin:14px 0; font-family:var(--font-ui); font-size:13px}
+  th, td{border:1px solid var(--rule); padding:8px 12px; text-align:left; vertical-align:top}
+  th{background:var(--accent-soft); font-weight:600; font-size:12px}
+  tr:nth-child(even) td{background:var(--rule-soft)}
+  .formula{background:var(--code-bg); color:var(--ink-code); padding:16px 20px; border-radius:6px; margin:12px 0; border-left:3px solid var(--accent); font-family:var(--font-mono); font-size:13px; line-height:1.8; overflow-x:auto}
+  .formula .label{display:block; font-family:var(--font-ui); font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--accent); font-weight:600; margin-bottom:6px}
+  .formula .note{display:block; font-family:var(--font-ui); font-size:12px; color:var(--muted); margin-top:8px; font-style:italic; text-transform:none; letter-spacing:0}
+  .callout{border-left:3px solid var(--accent); padding:12px 16px; margin:14px 0; background:var(--accent-soft); border-radius:0 4px 4px 0; font-size:14px}
+  .callout.warn{border-left-color:var(--warn-border); background:var(--warn-bg)}
+  .callout.ok{border-left-color:var(--ok-border); background:var(--ok-bg)}
+  .footer{border-top:1px solid var(--rule); padding-top:20px; margin-top:40px; font-family:var(--font-ui); font-size:12px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px}
+  @media print{
+    .topbar, .toc, .footer .print-hide{display:none}
+    .layout{display:block; padding:0; max-width:none}
+    .paper{border:none; box-shadow:none; padding:0; max-width:none}
+    body{background:#fff; color:#000; font-size:12pt}
+    section h2{page-break-after:avoid}
+    .formula, table, .callout{page-break-inside:avoid}
+    a{color:#000; text-decoration:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">Э</div>
+    <div>
+      <div class="title">Выработка ЭЭ по регионам РФ</div>
+      <div class="subtitle">Методика расчётов · v5.0</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="index.html">← Платформа</a>
+    <a href="docs.html">Документация</a>
+    <a href="sources.html">Источники</a>
+    <a href="methodology.html" class="active">Методика</a>
+    <a href="privacy.html">Политика</a>
+    <a href="changelog.html">История</a>
+    <a href="license.html">Лицензия</a>
+  </nav>
+</header>
+
+<div class="layout">
+  <aside class="toc">
+    <h3>Содержание</h3>
+    <ol>
+      <li><a href="#intro">Введение</a></li>
+      <li><a href="#units">Единицы измерения</a></li>
+      <li><a href="#descriptive">Описательные статистики</a></li>
+      <li><a href="#trend">Тренды</a></li>
+      <li><a href="#quality">Качество модели</a></li>
+      <li><a href="#anomaly">Аномалии</a></li>
+      <li><a href="#structure">Структура и неравенство</a></li>
+      <li><a href="#correlation">Корреляции</a></li>
+      <li><a href="#timeseries">Временные ряды</a></li>
+      <li><a href="#ml">Кластеризация и PCA</a></li>
+      <li><a href="#assumptions">Допущения</a></li>
+      <li><a href="#references">Литература</a></li>
+    </ol>
+  </aside>
+
+  <main class="paper">
+
+    <div class="doc-header">
+      <div class="stamp">Официальный документ · методика расчётов</div>
+      <h1>Методика расчётов</h1>
+      <div class="meta">
+        <span><b>Версия:</b> 5.0</span>
+        <span><b>Дата:</b> 2026</span>
+        <span><b>Статус:</b> Открытая методика</span>
+      </div>
+    </div>
+
+    <section id="intro">
+      <h2><span class="num">1.</span>Введение</h2>
+      <p>Настоящий документ описывает все математические методы, применяемые в платформе «Выработка ЭЭ по регионам РФ». Каждая формула сопровождается описанием обозначений, допущений и примеров использования.</p>
+      <p>Документ предназначен для:</p>
+      <ul>
+        <li>аналитиков, проверяющих расчёты платформы;</li>
+        <li>аудиторов, готовящих официальные отчёты;</li>
+        <li>разработчиков, расширяющих платформу.</li>
+      </ul>
+      <div class="callout ok">
+        <b>Открытость.</b> Все формулы открыты, реализованы в JavaScript, доступны для проверки в консоли браузера. При расхождении с ручным расчётом — приоритет за ручным.
+      </div>
+    </section>
+
+    <section id="units">
+      <h2><span class="num">2.</span>Единицы измерения</h2>
+      <p>Внутреннее представление — <b>миллиарды киловатт-часов</b> (млрд кВт·ч). При отображении допускается пересчёт:</p>
+      <table>
+        <thead><tr><th>Единица</th><th>Коэффициент от млрд кВт·ч</th></tr></thead>
+        <tbody>
+          <tr><td>млн кВт·ч</td><td>× 1000</td></tr>
+          <tr><td>ГВт·ч</td><td>× 1000 (равно млн кВт·ч)</td></tr>
+          <tr><td>ТВт·ч</td><td>÷ 1000</td></tr>
+        </tbody>
+      </table>
+      <p>Все формулы в документе предполагают входные значения в <b>млрд кВт·ч</b>.</p>
+    </section>
+
+    <section id="descriptive">
+      <h2><span class="num">3.</span>Описательные статистики</h2>
+
+      <h3>3.1. Среднее арифметическое</h3>
+      <div class="formula">
+        <span class="label">x̄ = (Σ xᵢ) / n</span>
+        n — число наблюдений; xᵢ — i-е значение.
+        <span class="note">Показывает «центральное» значение ряда. Чувствительно к выбросам.</span>
+      </div>
+
+      <h3>3.2. Медиана</h3>
+      <div class="formula">
+        <span class="label">Me = x₍₍ₙ₊₁₎/₂₎ (n — нечётное)
+Me = (x₍ₙ/₂₎ + x₍ₙ/₂₊₁₎) / 2 (n — чётное)</span>
+        Ряд отсортирован по возрастанию.
+        <span class="note">Устойчива к выбросам. Рекомендуется для оценки «типичного» уровня.</span>
+      </div>
+
+      <h3>3.3. Стандартное отклонение (выборочное)</h3>
+      <div class="formula">
+        <span class="label">σ = √[ Σ (xᵢ − x̄)² / (n − 1) ]</span>
+        Знаменатель (n − 1) — поправка Бесселя для несмещённой оценки.
+        <span class="note">Мера разброса. Используется в z-score.</span>
+      </div>
+
+      <h3>3.4. Коэффициент вариации</h3>
+      <div class="formula">
+        <span class="label">CV = (σ / x̄) × 100%</span>
+        <span class="note">Относительная мера разброса. Позволяет сравнивать ряды с разными средними. При x̄ = 0 не определён.</span>
+      </div>
+
+      <h3>3.5. Минимум, максимум, размах</h3>
+      <div class="formula">
+        <span class="label">Min = min(xᵢ); Max = max(xᵢ); R = Max − Min</span>
+      </div>
+
+      <h3>3.6. CAGR — среднегодовой темп роста</h3>
+      <div class="formula">
+        <span class="label">CAGR = [(x_end / x_start)^(1/n) − 1] × 100%</span>
+        n — число лет между крайними годами ряда.
+        <span class="note">Применяется только если оба значения положительные.</span>
+      </div>
+    </section>
+
+    <section id="trend">
+      <h2><span class="num">4.</span>Тренды</h2>
+      <p>Платформа строит три типа трендов и автоматически выбирает лучший по R².</p>
+
+      <h3>4.1. Линейный тренд (МНК)</h3>
+      <div class="formula">
+        <span class="label">ŷ = a + b·t
+b = Σ (tᵢ − t̄)(yᵢ − ȳ) / Σ (tᵢ − t̄)²
+a = ȳ − b·t̄</span>
+        t — порядковый номер года (0, 1, 2, …); y — значение.
+        <span class="note">Коэффициент b — средний годовой прирост (в единицах y).</span>
+      </div>
+
+      <h3>4.2. Полиномиальный тренд 2-й степени</h3>
+      <div class="formula">
+        <span class="label">ŷ = a₀ + a₁·t + a₂·t²</span>
+        Коэффициенты находятся через решение системы нормальных уравнений методом Гаусса.
+        <span class="note">Используется при выраженном ускорении/замедлении роста. При малом n (менее 5) может быть неустойчив.</span>
+      </div>
+
+      <h3>4.3. Экспоненциальный тренд</h3>
+      <div class="formula">
+        <span class="label">ŷ = a · e^(b·t)</span>
+        МНК применяется к ln(y), затем a = e^(ln a).
+        <span class="note">Требует положительных значений. Хорош для быстрорастущих рядов.</span>
+      </div>
+
+      <h3>4.4. Прогноз</h3>
+      <div class="formula">
+        <span class="label">ŷ_прогноз(t) = модель(t) для t > t_last</span>
+        Прогноз на 1, 2, 3, 5 лет вперёд по лучшей модели.
+        <span class="note">Прогноз — экстраполяция, не учитывает структурные сдвиги. Всегда помечается в отчётах.</span>
+      </div>
+    </section>
+
+    <section id="quality">
+      <h2><span class="num">5.</span>Качество модели</h2>
+
+      <h3>5.1. R² — коэффициент детерминации</h3>
+      <div class="formula">
+        <span class="label">R² = 1 − SS_res / SS_tot
+SS_res = Σ (yᵢ − ŷᵢ)²
+SS_tot = Σ (yᵢ − ȳ)²</span>
+        <span class="note">Доля дисперсии, объяснённая моделью. 1 — идеальное совпадение, 0 — модель не объясняет ничего. При SS_tot = 0 R² принимается за 1.</span>
+      </div>
+
+      <h3>5.2. MAPE</h3>
+      <div class="formula">
+        <span class="label">MAPE = (100/n) × Σ |(yᵢ − ŷᵢ) / yᵢ|</span>
+        <span class="note">Средняя абсолютная процентная ошибка. Меньше — лучше. Не определён при yᵢ = 0.</span>
+      </div>
+
+      <h3>5.3. Выбор лучшей модели</h3>
+      <p>Сравниваются три модели (линейная, полином-2, экспонента). Выбирается модель с наибольшим R². При равенстве R² (что маловероятно) — приоритет линейной.</p>
+    </section>
+
+    <section id="anomaly">
+      <h2><span class="num">6.</span>Аномалии</h2>
+      <p>Применяются три независимых метода. Значение помечается как аномалия, если срабатывает хотя бы один.</p>
+
+      <h3>6.1. z-score</h3>
+      <div class="formula">
+        <span class="label">z = (x − x̄) / σ</span>
+        |z| > 2 — выброс; |z| > 3 — сильный выброс.
+        <span class="note">Чувствителен к выбросам (сам выброс искажает σ). Работает для нормально распределённых рядов.</span>
+      </div>
+
+      <h3>6.2. IQR-метод (ящик с усами)</h3>
+      <div class="formula">
+        <span class="label">Q1 = 25-й перцентиль
+Q3 = 75-й перцентиль
+IQR = Q3 − Q1
+Выброс: x &lt; Q1 − 1.5·IQR или x &gt; Q3 + 1.5·IQR</span>
+        <span class="note">Непараметрический метод, устойчив к выбросам. Стандарт в статистике.</span>
+      </div>
+
+      <h3>6.3. MAD-метод</h3>
+      <div class="formula">
+        <span class="label">MAD = median(|xᵢ − median(x)|)
+Выброс: |xᵢ − median(x)| &gt; 3·MAD</span>
+        <span class="note">Робастная альтернатива z-score. Менее чувствителен к выбросам.</span>
+      </div>
+    </section>
+
+    <section id="structure">
+      <h2><span class="num">7.</span>Структура и неравенство</h2>
+
+      <h3>7.1. HHI — индекс Херфиндаля–Хиршмана</h3>
+      <div class="formula">
+        <span class="label">HHI = Σ sᵢ²</span>
+        sᵢ — доля региона в процентах (0…100).
+        Диапазон: 0…10 000.
+        <span class="note">Интерпретация: &lt;1000 — низкая концентрация; 1000–1800 — умеренная; 1800–2500 — высокая; &gt;2500 — очень высокая.</span>
+      </div>
+
+      <h3>7.2. Индекс Джини</h3>
+      <div class="formula">
+        <span class="label">G = Σᵢ (2i − n − 1) · x₍ᵢ₎ / (n · Σx)</span>
+        x₍ᵢ₎ — отсортированы по возрастанию.
+        <span class="note">0 — полное равенство, 1 — один регион забирает всё.</span>
+      </div>
+
+      <h3>7.3. CR-k — концентрация</h3>
+      <div class="formula">
+        <span class="label">CR_k = (Σ топ-k значений / Σ всех значений) × 100%</span>
+        <span class="note">Доля топ-k в общей сумме. Используется вместе с HHI.</span>
+      </div>
+
+      <h3>7.4. Энтропия Шеннона</h3>
+      <div class="formula">
+        <span class="label">H = −Σ pᵢ · ln(pᵢ)</span>
+        pᵢ = xᵢ / Σx.
+        <span class="note">Мера разнообразия. Максимум — при равных долях. Больше — равномернее.</span>
+      </div>
+    </section>
+
+    <section id="correlation">
+      <h2><span class="num">8.</span>Корреляции</h2>
+
+      <h3>8.1. Коэффициент Пирсона</h3>
+      <div class="formula">
+        <span class="label">r = Σ(xᵢ − x̄)(yᵢ − ȳ) / √[Σ(xᵢ − x̄)² · Σ(yᵢ − ȳ)²]</span>
+        <span class="note">Линейная корреляция от −1 до +1. |r| &lt; 0.3 — слабая; 0.3–0.7 — умеренная; &gt; 0.7 — сильная. Считается только по общим годам.</span>
+      </div>
+
+      <h3>8.2. Корреляции с лагом</h3>
+      <div class="formula">
+        <span class="label">r(k) = corr(X_t, Y_{t+k})</span>
+        k — лаг в годах (0, 1, 2, 3).
+        <span class="note">Позволяет выявить отложенные зависимости между регионами.</span>
+      </div>
+    </section>
+
+    <section id="timeseries">
+      <h2><span class="num">9.</span>Временные ряды</h2>
+
+      <h3>9.1. ACF — автокорреляционная функция</h3>
+      <div class="formula">
+        <span class="label">ρ(k) = Σ(xᵢ − x̄)(xᵢ₊ₖ − x̄) / Σ(xᵢ − x̄)²</span>
+        <span class="note">Показывает зависимость между значениями ряда на расстоянии k лет.</span>
+      </div>
+
+      <h3>9.2. Тест Манна–Кендалла</h3>
+      <div class="formula">
+        <span class="label">S = Σᵢ Σⱼ₌ᵢ₊₁ sign(xⱼ − xᵢ)
+Var(S) = n(n−1)(2n+5) / 18
+Z = (S − sign(S)) / √Var(S)
+p-value ≈ 2·(1 − Φ(|Z|))</span>
+        <span class="note">Непараметрический тест на наличие монотонного тренда. |Z| &gt; 1.96 — значимый тренд (уровень 5%).</span>
+      </div>
+
+      <h3>9.3. Скользящее среднее</h3>
+      <div class="formula">
+        <span class="label">MA_t = (x_{t−w+1} + … + x_t) / w</span>
+        w — размер окна (3 или 5 лет).
+        <span class="note">Для первых лет окно усекается.</span>
+      </div>
+    </section>
+
+    <section id="ml">
+      <h2><span class="num">10.</span>Кластеризация и PCA</h2>
+
+      <h3>10.1. k-means (k = 3)</h3>
+      <div class="formula">
+        <span class="label">1. Инициализация центров (k-means++)
+2. Назначение точек ближайшему центру
+3. Пересчёт центров как средних
+4. Повтор до сходимости (не более 50 итераций)</span>
+        Входные данные — нормированные на максимум ряды.
+        <span class="note">Случайная инициализация: результат может отличаться между запусками.</span>
+      </div>
+
+      <h3>10.2. PCA — метод главных компонент</h3>
+      <div class="formula">
+        <span class="label">1. Центрирование данных (вычитание среднего)
+2. Ковариационная матрица
+3. Степенной метод для двух главных собственных векторов
+4. Проекция точек в 2D</span>
+        <span class="note">Позволяет визуально оценить группы похожих регионов.</span>
+      </div>
+    </section>
+
+    <section id="assumptions">
+      <h2><span class="num">11.</span>Допущения и ограничения</h2>
+
+      <h3>11.1. Общие допущения</h3>
+      <ul>
+        <li>Все значения — в млрд кВт·ч.</li>
+        <li>Год — целое число от 1990 до 2100.</li>
+        <li>Значение — неотрицательное, не более 100 000.</li>
+        <li>Статус «факт», «оценка», «прогноз».</li>
+      </ul>
+
+      <h3>11.2. Допущения при прогнозировании</h3>
+      <ul>
+        <li>Структурные сдвиги (ввод/вывод мощностей, аварии, реформы) не учитываются.</li>
+        <li>Прогноз — экстраполяция прошлых тенденций.</li>
+        <li>МНК при n &lt; 3 точках недостоверен.</li>
+        <li>Полином-2 при n &lt; 5 точках может давать неустойчивые результаты.</li>
+      </ul>
+
+      <h3>11.3. Допущения при корреляциях</h3>
+      <ul>
+        <li>Корреляция не означает причинно-следственную связь.</li>
+        <li>Пирсон требует общих лет; при малом количестве (n &lt; 5) значения ненадёжны.</li>
+      </ul>
+
+      <div class="callout warn">
+        <b>Важно.</b> Прогнозы, кластеризация и корреляции — инструменты поддержки принятия решений, а не готовые ответы. Перед использованием в официальных отчётах требуется экспертная интерпретация.
+      </div>
+    </section>
+
+    <section id="references">
+      <h2><span class="num">12.</span>Литература</h2>
+      <ol>
+        <li>Кобзарь А. И. Прикладная математическая статистика. — М.: ФИЗМАТЛИТ, 2006. — 816 с.</li>
+        <li>Манн П. С., Уитни Д. Р. О критерии проверки гипотезы о том, что две случайные величины имеют одинаковое распределение // Annals of Mathematical Statistics, 1947.</li>
+        <li>Кендалл М. Дж., Стьюарт А. Статистические выводы и связи. — М.: Наука, 1973.</li>
+        <li>Херфиндаль О. К. Концентрация в сталелитейной промышленности. — 1950.</li>
+        <li>Хиршман А. О. Подход к шкале торговли // American Economic Review, 1945.</li>
+        <li>Джини К. Вариативность и изменчивость признака. — 1912.</li>
+        <li>Шеннон К. Математическая теория связи // Bell System Technical Journal, 1948.</li>
+        <li>Джоллифф И. Т. Principal Component Analysis. — Springer, 2002.</li>
+        <li>Маккуин Дж. Б. Some Methods for Classification and Analysis of Multivariate Observations. — 1967.</li>
+      </ol>
+    </section>
+
+    <div class="footer">
+      <div>© 2026 · Методика расчётов · v5.0</div>
+      <div class="print-hide"><a href="index.html">Платформа</a> · <a href="docs.html">Документация</a> · <a href="sources.html">Источники</a> · <a href="privacy.html">Политика</a> · <a href="license.html">Лицензия</a></div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+try {
+  var s = JSON.parse(localStorage.getItem("energy_platform_state") || "{}");
+  if (s.theme === "dark") document.documentElement.setAttribute("data-theme","dark");
+} catch(e) {}
+</script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Политика конфиденциальности и cookies · Выработка ЭЭ по регионам РФ</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --paper:#ffffff; --ink:#111418; --ink-soft:#3a4150; --muted:#6b7280;
+    --rule:#d6dbe3; --rule-soft:#e8ecf2; --accent:#1e3a8a; --accent-soft:#eff3fb;
+    --code-bg:#f3f4f6; --ok-bg:#ecfdf3; --ok-border:#047857;
+    --font-doc:"Times New Roman","PT Serif",Georgia,serif;
+    --font-ui:"Inter","Segoe UI",system-ui,sans-serif;
+    --font-mono:ui-monospace,Consolas,monospace;
+  }
+  html[data-theme="dark"]{ --bg:#0c1220; --paper:#111a2b; --ink:#e6ecf5; --ink-soft:#b8c2d4; --muted:#8b98ac; --rule:#25324a; --rule-soft:#1a2438; --accent:#7ba3f0; --accent-soft:#15213a; --code-bg:#0a1220; --ok-bg:#0c2418; --ok-border:#34d399; }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-doc); font-size:15px; line-height:1.7; -webkit-text-size-adjust:100%}
+  .topbar{position:sticky; top:0; z-index:100; background:var(--paper); border-bottom:1px solid var(--rule); padding:12px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .topbar .brand{display:flex; align-items:center; gap:12px; font-family:var(--font-ui)}
+  .topbar .logo{width:36px; height:36px; border-radius:8px; background:linear-gradient(135deg, var(--accent), #0891b2); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px}
+  .topbar .title{font-size:13px; font-weight:600}
+  .topbar .subtitle{font-size:11px; color:var(--muted); margin-top:1px}
+  .topbar .nav{display:flex; gap:6px; font-family:var(--font-ui); font-size:12px; flex-wrap:wrap}
+  .topbar .nav a{padding:6px 12px; border-radius:6px; color:var(--ink-soft); text-decoration:none; border:1px solid transparent}
+  .topbar .nav a:hover{border-color:var(--rule); background:var(--accent-soft); color:var(--accent)}
+  .topbar .nav a.active{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .wrap{max-width:880px; margin:0 auto; padding:32px 24px 80px}
+  @media(max-width:600px){ .wrap{padding:20px 16px 60px} }
+  .paper{background:var(--paper); border:1px solid var(--rule); box-shadow:0 1px 3px rgba(0,0,0,.04); padding:48px 56px}
+  @media(max-width:600px){ .paper{padding:22px 18px} }
+  .doc-header{border-bottom:2px solid var(--ink); padding-bottom:16px; margin-bottom:28px}
+  .doc-header .stamp{font-family:var(--font-ui); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:8px}
+  .doc-header h1{font-size:26px; margin:0 0 8px; letter-spacing:-.02em; line-height:1.25}
+  .doc-header .meta{font-family:var(--font-ui); font-size:12px; color:var(--muted); display:flex; gap:16px; flex-wrap:wrap; margin-top:12px}
+  section{margin-bottom:32px; scroll-margin-top:80px}
+  section h2{font-size:19px; margin:0 0 12px; border-bottom:1px solid var(--rule); padding-bottom:8px}
+  section h3{font-size:15px; margin:18px 0 8px}
+  p{margin:10px 0; color:var(--ink-soft)}
+  ul, ol{padding-left:24px; margin:10px 0; color:var(--ink-soft)}
+  li{margin:5px 0}
+  code{font-family:var(--font-mono); font-size:.9em; background:var(--code-bg); color:var(--ink); padding:1px 6px; border-radius:3px}
+  table{border-collapse:collapse; width:100%; margin:14px 0; font-family:var(--font-ui); font-size:13px}
+  th, td{border:1px solid var(--rule); padding:8px 12px; text-align:left; vertical-align:top}
+  th{background:var(--accent-soft); font-weight:600; font-size:12px}
+  tr:nth-child(even) td{background:var(--rule-soft)}
+  .callout{border-left:3px solid var(--accent); padding:12px 16px; margin:14px 0; background:var(--accent-soft); border-radius:0 4px 4px 0; font-size:14px}
+  .callout.ok{border-left-color:var(--ok-border); background:var(--ok-bg)}
+  .footer{border-top:1px solid var(--rule); padding-top:20px; margin-top:40px; font-family:var(--font-ui); font-size:12px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px}
+  @media print{
+    .topbar, .footer .print-hide{display:none}
+    .wrap{padding:0; max-width:none}
+    .paper{border:none; box-shadow:none; padding:0}
+    body{background:#fff; color:#000; font-size:12pt}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">Э</div>
+    <div>
+      <div class="title">Выработка ЭЭ по регионам РФ</div>
+      <div class="subtitle">Политика конфиденциальности · v5.0</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="index.html">← Платформа</a>
+    <a href="docs.html">Документация</a>
+    <a href="sources.html">Источники</a>
+    <a href="methodology.html">Методика</a>
+    <a href="privacy.html" class="active">Политика</a>
+    <a href="changelog.html">История</a>
+    <a href="license.html">Лицензия</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="paper">
+    <div class="doc-header">
+      <div class="stamp">Официальный документ · политика конфиденциальности и cookies</div>
+      <h1>Политика конфиденциальности и cookies</h1>
+      <div class="meta">
+        <span><b>Версия:</b> 5.0</span>
+        <span><b>Дата:</b> 2026</span>
+        <span><b>Область:</b> Платформа «Выработка ЭЭ по регионам РФ»</span>
+      </div>
+    </div>
+
+    <section>
+      <h2>1. Общие положения</h2>
+      <p>Настоящая Политика описывает, какие данные обрабатываются на платформе «Выработка ЭЭ по регионам РФ» (далее — «Платформа»), каким образом и с какой целью.</p>
+      <div class="callout ok">
+        <b>Ключевое.</b> Платформа не собирает и не передаёт персональные данные третьим лицам. Все вычисления выполняются на стороне пользователя в браузере.
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Какие данные обрабатываются</h2>
+      <table>
+        <thead><tr><th>Тип данных</th><th>Где хранятся</th><th>Цель</th></tr></thead>
+        <tbody>
+          <tr><td>Введённые пользователем значения (регион, год, значение, статус, примечание)</td><td>localStorage браузера</td><td>Автосохранение при согласии</td></tr>
+          <tr><td>Настройки (единица, точность, разделитель, тема)</td><td>localStorage</td><td>Сохранение предпочтений</td></tr>
+          <tr><td>Флаг согласия</td><td>localStorage</td><td>Не показывать баннер повторно</td></tr>
+          <tr><td>Журнал действий (в текущей сессии)</td><td>Память браузера (не сохраняется)</td><td>Диагностика ошибок</td></tr>
+        </tbody>
+      </table>
+
+      <h3>2.1. Что НЕ обрабатывается</h3>
+      <ul>
+        <li>IP-адреса</li>
+        <li>Cookies (HTTP)</li>
+        <li>Данные геолокации</li>
+        <li>Данные учётных записей</li>
+        <li>Поведенческие метрики (аналитика)</li>
+        <li>Любые данные, передаваемые на сервер</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. localStorage — что это</h2>
+      <p><code>localStorage</code> — механизм браузера для хранения данных в виде пар «ключ — значение» на стороне клиента. Данные сохраняются между сессиями и не передаются на сервер.</p>
+      <p>Ключи, которые использует Платформа:</p>
+      <table>
+        <thead><tr><th>Ключ</th><th>Содержимое</th></tr></thead>
+        <tbody>
+          <tr><td><code>energy_platform_state</code></td><td>Данные пользователя, настройки, тема</td></tr>
+          <tr><td><code>energy_cookie_consent_v5</code></td><td>Флаг согласия («all» / «necessary»)</td></tr>
+          <tr><td><code>energy_onb</code></td><td>Флаг пройденного онбординга</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>4. Согласие пользователя</h2>
+      <p>При первом открытии Платформы появляется баннер с двумя вариантами:</p>
+      <ul>
+        <li><b>«Принять»</b> — разрешает автосохранение данных и настроек в <code>localStorage</code>.</li>
+        <li><b>«Только необходимые»</b> — автосохранение отключается. Данные хранятся только в памяти вкладки до закрытия.</li>
+      </ul>
+
+      <h3>4.1. Отзыв согласия</h3>
+      <p>Отозвать согласие можно в любой момент: «Настройки → Согласие и cookies → Отозвать». При отзыве все сохранённые данные удаляются из <code>localStorage</code>.</p>
+
+      <h3>4.2. Удаление вручную</h3>
+      <p>Пользователь может самостоятельно очистить данные в браузере:</p>
+      <ul>
+        <li>Chrome / Edge: Настройки → Конфиденциальность → Очистить данные → Cookies и другие данные сайтов</li>
+        <li>Firefox: Настройки → Приватность → Cookies и данные сайтов → Управление</li>
+        <li>Safari: Настройки → Конфиденциальность → Управление данными сайтов</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>5. Cookies (HTTP)</h2>
+      <p>Платформа <b>не использует HTTP-cookies</b>. Все данные хранятся в <code>localStorage</code>, который, хотя формально не является cookies, подпадает под требования согласия на хранение данных.</p>
+    </section>
+
+    <section>
+      <h2>6. Передача третьим лицам</h2>
+      <p>Платформа не передаёт данные третьим лицам. Единственные внешние запросы — загрузка библиотек с CDN (Cloudflare, jsDelivr) при первом открытии. Эти запросы не содержат данных пользователя.</p>
+      <table>
+        <thead><tr><th>Ресурс</th><th>Назначение</th><th>Домен</th></tr></thead>
+        <tbody>
+          <tr><td>Plotly.js</td><td>Графики</td><td>cdn.plot.ly</td></tr>
+          <tr><td>SheetJS</td><td>XLSX</td><td>cdn.jsdelivr.net</td></tr>
+          <tr><td>docx</td><td>DOCX</td><td>cdn.jsdelivr.net</td></tr>
+          <tr><td>JSZip</td><td>ZIP</td><td>cdn.jsdelivr.net</td></tr>
+          <tr><td>html2canvas</td><td>Raster</td><td>cdn.jsdelivr.net</td></tr>
+        </tbody>
+      </table>
+      <p>После загрузки библиотек Платформа работает офлайн.</p>
+    </section>
+
+    <section>
+      <h2>7. Хранение и защита</h2>
+      <p>Данные в <code>localStorage</code> хранятся в браузере пользователя. Платформа не имеет доступа к данным других сайтов и не может читать данные вне своего домена.</p>
+      <p>При использовании общего устройства другие пользователи могут видеть сохранённые данные. Для чувствительных сценариев рекомендуется выбирать «Только необходимые» при первом открытии.</p>
+    </section>
+
+    <section>
+      <h2>8. Права пользователя</h2>
+      <ul>
+        <li><b>Знать</b>, какие данные обрабатываются (раздел 2).</li>
+        <li><b>Отозвать</b> согласие в любой момент (раздел 4.1).</li>
+        <li><b>Удалить</b> сохранённые данные вручную (раздел 4.2).</li>
+        <li><b>Использовать платформу без сохранения</b> — выбрать «Только необходимые».</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>9. Изменения в Политике</h2>
+      <p>Политика может обновляться. Актуальная версия всегда доступна на этой странице. Существенные изменения отмечаются в <a href="changelog.html">истории версий</a>.</p>
+    </section>
+
+    <section>
+      <h2>10. Контакт</h2>
+      <p>По вопросам, связанным с обработкой данных, обращайтесь через репозиторий проекта (GitHub Issues) или страницу <a href="license.html">правовой информации</a>.</p>
+    </section>
+
+    <div class="footer">
+      <div>© 2026 · Политика конфиденциальности · v5.0</div>
+      <div class="print-hide"><a href="index.html">Платформа</a> · <a href="docs.html">Документация</a> · <a href="sources.html">Источники</a> · <a href="methodology.html">Методика</a> · <a href="changelog.html">История</a> · <a href="license.html">Лицензия</a></div>
+    </div>
+  </div>
+</div>
+
+<script>
+try {
+  var s = JSON.parse(localStorage.getItem("energy_platform_state") || "{}");
+  if (s.theme === "dark") document.documentElement.setAttribute("data-theme","dark");
+} catch(e) {}
+</script>
+</body>
+</html>

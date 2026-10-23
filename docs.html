@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Документация · Выработка ЭЭ по регионам РФ</title>
+<style>
+  :root{
+    --bg:#f4f7fc; --panel:#fff; --text:#0a1628; --text-soft:#37445b; --muted:#64748b;
+    --border:#e1e7f2; --accent:#1e40af; --accent-soft:rgba(30,64,175,.08);
+    --code-bg:#0f172a; --code-fg:#cbd5e1;
+    --font-ui:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+    --font-mono:ui-monospace,Consolas,monospace;
+  }
+  html[data-theme="dark"]{
+    --bg:#07101d; --panel:#0d1726; --text:#e8eef8; --text-soft:#b6c2d3; --muted:#8493a8;
+    --border:#1a2637; --accent:#4d80f0; --accent-soft:rgba(77,128,240,.14);
+    --code-bg:#040910;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:var(--font-ui); font-size:14px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:900px; margin:0 auto; padding:24px 20px 80px}
+  header{
+    background:linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+    color:#fff; padding:40px 24px; border-radius:16px; margin-bottom:24px;
+    box-shadow:0 8px 32px rgba(30,64,175,.25);
+  }
+  header h1{margin:0 0 8px; font-size:28px; letter-spacing:-.02em}
+  header p{margin:0; font-size:15px; opacity:.95; max-width:640px}
+  header .back{
+    display:inline-block; margin-top:14px; padding:8px 16px;
+    background:rgba(255,255,255,.15); color:#fff; text-decoration:none;
+    border-radius:8px; font-size:13px; border:1px solid rgba(255,255,255,.25);
+  }
+  header .back:hover{background:rgba(255,255,255,.25)}
+  nav.toc{
+    background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    padding:16px 20px; margin-bottom:24px;
+  }
+  nav.toc h3{margin:0 0 10px; font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted)}
+  nav.toc ol{margin:0; padding-left:20px; font-size:13.5px; line-height:1.9}
+  nav.toc a{color:var(--accent); text-decoration:none}
+  nav.toc a:hover{text-decoration:underline}
+  section{
+    background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    padding:22px 26px; margin-bottom:18px;
+  }
+  section h2{margin:0 0 14px; font-size:20px; border-bottom:2px solid var(--border); padding-bottom:10px}
+  section h3{margin:20px 0 10px; font-size:15px}
+  section h4{margin:16px 0 8px; font-size:13.5px; color:var(--text-soft)}
+  section p{color:var(--text-soft); margin:8px 0}
+  section ul, section ol{color:var(--text-soft); padding-left:22px}
+  section li{margin:4px 0}
+  code{background:var(--accent-soft); color:var(--accent); padding:1px 6px; border-radius:4px; font-family:var(--font-mono); font-size:.9em}
+  pre{background:var(--code-bg); color:var(--code-fg); padding:16px 20px; border-radius:10px; overflow:auto; font-size:12.5px; line-height:1.6}
+  table{border-collapse:collapse; width:100%; margin:10px 0; font-size:13px}
+  th,td{border-bottom:1px solid var(--border); padding:8px 10px; text-align:left}
+  th{background:rgba(30,64,175,.05); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .link-box{
+    display:block; padding:14px 16px; background:rgba(30,64,175,.04);
+    border:1px solid var(--border); border-radius:10px; margin:8px 0;
+    color:var(--text); text-decoration:none; transition:.15s;
+  }
+  .link-box:hover{border-color:var(--accent); background:rgba(30,64,175,.08); text-decoration:none}
+  .link-box .t{font-weight:600; font-size:14px; color:var(--accent); margin-bottom:3px}
+  .link-box .d{font-size:12.5px; color:var(--muted)}
+  .link-box .u{font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-top:4px; word-break:break-all}
+  .callout{
+    padding:14px 18px; border-radius:10px; border-left:4px solid var(--accent);
+    background:rgba(30,64,175,.05); margin:14px 0;
+  }
+  .callout.warn{border-left-color:#d97706; background:rgba(217,119,6,.08)}
+  .callout.ok{border-left-color:#059669; background:rgba(5,150,105,.08)}
+  .formula{
+    background:var(--code-bg); color:var(--code-fg); padding:14px 18px;
+    border-radius:10px; font-family:var(--font-mono); font-size:13px;
+    margin:10px 0; line-height:1.7; border-left:3px solid var(--accent);
+  }
+  .formula .label{
+    color:#7fb1ff; font-weight:600; display:block; margin-bottom:6px;
+    font-size:11px; text-transform:uppercase; letter-spacing:.05em;
+  }
+  @media(max-width:600px){
+    .wrap{padding:14px 12px 60px}
+    header{padding:28px 20px; border-radius:12px}
+    header h1{font-size:22px}
+    header p{font-size:14px}
+    section{padding:18px 16px}
+    section h2{font-size:17px}
+    table{font-size:12px}
+    th,td{padding:6px 8px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>📘 Документация</h1>
+    <p>Полное руководство по платформе «Выработка ЭЭ по регионам РФ». Все формулы, источники, соглашения и инструкции.</p>
+    <a href="index.html" class="back">← Вернуться на платформу</a>
+  </header>
+
+  <nav class="toc">
+    <h3>Содержание</h3>
+    <ol>
+      <li><a href="#about">О платформе</a></li>
+      <li><a href="#quickstart">Быстрый старт</a></li>
+      <li><a href="#data">Данные и форматы</a></li>
+      <li><a href="#sources">Источники данных</a></li>
+      <li><a href="#formulas">Формулы и методы</a></li>
+      <li><a href="#analysis">Разделы анализа</a></li>
+      <li><a href="#terminal">Терминал и команды</a></li>
+      <li><a href="#export">Экспорт</a></li>
+      <li><a href="#privacy">Согласие и персональные данные</a></li>
+      <li><a href="#limits">Ограничения</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ol>
+  </nav>
+
+  <section id="about">
+    <h2>1. О платформе</h2>
+    <p><b>Выработка ЭЭ по регионам РФ</b> — аналитическая платформа для работы с данными о годовой выработке электроэнергии по субъектам Российской Федерации. Работает полностью в браузере, без серверной части и без передачи данных.</p>
+    <h3>Ключевые принципы</h3>
+    <ul>
+      <li><b>Полностью клиентская работа.</b> Все расчёты в браузере. Данные не отправляются на серверы.</li>
+      <li><b>Открытые формулы.</b> Каждая метрика описана ниже, её можно проверить вручную.</li>
+      <li><b>Честные данные.</b> Прогнозы помечены явно, экстраполяции не выдаются за факты.</li>
+      <li><b>Официальное оформление.</b> PDF/DOCX/HTML под документооборот организации.</li>
+      <li><b>Автосохранение</b> в localStorage (при согласии пользователя).</li>
+    </ul>
+    <h3>Технологии</h3>
+    <ul>
+      <li>Plotly.js — интерактивные графики</li>
+      <li>SheetJS — XLSX</li>
+      <li>docx — DOCX</li>
+      <li>JSZip — ZIP</li>
+      <li>Vanilla JS — всё остальное (без фреймворков)</li>
+    </ul>
+  </section>
+
+  <section id="quickstart">
+    <h2>2. Быстрый старт</h2>
+    <h3>Шаг 1. Загрузите данные</h3>
+    <ul>
+      <li><b>Кнопка «Загрузить базу»</b> — если рядом с index.html лежит файл <code>data.js</code> с seed-данными.</li>
+      <li><b>Вручную</b> — «+ Строка» в таблице.</li>
+      <li><b>CSV/JSON</b> — вставка в поле «Вставка CSV / TSV / JSON».</li>
+      <li><b>Файл</b> — .csv, .tsv, .json, .xlsx.</li>
+      <li><b>Демо</b> — синтетика для теста.</li>
+    </ul>
+    <h3>Шаг 2. Проверьте качество</h3>
+    <p>Раздел «Паспорт данных» — заполненность, пропуски, скачки, статусы.</p>
+    <h3>Шаг 3. Анализируйте</h3>
+    <p>Графики, сравнение, расчёты, тренды, продвинутая аналитика, структура, аномалии, тепловые карты, паспорт региона, сценарии.</p>
+    <h3>Шаг 4. Оформите отчёт</h3>
+    <p>«Оформление» → заполните организацию, автора, дату, город. Затем «Экспорт» → PDF / DOCX / HTML.</p>
+    <h3>Шаг 5. Сохраните проект</h3>
+    <p>«Настройки» → «Скачать проект (JSON)». Позже загрузите — восстановится всё.</p>
+  </section>
+
+  <section id="data">
+    <h2>3. Данные и форматы</h2>
+    <h3>Схема</h3>
+    <pre>{
+  region: string,   // название региона
+  year: number,     // 1990–2100
+  value: number,    // млрд кВт·ч, ≥ 0
+  status: "факт" | "оценка" | "прогноз",
+  note: string      // источник/примечание
+}</pre>
+    <h3>CSV</h3>
+    <pre>Регион;Год;Значение;Статус;Примечание
+Кемеровская обл.;2019;34.5;факт;Отчёт Минэнерго 2019
+Москва;2019;68.2;факт;Мосэнерго
+Москва;2020;65.4;оценка;</pre>
+    <p>Разделитель: <code>;</code> или <code>,</code> или табуляция — определяется автоматически.</p>
+    <h3>JSON</h3>
+    <pre>[{"region":"Кемеровская обл.","year":2019,"value":34.5,"status":"факт","note":"Отчёт"}]</pre>
+    <h3>Единицы</h3>
+    <p>Внутренне всё хранится в <b>млрд кВт·ч</b>. При отображении можно конвертировать в млн кВт·ч или ТВт·ч (Настройки → Единица).</p>
+    <h3>Проверки при импорте</h3>
+    <ul>
+      <li>Год: 1990–2100</li>
+      <li>Значение: ≥ 0 и ≤ 100 000</li>
+      <li>Дубликаты (регион+год) — предупреждение</li>
+      <li>Будущий год со статусом «факт» — предупреждение</li>
+      <li>Неизвестный регион — добавляется автоматически</li>
+    </ul>
+  </section>
+
+  <section id="sources">
+    <h2>4. Источники данных</h2>
+    <p>Платформа <b>не поставляет</b> данные — вы загружаете их сами. Ниже — официальные и открытые источники.</p>
+
+    <h3>Официальные</h3>
+    <a class="link-box" href="https://minenergo.gov.ru/activity/statistic" target="_blank" rel="noopener">
+      <div class="t">Минэнерго России — статистика</div>
+      <div class="d">Официальные отчёты, сводки ТЭК, схемы и программы развития (СиПР)</div>
+      <div class="u">minenergo.gov.ru/activity/statistic</div>
+    </a>
+    <a class="link-box" href="https://rosstat.gov.ru/enterprise_electric" target="_blank" rel="noopener">
+      <div class="t">Росстат — электроэнергетика</div>
+      <div class="d">Топливно-энергетический баланс, региональная статистика</div>
+      <div class="u">rosstat.gov.ru/enterprise_electric</div>
+    </a>
+    <a class="link-box" href="https://www.so-ups.ru/functioning/ees/" target="_blank" rel="noopener">
+      <div class="t">СО ЕЭС — функционирование ЕЭС</div>
+      <div class="d">Отчёты о работе Единой энергетической системы России</div>
+      <div class="u">so-ups.ru/functioning/ees</div>
+    </a>
+    <a class="link-box" href="https://www.atsenergo.ru/" target="_blank" rel="noopener">
+      <div class="t">АТС — оптовый рынок</div>
+      <div class="d">Данные оптового рынка электроэнергии и мощности</div>
+      <div class="u">atsenergo.ru</div>
+    </a>
+    <a class="link-box" href="https://www.eias.ru/" target="_blank" rel="noopener">
+      <div class="t">ЕИАС</div>
+      <div class="d">Единая информационно-аналитическая система</div>
+      <div class="u">eias.ru</div>
+    </a>
+    <a class="link-box" href="https://data.gov.ru/" target="_blank" rel="noopener">
+      <div class="t">Портал открытых данных РФ</div>
+      <div class="d">Государственные наборы данных, включая энергетику</div>
+      <div class="u">data.gov.ru</div>
+    </a>
+
+    <h3>Дополнительные</h3>
+    <a class="link-box" href="https://www.gks.ru/" target="_blank" rel="noopener">
+      <div class="t">Госкомстат (архив)</div>
+      <div class="d">Исторические данные, региональные сборники</div>
+      <div class="u">gks.ru</div>
+    </a>
+    <a class="link-box" href="https://github.com/search?q=russian+energy+statistics" target="_blank" rel="noopener">
+      <div class="t">GitHub — открытые датасеты</div>
+      <div class="d">Открытые CSV по энергетике РФ</div>
+      <div class="u">github.com</div>
+    </a>
+
+    <div class="callout warn">
+      <b>⚠ Важно.</b> Seed-база <code>data.js</code> содержит <b>оценочные</b> значения из публичных обзоров — <b>не являются официальными</b> и требуют проверки по первоисточникам перед использованием в отчётах.
+    </div>
+  </section>
+
+  <section id="formulas">
+    <h2>5. Формулы и методы</h2>
+
+    <h3>Описательные статистики</h3>
+    <div class="formula"><span class="label">Среднее</span>x̄ = (Σ xᵢ) / n</div>
+    <div class="formula"><span class="label">Медиана</span>нечётное n: x₍ₙ₊₁₎/₂
+чётное n: (x₍ₙ/₂₎ + x₍ₙ/₂₊₁₎) / 2</div>
+    <div class="formula"><span class="label">σ (выборочное)</span>σ = √[Σ(xᵢ − x̄)² / (n − 1)]</div>
+    <div class="formula"><span class="label">CV</span>CV = (σ / x̄) · 100%</div>
+    <div class="formula"><span class="label">CAGR</span>CAGR = [(x_кон / x_нач)^(1/n) − 1] · 100%
+n — число лет между крайними</div>
+
+    <h3>Тренды</h3>
+    <div class="formula"><span class="label">Линейный (МНК)</span>ŷ = a + b·t
+b = Σ(tᵢ − t̄)(yᵢ − ȳ) / Σ(tᵢ − t̄)²
+a = ȳ − b·t̄</div>
+    <div class="formula"><span class="label">Полином 2</span>ŷ = a₀ + a₁·t + a₂·t² (МНК через Гаусса)</div>
+    <div class="formula"><span class="label">Экспонента</span>ŷ = a · e^(b·t) (МНК к ln y)</div>
+    <div class="formula"><span class="label">R²</span>R² = 1 − SS_res / SS_tot</div>
+    <div class="formula"><span class="label">MAPE</span>MAPE = (100/n) · Σ |(yᵢ − ŷᵢ) / yᵢ|</div>
+
+    <h3>Аномалии</h3>
+    <div class="formula"><span class="label">z-score</span>z = (x − x̄) / σ
+|z| &gt; 2 — выброс, |z| &gt; 3 — сильный</div>
+    <div class="formula"><span class="label">IQR</span>Q1, Q3
+IQR = Q3 − Q1
+Выброс: x &lt; Q1 − 1.5·IQR или x &gt; Q3 + 1.5·IQR</div>
+    <div class="formula"><span class="label">MAD</span>MAD = median(|xᵢ − median(x)|)
+Выброс: |xᵢ − median(x)| &gt; 3·MAD</div>
+
+    <h3>Структура</h3>
+    <div class="formula"><span class="label">HHI</span>HHI = Σ sᵢ², sᵢ = доля в %
+0 – 10 000</div>
+    <div class="formula"><span class="label">Джини</span>G = Σᵢ(2i − n − 1)·x₍ᵢ₎ / (n·Σx)
+0 — равенство, 1 — один регион</div>
+    <div class="formula"><span class="label">CR-k</span>CR_k = (Σ топ-k / Σ всех) · 100%</div>
+    <div class="formula"><span class="label">Энтропия</span>H = −Σ pᵢ·ln(pᵢ)</div>
+
+    <h3>Корреляции и временные ряды</h3>
+    <div class="formula"><span class="label">Пирсон</span>r = Σ(xᵢ−x̄)(yᵢ−ȳ) / √[Σ(xᵢ−x̄)²·Σ(yᵢ−ȳ)²]
+|r| &lt; 0.3 — слабая, 0.3–0.7 — умеренная, &gt; 0.7 — сильная</div>
+    <div class="formula"><span class="label">ACF</span>ρ(k) = Σ(xᵢ−x̄)(xᵢ₊ₖ−x̄) / Σ(xᵢ−x̄)²</div>
+    <div class="formula"><span class="label">Манн-Кендалл</span>S = ΣᵢΣⱼ₌ᵢ₊₁ sign(xⱼ − xᵢ)
+Var(S) = n(n−1)(2n+5)/18
+Z = (S − sign(S)) / √Var(S)
+|Z| &gt; 1.96 — значимый тренд (5%)</div>
+
+    <h3>Кластеризация и PCA</h3>
+    <div class="formula"><span class="label">k-means (k=3)</span>1. Инициализация центров (k-means++)
+2. Назначение точек ближайшему центру
+3. Пересчёт центров как средних
+4. Повтор до сходимости</div>
+    <div class="formula"><span class="label">PCA</span>Проекция многомерных рядов в 2D
+Через степенной метод для двух главных собственных векторов ковариационной матрицы</div>
+  </section>
+
+  <section id="analysis">
+    <h2>6. Разделы анализа</h2>
+    <table>
+      <thead><tr><th>Раздел</th><th>Что показывает</th></tr></thead>
+      <tbody>
+        <tr><td>Паспорт данных</td><td>заполненность матрицы регион × год, пропуски, скачки, статусы</td></tr>
+        <tr><td>Графики</td><td>динамика по годам (линия / столбцы / область / структура)</td></tr>
+        <tr><td>Сравнение</td><td>нормированные индексы (база = 100)</td></tr>
+        <tr><td>Расчёты</td><td>среднее, медиана, σ, CV, CAGR, наклон, R², доля</td></tr>
+        <tr><td>Тренды</td><td>линейный / полином / экспонента, прогноз на 1–5 лет</td></tr>
+        <tr><td>Продвинутая</td><td>Джини, CR-3, CR-5, энтропия, k-means, PCA, радар, Манн-Кендалл, ACF, лаги</td></tr>
+        <tr><td>Структура</td><td>HHI и доли регионов по годам</td></tr>
+        <tr><td>Аномалии</td><td>z-score, IQR, MAD, корреляции</td></tr>
+        <tr><td>Тепловые карты</td><td>heatmap корреляций, матрица значений, гистограмма, водопад, box plot</td></tr>
+        <tr><td>Паспорт региона</td><td>всё по одному региону</td></tr>
+        <tr><td>Сценарии</td><td>«+X% в год» с горизонтом 3/5/10 лет</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="terminal">
+    <h2>7. Терминал и команды</h2>
+    <p>Открывается клавишей <code>~</code> или кнопкой ⌘ внизу справа. Вкладка «Команды» — список всех команд с описанием и примером, клик по команде вставляет её в поле ввода.</p>
+
+    <h3>Основные команды</h3>
+    <table>
+      <thead><tr><th>Команда</th><th>Описание</th></tr></thead>
+      <tbody>
+        <tr><td><code>help</code></td><td>Список всех команд</td></tr>
+        <tr><td><code>load demo</code></td><td>Загрузить демо-данные</td></tr>
+        <tr><td><code>clear</code></td><td>Очистить данные</td></tr>
+        <tr><td><code>schema</code></td><td>Схема данных</td></tr>
+        <tr><td><code>stats</code></td><td>KPI по всем регионам</td></tr>
+        <tr><td><code>validate</code></td><td>Прогнать валидацию</td></tr>
+        <tr><td><code>count</code></td><td>Число строк/регионов/лет</td></tr>
+        <tr><td><code>regions</code></td><td>Список регионов</td></tr>
+        <tr><td><code>years</code></td><td>Список лет</td></tr>
+        <tr><td><code>head [N]</code></td><td>Первые N строк</td></tr>
+        <tr><td><code>tail [N]</code></td><td>Последние N</td></tr>
+        <tr><td><code>sample [N]</code></td><td>Случайные N</td></tr>
+        <tr><td><code>cat</code></td><td>Все данные</td></tr>
+        <tr><td><code>missing</code></td><td>Пропущенные пары</td></tr>
+        <tr><td><code>dup</code></td><td>Дубликаты</td></tr>
+        <tr><td><code>outliers</code></td><td>Аномалии z &gt; 2</td></tr>
+        <tr><td><code>top</code> / <code>bottom</code></td><td>Топ-5 / худшие-5</td></tr>
+        <tr><td><code>cagr &lt;регион&gt;</code></td><td>CAGR</td></tr>
+        <tr><td><code>forecast &lt;регион&gt; [лет]</code></td><td>Прогноз</td></tr>
+        <tr><td><code>corr &lt;r1&gt; &lt;r2&gt;</code></td><td>Корреляция</td></tr>
+        <tr><td><code>gini</code></td><td>Джини</td></tr>
+        <tr><td><code>hhi [год]</code></td><td>HHI</td></tr>
+        <tr><td><code>mk &lt;регион&gt;</code></td><td>Манн-Кендалл</td></tr>
+        <tr><td><code>theme dark|light</code></td><td>Тема</td></tr>
+        <tr><td><code>select all|clear|only-with-data</code></td><td>Выбор регионов</td></tr>
+        <tr><td><code>open &lt;page&gt;</code></td><td>Перейти на страницу</td></tr>
+        <tr><td><code>docs</code> / <code>about</code></td><td>Документация / о программе</td></tr>
+        <tr><td><code>export &lt;fmt&gt;</code></td><td>Экспорт</td></tr>
+        <tr><td><code>save</code></td><td>Скачать проект</td></tr>
+        <tr><td><code>undo</code> / <code>redo</code></td><td>Отменить/повторить</td></tr>
+        <tr><td><code>check libs</code></td><td>Состояние библиотек</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Горячие клавиши</h3>
+    <ul>
+      <li><code>~</code> — терминал</li>
+      <li><code>Ctrl+K</code> — палитра команд</li>
+      <li><code>Ctrl+Z / Ctrl+Y</code> — undo / redo</li>
+      <li><code>↑ / ↓</code> в терминале — история</li>
+      <li><code>Tab</code> — автодополнение</li>
+      <li><code>Esc</code> — закрыть</li>
+    </ul>
+  </section>
+
+  <section id="export">
+    <h2>8. Экспорт</h2>
+    <h3>Форматы</h3>
+    <ul>
+      <li><b>PNG / JPEG / WEBP</b> — растровые изображения (1600×900, белый фон)</li>
+      <li><b>SVG</b> — вектор</li>
+      <li><b>PDF</b> — открывается в новом окне, Ctrl+P → «Сохранить как PDF»</li>
+      <li><b>HTML</b> — самодостаточный отчёт</li>
+      <li><b>DOCX</b> — Word с титулом и таблицами</li>
+      <li><b>CSV</b> — данные, разделитель <code>;</code>, UTF-8 BOM</li>
+      <li><b>XLSX</b> — многолистовой</li>
+      <li><b>JSON</b> — полный снимок</li>
+      <li><b>Markdown</b> — .md</li>
+      <li><b>ZIP</b> — архив: по одному CSV на регион</li>
+    </ul>
+    <h3>Режимы</h3>
+    <ul>
+      <li><b>Краткий</b> — титул, график, сводная, динамика, приложение</li>
+      <li><b>Полный</b> — + тренды, методическая справка</li>
+    </ul>
+  </section>
+
+  <section id="privacy">
+    <h2>9. Согласие и персональные данные</h2>
+    <div class="callout ok">
+      <b>Платформа не собирает персональные данные.</b> Всё работает в браузере. Никакие данные не отправляются на серверы.
+    </div>
+    <h3>Что хранится в localStorage</h3>
+    <ul>
+      <li>Введённые данные (для автосохранения)</li>
+      <li>Настройки (единицы, точность, разделитель, тема)</li>
+      <li>Флаг согласия</li>
+    </ul>
+    <h3>Управление</h3>
+    <ul>
+      <li>Принять всё: автосохранение + восстановление при следующем открытии</li>
+      <li>Только необходимые: автосохранение отключено</li>
+      <li>Отозвать согласие: Настройки → «Согласие и cookies»</li>
+    </ul>
+    <h3>Cookie</h3>
+    <p>Платформа не использует HTTP-cookies. localStorage — это не cookies, но подпадает под требования согласия.</p>
+  </section>
+
+  <section id="limits">
+    <h2>10. Ограничения</h2>
+    <ul>
+      <li>Данные — результат ввода пользователя. Платформа не содержит официальных данных.</li>
+      <li>Seed-база <code>data.js</code> содержит <b>оценочные</b> цифры — требуют проверки.</li>
+      <li>Прогнозы — линейная/полином/экспонента, без структурных сдвигов.</li>
+      <li>localStorage: ~5 МБ на домен.</li>
+      <li>Интернет нужен при первом открытии (CDN).</li>
+      <li>МНК при &lt; 3 точках недостоверен.</li>
+      <li>k-means случайная инициализация — результат может отличаться.</li>
+    </ul>
+  </section>
+
+  <section id="faq">
+    <h2>11. FAQ</h2>
+    <h4>Данные отправляются на сервер?</h4>
+    <p>Нет. Всё в браузере. Автосохранение — в localStorage (при согласии).</p>
+    <h4>PDF без кракозябр?</h4>
+    <p>Да, через печать браузера — системный шрифт.</p>
+    <h4>Как добавить свой регион?</h4>
+    <p>Введите название вручную в таблице — добавится автоматически.</p>
+    <h4>Работает на телефоне?</h4>
+    <p>Да. Нижняя панель навигации, крупные кнопки, инпуты 16px.</p>
+    <h4>Где seed-данные?</h4>
+    <p>В файле <code>data.js</code> рядом с index.html. Кнопка «Загрузить базу».</p>
+    <h4>Можно ли использовать оффлайн?</h4>
+    <p>После первой загрузки — да, при условии что браузер закешировал библиотеки.</p>
+  </section>
+
+  <p style="text-align:center; color:var(--muted); font-size:12px; margin-top:30px">
+    <a href="index.html">← Назад к платформе</a> · MIT License · v5.0
+  </p>
+</div>
+
+<script>
+  // Тема из localStorage
+  try {
+    var s = JSON.parse(localStorage.getItem("energy_platform_state") || "{}");
+    if (s.theme === "dark") document.documentElement.setAttribute("data-theme","dark");
+  } catch(e) {}
+</script>
+</body>
+</html>

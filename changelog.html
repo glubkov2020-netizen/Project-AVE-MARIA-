@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>История версий · СППР Солнечная Энергетика РФ</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --paper:#ffffff; --ink:#111418; --ink-soft:#3a4150; --muted:#6b7280;
+    --rule:#d6dbe3; --rule-soft:#e8ecf2; --accent:#1e3a8a; --accent-soft:#eff3fb;
+    --font-doc:"Times New Roman","PT Serif",Georgia,serif;
+    --font-ui:"Inter","Segoe UI",system-ui,sans-serif;
+    --font-mono:ui-monospace,Consolas,monospace;
+  }
+  html[data-theme="dark"]{ --bg:#0c1220; --paper:#111a2b; --ink:#e6ecf5; --ink-soft:#b8c2d4; --muted:#8b98ac; --rule:#25324a; --rule-soft:#1a2438; --accent:#7ba3f0; --accent-soft:#15213a; }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-doc); font-size:15px; line-height:1.7}
+  .topbar{position:sticky; top:0; z-index:100; background:var(--paper); border-bottom:1px solid var(--rule); padding:12px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .topbar .brand{display:flex; align-items:center; gap:12px; font-family:var(--font-ui)}
+  .topbar .logo{width:36px; height:36px; border-radius:10px; background:radial-gradient(circle at 35% 30%, #fde68a, #f59e0b 55%, #b45309); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px}
+  .topbar .title{font-size:12px; font-weight:600}
+  .topbar .subtitle{font-size:10.5px; color:var(--muted); margin-top:1px}
+  .topbar .nav{display:flex; gap:6px; font-family:var(--font-ui); font-size:12px; flex-wrap:wrap}
+  .topbar .nav a{padding:6px 12px; border-radius:6px; color:var(--ink-soft); text-decoration:none; border:1px solid transparent}
+  .topbar .nav a:hover{border-color:var(--rule); background:var(--accent-soft); color:var(--accent)}
+  .topbar .nav a.active{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .wrap{max-width:880px; margin:0 auto; padding:32px 24px 80px}
+  @media(max-width:600px){ .wrap{padding:20px 16px 60px} }
+  .paper{background:var(--paper); border:1px solid var(--rule); box-shadow:0 1px 3px rgba(0,0,0,.04); padding:48px 56px}
+  @media(max-width:600px){ .paper{padding:22px 18px} }
+  .doc-header{border-bottom:2px solid var(--ink); padding-bottom:16px; margin-bottom:28px}
+  .doc-header .stamp{font-family:var(--font-ui); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:8px}
+  .doc-header h1{font-size:26px; margin:0 0 8px; letter-spacing:-.02em; line-height:1.25}
+  .doc-header .meta{font-family:var(--font-ui); font-size:12px; color:var(--muted); display:flex; gap:16px; flex-wrap:wrap; margin-top:12px}
+  .version{position:relative; padding-left:36px; margin-bottom:32px; padding-bottom:24px; border-bottom:1px dashed var(--rule)}
+  .version:last-child{border-bottom:none}
+  .version::before{content:""; position:absolute; left:8px; top:6px; width:14px; height:14px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--accent-soft)}
+  .version .vhead{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:8px}
+  .version .vnum{font-size:18px; font-weight:700; color:var(--accent)}
+  .version .vdate{font-size:12px; color:var(--muted); font-family:var(--font-mono)}
+  .version .vbadge{display:inline-block; padding:2px 8px; border-radius:3px; font-family:var(--font-ui); font-size:10px; font-weight:600; letter-spacing:.04em}
+  .vbadge.current{background:#047857; color:#fff}
+  .version ul{padding-left:20px; margin:8px 0 0; font-size:13.5px; color:var(--ink-soft)}
+  .version li{margin:5px 0}
+  .footer{border-top:1px solid var(--rule); padding-top:20px; margin-top:40px; font-family:var(--font-ui); font-size:12px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px}
+  @media print{ .topbar,.footer .print-hide{display:none} .wrap{padding:0; max-width:none} .paper{border:none; box-shadow:none; padding:0} body{background:#fff; color:#000; font-size:12pt} }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">☀</div>
+    <div>
+      <div class="title">СППР Солнечная Энергетика РФ</div>
+      <div class="subtitle">История версий · v6.1</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="index.html">← Платформа</a>
+    <a href="docs.html">Руководство</a>
+    <a href="sources.html">Источники</a>
+    <a href="methodology.html">Методика</a>
+    <a href="changelog.html" class="active">История</a>
+    <a href="license.html">Лицензия</a>
+    <a href="privacy.html">Политика</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="paper">
+    <div class="doc-header">
+      <div class="stamp">История версий · changelog</div>
+      <h1>История версий СППР «Солнечная Энергетика РФ»</h1>
+      <div class="meta">
+        <span><b>Текущая версия:</b> 6.1</span>
+        <span><b>Дата:</b> 2026</span>
+      </div>
+    </div>
+
+    <div class="version">
+      <div class="vhead">
+        <span class="vnum">v6.1</span>
+        <span class="vdate">2026</span>
+        <span class="vbadge current">ТЕКУЩАЯ</span>
+      </div>
+      <ul>
+        <li><b>Полностью переработан экономический расчёт</b> по методологии IEA / Lazard v16 / IRENA.</li>
+        <li>Добавлены: NPV (правильное дисконтирование), IRR (расширенный поиск), MIRR, LCOE (levelized), PI.</li>
+        <li>Простой и дисконтированный срок окупаемости — с линейной интерполяцией внутри года.</li>
+        <li>Раздельные темпы роста тарифа и OPEX.</li>
+        <li>Два режима деградации: линейная и экспоненциальная (компаундная).</li>
+        <li>Налог на прибыль (20% по умолчанию), субсидии / ДПМ ВИЭ.</li>
+        <li>WACC — автоматический расчёт ставки дисконтирования.</li>
+        <li>Валидация входных параметров с понятными сообщениями.</li>
+        <li><b>Кнопка «⟲ Сбросить все поля»</b> работает корректно: сбрасывает все поля формы, KPI, графики, таблицу и состояние.</li>
+        <li>Точность: все промежуточные расчёты — в числах с плавающей точкой, отображение — до 2–4 знаков после запятой.</li>
+        <li>Добавлена <b>детальная таблица по годам</b> с полным набором показателей.</li>
+        <li>Добавлена <b>тепловая карта чувствительности NPV</b> к тарифу и ставке дисконтирования.</li>
+        <li>Добавлен <b>экспорт экономического расчёта</b> в CSV и JSON.</li>
+        <li>Вердикт о целесообразности — четыре состояния (целесообразен / на грани / близок к окупаемости / нецелесообразен).</li>
+      </ul>
+    </div>
+
+    <div class="version">
+      <div class="vhead">
+        <span class="vnum">v6.0</span>
+        <span class="vdate">2026</span>
+      </div>
+      <ul>
+        <li>Платформа переориентирована на <b>солнечную энергетику РФ</b>.</li>
+        <li>Добавлена <b>главная страница</b> с описанием, инструкцией и фишками.</li>
+        <li>Добавлен раздел <b>3.1 «Экономика СЭС»</b>.</li>
+        <li>Все разделы переименованы в понятные пользователю названия с номерами.</li>
+        <li>Убраны буллиты в боковом меню — заменены номерами разделов.</li>
+        <li>Боковая панель помещается на всю высоту экрана без скролла.</li>
+        <li>Клик по логотипу ведёт на главную.</li>
+        <li>Кнопки «← Назад» и «☀ На главную» на каждой странице.</li>
+        <li>Восстановление позиции при перезагрузке.</li>
+        <li>Исправлены ссылки в «Справке».</li>
+        <li>Исправлен баг: <code>changelog.html</code> показывает историю версий, а не политику.</li>
+        <li>Обновлена заглушка загрузки (солнечный дизайн).</li>
+        <li>Добавлена кнопка «⟲ Сброс масштаба» на графиках и трендах.</li>
+        <li>Регионы заменены на РФ с действующими СЭС (по данным СО ЕЭС).</li>
+        <li>Добавлены ссылки на официальные документы СО ЕЭС и Минэнерго России.</li>
+      </ul>
+    </div>
+
+    <div class="version">
+      <div class="vhead">
+        <span class="vnum">v5.1</span>
+        <span class="vdate">2026</span>
+      </div>
+      <ul>
+        <li>Мобильная адаптация, drawer-меню, нижняя навигация.</li>
+        <li>Терминал с командами, палитра Ctrl+K.</li>
+        <li>История изменений (undo / redo).</li>
+        <li>Экспорт 12 форматов.</li>
+        <li>Автосохранение в localStorage.</li>
+      </ul>
+    </div>
+
+    <div class="version">
+      <div class="vhead">
+        <span class="vnum">v5.0</span>
+        <span class="vdate">2026</span>
+      </div>
+      <ul>
+        <li>Первая версия с полной аналитикой.</li>
+        <li>Разделы: графики, сравнение, статистика, тренды, продвинутая аналитика, структура, аномалии, тепловые карты, паспорт региона, сценарии.</li>
+        <li>Методика расчётов и реестр источников.</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      <div>© 2026 · СППР Солнечная Энергетика РФ · История версий · v6.1</div>
+      <div class="print-hide"><a href="index.html">Платформа</a> · <a href="docs.html">Руководство</a> · <a href="sources.html">Источники</a> · <a href="methodology.html">Методика</a> · <a href="license.html">Лицензия</a></div>
+    </div>
+  </div>
+</div>
+
+<script>
+try{var s=JSON.parse(localStorage.getItem("solar_rf_state")||"{}"); if(s.theme==="dark") document.documentElement.setAttribute("data-theme","dark");}catch(e){}
+</script>
+</body>
+</html>

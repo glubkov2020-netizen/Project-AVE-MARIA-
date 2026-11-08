@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Реестр источников данных · СППР Солнечная Энергетика РФ</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --paper:#ffffff; --ink:#111418; --ink-soft:#3a4150; --muted:#6b7280;
+    --rule:#d6dbe3; --rule-soft:#e8ecf2; --accent:#1e3a8a; --accent-soft:#eff3fb;
+    --code-bg:#f3f4f6; --warn-bg:#fef6e7; --warn-border:#b45309;
+    --ok-bg:#ecfdf3; --ok-border:#047857;
+    --font-doc:"Times New Roman","PT Serif",Georgia,serif;
+    --font-ui:"Inter","Segoe UI",system-ui,sans-serif;
+    --font-mono:ui-monospace,Consolas,monospace;
+  }
+  html[data-theme="dark"]{ --bg:#0c1220; --paper:#111a2b; --ink:#e6ecf5; --ink-soft:#b8c2d4; --muted:#8b98ac; --rule:#25324a; --rule-soft:#1a2438; --accent:#7ba3f0; --accent-soft:#15213a; --code-bg:#0a1220; --warn-bg:#2a1f0c; --warn-border:#fbbf24; --ok-bg:#0c2418; --ok-border:#34d399; }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-doc); font-size:15px; line-height:1.65; -webkit-text-size-adjust:100%}
+  .topbar{position:sticky; top:0; z-index:100; background:var(--paper); border-bottom:1px solid var(--rule); padding:12px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .topbar .brand{display:flex; align-items:center; gap:12px; font-family:var(--font-ui)}
+  .topbar .logo{width:36px; height:36px; border-radius:10px; background:radial-gradient(circle at 35% 30%, #fde68a, #f59e0b 55%, #b45309); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px}
+  .topbar .title{font-size:12px; font-weight:600}
+  .topbar .subtitle{font-size:10.5px; color:var(--muted); margin-top:1px}
+  .topbar .nav{display:flex; gap:6px; font-family:var(--font-ui); font-size:12px; flex-wrap:wrap}
+  .topbar .nav a{padding:6px 12px; border-radius:6px; color:var(--ink-soft); text-decoration:none; border:1px solid transparent}
+  .topbar .nav a:hover{border-color:var(--rule); background:var(--accent-soft); color:var(--accent)}
+  .topbar .nav a.active{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .layout{display:grid; grid-template-columns:260px 1fr; max-width:1400px; margin:0 auto; gap:28px; padding:28px 24px 80px}
+  @media(max-width:1000px){ .layout{grid-template-columns:1fr; gap:20px; padding:20px 16px 60px} .toc{position:static !important; max-height:none !important} }
+  .toc{position:sticky; top:80px; align-self:start; max-height:calc(100vh - 100px); overflow-y:auto; font-family:var(--font-ui); font-size:12.5px; padding-right:8px}
+  .toc h3{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 12px; padding-bottom:8px; border-bottom:1px solid var(--rule); font-weight:600}
+  .toc ol{margin:0; padding:0; list-style:none; counter-reset:tocnum}
+  .toc li{counter-increment:tocnum; margin-bottom:4px}
+  .toc li::before{content:counter(tocnum) ". "; color:var(--muted); font-family:var(--font-mono); font-size:11px}
+  .toc a{color:var(--ink-soft); text-decoration:none}
+  .toc a:hover{color:var(--accent); text-decoration:underline}
+  .paper{background:var(--paper); border:1px solid var(--rule); box-shadow:0 1px 3px rgba(0,0,0,.04); padding:44px 52px; max-width:900px}
+  @media(max-width:1000px){ .paper{padding:24px 20px} }
+  @media(max-width:600px){ .paper{padding:18px 14px; font-size:14px} }
+  .doc-header{border-bottom:2px solid var(--ink); padding-bottom:16px; margin-bottom:28px}
+  .doc-header .stamp{font-family:var(--font-ui); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:8px}
+  .doc-header h1{font-size:26px; margin:0 0 8px; letter-spacing:-.02em; line-height:1.25}
+  .doc-header .meta{font-family:var(--font-ui); font-size:12px; color:var(--muted); display:flex; gap:16px; flex-wrap:wrap; margin-top:12px}
+  section{margin-bottom:34px; scroll-margin-top:80px}
+  section h2{font-size:20px; margin:0 0 14px; border-bottom:1px solid var(--rule); padding-bottom:8px; display:flex; align-items:baseline; gap:12px; line-height:1.3}
+  section h2 .num{font-family:var(--font-mono); font-size:14px; color:var(--muted); font-weight:400; min-width:24px}
+  section h3{font-size:15px; margin:20px 0 10px}
+  p{margin:10px 0; color:var(--ink-soft)}
+  ul,ol{padding-left:24px; margin:10px 0; color:var(--ink-soft)}
+  li{margin:5px 0}
+  code{font-family:var(--font-mono); font-size:.9em; background:var(--code-bg); color:var(--ink); padding:1px 6px; border-radius:3px}
+  table{border-collapse:collapse; width:100%; margin:14px 0; font-family:var(--font-ui); font-size:12.5px}
+  th,td{border:1px solid var(--rule); padding:8px 12px; text-align:left; vertical-align:top}
+  th{background:var(--accent-soft); font-weight:600; font-size:11.5px}
+  tr:nth-child(even) td{background:var(--rule-soft)}
+  .source{display:block; border:1px solid var(--rule); border-radius:8px; padding:14px 18px; margin:12px 0; text-decoration:none; color:var(--ink); transition:.15s}
+  .source:hover{border-color:var(--accent); background:var(--accent-soft); text-decoration:none}
+  .source .title{font-weight:700; font-size:14.5px; margin-bottom:4px}
+  .source .url{font-family:var(--font-mono); font-size:11.5px; color:var(--accent); word-break:break-all; margin-bottom:6px}
+  .source .desc{font-size:12.5px; color:var(--ink-soft); line-height:1.55; margin-bottom:8px}
+  .source .meta{font-family:var(--font-ui); font-size:11px; color:var(--muted); display:flex; gap:12px; flex-wrap:wrap}
+  .badge{display:inline-block; padding:2px 8px; border-radius:3px; font-family:var(--font-ui); font-size:10px; font-weight:600; letter-spacing:.03em}
+  .badge.official{background:#1e3a8a; color:#fff}
+  .badge.priority{background:#b45309; color:#fff}
+  .badge.open{background:#047857; color:#fff}
+  .badge.review{background:#7c3aed; color:#fff}
+  .callout{border-left:3px solid var(--accent); padding:12px 16px; margin:14px 0; background:var(--accent-soft); border-radius:0 4px 4px 0; font-size:13.5px}
+  .callout.warn{border-left-color:var(--warn-border); background:var(--warn-bg)}
+  .callout.ok{border-left-color:var(--ok-border); background:var(--ok-bg)}
+  .footer{border-top:1px solid var(--rule); padding-top:20px; margin-top:40px; font-family:var(--font-ui); font-size:11.5px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px}
+  @media print{ .topbar,.toc,.footer .print-hide{display:none} .layout{display:block; padding:0; max-width:none} .paper{border:none; box-shadow:none; padding:0; max-width:none} body{background:#fff; color:#000; font-size:12pt} a{color:#000; text-decoration:none} .source::after{content:"URL: " attr(href); display:block; font-size:10pt; color:#555; margin-top:4px} }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">☀</div>
+    <div>
+      <div class="title">СППР Солнечная Энергетика РФ</div>
+      <div class="subtitle">Реестр источников · v6.1</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="index.html">← Платформа</a>
+    <a href="docs.html">Руководство</a>
+    <a href="sources.html" class="active">Источники</a>
+    <a href="methodology.html">Методика</a>
+    <a href="changelog.html">История</a>
+    <a href="license.html">Лицензия</a>
+    <a href="privacy.html">Политика</a>
+  </nav>
+</header>
+
+<div class="layout">
+  <aside class="toc">
+    <h3>Содержание</h3>
+    <ol>
+      <li><a href="#intro">Введение</a></li>
+      <li><a href="#so-ups">Системный оператор ЕЭС — приоритетный источник</a></li>
+      <li><a href="#minenergo">Минэнерго России</a></li>
+      <li><a href="#other-official">Прочие официальные источники</a></li>
+      <li><a href="#open">Открытые данные</a></li>
+      <li><a href="#solar-companies">Генерирующие компании СЭС</a></li>
+      <li><a href="#methodology">Методика сбора</a></li>
+      <li><a href="#seed">О seed-базе data.js</a></li>
+      <li><a href="#citation">Как цитировать</a></li>
+    </ol>
+  </aside>
+
+  <main class="paper">
+    <div class="doc-header">
+      <div class="stamp">Официальный документ · реестр источников данных</div>
+      <h1>Реестр источников данных</h1>
+      <div class="meta">
+        <span><b>Версия:</b> 6.1</span>
+        <span><b>Дата:</b> 2026</span>
+        <span><b>Область:</b> Российская Федерация · солнечная генерация</span>
+      </div>
+    </div>
+
+    <section id="intro">
+      <h2><span class="num">1.</span>Введение</h2>
+      <p>Настоящий реестр содержит перечень официальных источников данных о годовой выработке солнечных электростанций (СЭС) на территории Российской Федерации.</p>
+      <p><b>Приоритетный источник — Системный оператор Единой энергетической системы (СО ЕЭС).</b> Его документы имеют статус официальных, используются в судебной практике и передаются в Минэнерго России. При наличии любых расхождений между источниками приоритет за СО ЕЭС.</p>
+
+      <div class="callout warn">
+        <b>Важно.</b> Все цифры в платформе, отображаемые в интерфейсе, — результат ввода пользователя либо оценка по открытым данным. <b>Перед использованием в официальных отчётах требуется сверка с первоисточником СО ЕЭС</b> с указанием конкретного документа, даты и номера таблицы.
+      </div>
+    </section>
+
+    <section id="so-ups">
+      <h2><span class="num">2.</span>Системный оператор ЕЭС — приоритетный источник</h2>
+      <p>АО «СО ЕЭС» — оператор Единой энергетической системы России. Обеспечивает функционирование ЕЭС, публикует официальные отчёты и балансы. <b>Данные СО ЕЭС — основа официальной отчётности и судебной практики.</b></p>
+
+      <a class="source" href="https://www.so-ups.ru/functioning/ees/" target="_blank" rel="noopener">
+        <div class="title">СО ЕЭС — Функционирование ЕЭС России</div>
+        <div class="url">https://www.so-ups.ru/functioning/ees/</div>
+        <div class="desc">Официальный раздел с отчётами о функционировании Единой энергетической системы России. Содержит данные по выработке электроэнергии в разрезе ОЭС и субъектов РФ, включая солнечную генерацию.</div>
+        <div class="meta"><span><span class="badge priority">приоритетный</span></span><span>Единица: млн / млрд кВт·ч</span><span>Периодичность: год</span></div>
+      </a>
+
+      <a class="source" href="https://www.so-ups.ru/functioning/ees/annual-reports/" target="_blank" rel="noopener">
+        <div class="title">СО ЕЭС — Годовые отчёты</div>
+        <div class="url">https://www.so-ups.ru/functioning/ees/annual-reports/</div>
+        <div class="desc">Официальные годовые отчёты АО «СО ЕЭС». Содержат балансы производства и потребления электроэнергии по ОЭС и регионам РФ, данные по структуре генерации, включая ВИЭ (в т.ч. СЭС).</div>
+        <div class="meta"><span><span class="badge priority">приоритетный</span></span><span>Формат: PDF</span><span>Периодичность: год</span></div>
+      </a>
+
+      <a class="source" href="https://www.so-ups.ru/functioning/markets/analytics/" target="_blank" rel="noopener">
+        <div class="title">СО ЕЭС — Аналитика и обзоры</div>
+        <div class="url">https://www.so-ups.ru/functioning/markets/analytics/</div>
+        <div class="desc">Аналитические обзоры по рынку электроэнергии, включая развитие возобновляемой энергетики и структуру выработки по ОЭС.</div>
+        <div class="meta"><span><span class="badge priority">приоритетный</span></span><span>Формат: PDF / HTML</span></div>
+      </a>
+
+      <a class="source" href="https://www.so-ups.ru/functioning/reporting/" target="_blank" rel="noopener">
+        <div class="title">СО ЕЭС — Раскрытие информации</div>
+        <div class="url">https://www.so-ups.ru/functioning/reporting/</div>
+        <div class="desc">Раскрытие информации субъектом оптового рынка. Официальные публикации для регуляторов.</div>
+        <div class="meta"><span><span class="badge priority">приоритетный</span></span><span>Формат: PDF</span></div>
+      </a>
+
+      <div class="callout">
+        <b>Правило цитирования СО ЕЭС.</b> При использовании данных обязательно указывать:<br>
+        1) название документа (например, «Отчёт о функционировании ЕЭС России в 2023 году»);<br>
+        2) год выпуска;<br>
+        3) номер раздела/таблицы/страницы;<br>
+        4) дату выгрузки.
+      </div>
+    </section>
+
+    <section id="minenergo">
+      <h2><span class="num">3.</span>Минэнерго России</h2>
+      <p>Министерство энергетики Российской Федерации публикует официальную статистику ТЭК, включая данные по возобновляемой энергетике.</p>
+
+      <a class="source" href="https://minenergo.gov.ru/activity/statistic" target="_blank" rel="noopener">
+        <div class="title">Минэнерго России — Статистика</div>
+        <div class="url">https://minenergo.gov.ru/activity/statistic</div>
+        <div class="desc">Официальная статистика ТЭК России. Сводки по электроэнергетике, схемам и программам развития (СиПР). Данные по ВИЭ-генерации, включая СЭС.</div>
+        <div class="meta"><span><span class="badge official">официальный</span></span><span>Единица: млн кВт·ч</span><span>Периодичность: год</span></div>
+      </a>
+
+      <a class="source" href="https://minenergo.gov.ru/node/1141" target="_blank" rel="noopener">
+        <div class="title">Минэнерго России — Схемы и программы развития (СиПР)</div>
+        <div class="url">https://minenergo.gov.ru/node/1141</div>
+        <div class="desc">Схемы и программы перспективного развития электроэнергетики. Документы содержат данные о развитии СЭС по регионам.</div>
+        <div class="meta"><span><span class="badge official">официальный</span></span><span>Формат: PDF</span></div>
+      </a>
+
+      <a class="source" href="https://minenergo.gov.ru/activity/energoeffektivnost" target="_blank" rel="noopener">
+        <div class="title">Минэнерго России — Энергоэффективность и ВИЭ</div>
+        <div class="url">https://minenergo.gov.ru/activity/energoeffektivnost</div>
+        <div class="desc">Раздел по возобновляемой энергетике, энергоэффективности. Отчёты о поддержке ВИЭ-проектов.</div>
+        <div class="meta"><span><span class="badge official">официальный</span></span><span>Формат: PDF / HTML</span></div>
+      </a>
+    </section>
+
+    <section id="other-official">
+      <h2><span class="num">4.</span>Прочие официальные источники</h2>
+
+      <a class="source" href="https://rosstat.gov.ru/enterprise_electric" target="_blank" rel="noopener">
+        <div class="title">Росстат — Электроэнергетика</div>
+        <div class="url">https://rosstat.gov.ru/enterprise_electric</div>
+        <div class="desc">Топливно-энергетический баланс, региональная статистика, формы отчётности предприятий по производству электроэнергии.</div>
+        <div class="meta"><span><span class="badge official">официальный</span></span><span>Единица: млн / млрд кВт·ч</span><span>Периодичность: год</span></div>
+      </a>
+
+      <a class="source" href="https://www.atsenergo.ru/" target="_blank" rel="noopener">
+        <div class="title">Ассоциация «НП Совет рынка» / АТС</div>
+        <div class="url">https://www.atsenergo.ru/</div>
+        <div class="desc">Данные оптового рынка электрической энергии и мощности. Дополнительный источник для сверки региональных балансов.</div>
+        <div class="meta"><span><span class="badge official">официальный</span></span><span>Единица: МВт·ч</span><span>Периодичность: месяц / год</span></div>
+      </a>
+
+      <a class="source" href="https://www.eias.ru/" target="_blank" rel="noopener">
+        <div class="title">Единая информационно-аналитическая система (ЕИАС)</div>
+        <div class="url">https://www.eias.ru/</div>
+        <div class="desc">Интеграционная платформа отраслевой отчётности. Доступ по регламенту.</div>
+        <div class="meta"><span><span class="badge review">по доступу</span></span></div>
+      </a>
+    </section>
+
+    <section id="open">
+      <h2><span class="num">5.</span>Открытые данные</h2>
+
+      <a class="source" href="https://data.gov.ru/" target="_blank" rel="noopener">
+        <div class="title">Портал открытых данных Российской Федерации</div>
+        <div class="url">https://data.gov.ru/</div>
+        <div class="desc">Государственные наборы данных в машиночитаемых форматах. Раздел «Энергетика».</div>
+        <div class="meta"><span><span class="badge open">открытый</span></span><span>CSV / JSON / XML</span></div>
+      </a>
+
+      <a class="source" href="https://github.com/search?q=russian+solar+energy&type=repositories" target="_blank" rel="noopener">
+        <div class="title">GitHub — открытые датасеты по солнечной энергетике РФ</div>
+        <div class="url">https://github.com/search?q=russian+solar+energy</div>
+        <div class="desc">Публичные репозитории. Требуют проверки по первоисточникам СО ЕЭС.</div>
+        <div class="meta"><span><span class="badge review">проверять</span></span><span>CSV / JSON</span></div>
+      </a>
+
+      <a class="source" href="https://www.irena.org/Statistics" target="_blank" rel="noopener">
+        <div class="title">IRENA — Renewable Energy Statistics</div>
+        <div class="url">https://www.irena.org/Statistics</div>
+        <div class="desc">Международное агентство по ВИЭ. По РФ — страновой уровень, без разбивки по регионам.</div>
+        <div class="meta"><span><span class="badge open">открытый</span></span><span>Страны, не регионы</span></div>
+      </a>
+
+      <a class="source" href="https://www.iea.org/data-and-statistics" target="_blank" rel="noopener">
+        <div class="title">IEA — Statistics</div>
+        <div class="url">https://www.iea.org/data-and-statistics</div>
+        <div class="desc">Национальные энергобалансы. Разбивки по субъектам РФ нет.</div>
+        <div class="meta"><span><span class="badge open">открытый</span></span><span>Страны</span></div>
+      </a>
+    </section>
+
+    <section id="solar-companies">
+      <h2><span class="num">6.</span>Генерирующие компании СЭС</h2>
+      <p>Для сверки по конкретным СЭС могут использоваться годовые отчёты генерирующих компаний. Основные операторы СЭС в Российской Федерации:</p>
+      <table>
+        <thead><tr><th>Компания</th><th>Ключевые СЭС</th><th>Источник</th></tr></thead>
+        <tbody>
+          <tr><td>ПАО «Фортум»</td><td>Оренбургская, Волгоградская СЭС</td><td>Годовой отчёт</td></tr>
+          <tr><td>ГК «Хевел»</td><td>Астраханская, Ставропольская, Самарская СЭС</td><td>Годовой отчёт</td></tr>
+          <tr><td>ПАО «Т Плюс»</td><td>Саратовская, Самарская СЭС</td><td>Годовой отчёт</td></tr>
+          <tr><td>ООО «Солар Системс»</td><td>Ставропольская, Астраханская СЭС</td><td>Годовой отчёт</td></tr>
+          <tr><td>Республика Крым</td><td>Перово, Охотниково, Николаевка</td><td>Минэнерго Крыма</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="methodology">
+      <h2><span class="num">7.</span>Методика сбора</h2>
+      <ol>
+        <li><b>Определить список регионов с действующими СЭС</b> — по данным СО ЕЭС и Минэнерго России.</li>
+        <li><b>Определить годы</b> — с момента ввода первой СЭС в регионе.</li>
+        <li><b>Собрать из СО ЕЭС</b> — приоритетный источник, отчёты о функционировании ЕЭС.</li>
+        <li><b>Сверить с Минэнерго России</b> — расхождения не должны превышать 3–5%.</li>
+        <li><b>Сверить с Росстатом</b> — как контрольный источник.</li>
+        <li><b>Сверить с генерирующей компанией</b> — для конкретных СЭС.</li>
+        <li><b>Зафиксировать источник</b> — в поле «Примечание» указать документ, год, таблицу, страницу.</li>
+        <li><b>Загрузить в платформу</b> — CSV/JSON или таблица ввода.</li>
+      </ol>
+      <div class="callout ok">
+        <b>Правило двух источников.</b> Для официальных отчётов каждое значение подтверждается минимум по двум независимым источникам, приоритет — СО ЕЭС.
+      </div>
+    </section>
+
+    <section id="seed">
+      <h2><span class="num">8.</span>О seed-базе <code>data.js</code></h2>
+      <p>Файл <code>data.js</code> содержит предзаполненный набор по 17 регионам Российской Федерации с действующими СЭС, годы 2019–2023.</p>
+      <div class="callout warn">
+        <b>Важно.</b> Все цифры в <code>data.js</code> имеют статус <b>«оценка»</b> и требуют проверки по первоисточникам СО ЕЭС перед использованием в официальных отчётах.
+      </div>
+    </section>
+
+    <section id="citation">
+      <h2><span class="num">9.</span>Как цитировать</h2>
+      <p>При использовании данных платформы в отчёте указывается:</p>
+      <ul>
+        <li><b>Первоисточник:</b> «АО „СО ЕЭС", Отчёт о функционировании ЕЭС России в 2023 году, раздел 4.2, табл. 4.2, стр. 38».</li>
+        <li><b>Дата выгрузки.</b></li>
+        <li><b>Платформа:</b> «Расчёт выполнен в СППР „Солнечная Энергетика РФ", v6.1».</li>
+      </ul>
+      <div class="callout">
+        «Выработка солнечных электростанций по регионам Российской Федерации, 2019–2023 гг. Источник: АО „СО ЕЭС", Минэнерго России. Обработка и визуализация: СППР „Солнечная Энергетика РФ", v6.1, 2026.»
+      </div>
+    </section>
+
+    <div class="footer">
+      <div>© 2026 · СППР Солнечная Энергетика РФ · Реестр источников · v6.1</div>
+      <div class="print-hide"><a href="index.html">Платформа</a> · <a href="docs.html">Руководство</a> · <a href="methodology.html">Методика</a> · <a href="changelog.html">История</a> · <a href="license.html">Лицензия</a></div>
+    </div>
+  </main>
+</div>
+
+<script>
+try{var s=JSON.parse(localStorage.getItem("solar_rf_state")||"{}"); if(s.theme==="dark") document.documentElement.setAttribute("data-theme","dark");}catch(e){}
+</script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Руководство пользователя · СППР Солнечная Энергетика РФ</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --paper:#ffffff; --ink:#111418; --ink-soft:#3a4150; --muted:#6b7280;
+    --rule:#d6dbe3; --rule-soft:#e8ecf2; --accent:#1e3a8a; --accent-soft:#eff3fb;
+    --code-bg:#f3f4f6; --code-ink:#111418;
+    --font-doc:"Times New Roman","PT Serif",Georgia,serif;
+    --font-ui:"Inter","Segoe UI",system-ui,sans-serif;
+    --font-mono:ui-monospace,Consolas,monospace;
+  }
+  html[data-theme="dark"]{ --bg:#0c1220; --paper:#111a2b; --ink:#e6ecf5; --ink-soft:#b8c2d4; --muted:#8b98ac; --rule:#25324a; --rule-soft:#1a2438; --accent:#7ba3f0; --accent-soft:#15213a; --code-bg:#0a1220; --code-ink:#d6dde8; }
+  *{box-sizing:border-box} html{scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-doc); font-size:15px; line-height:1.65; -webkit-text-size-adjust:100%}
+  .topbar{position:sticky; top:0; z-index:100; background:var(--paper); border-bottom:1px solid var(--rule); padding:12px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .topbar .brand{display:flex; align-items:center; gap:12px; font-family:var(--font-ui)}
+  .topbar .logo{width:36px; height:36px; border-radius:10px; background:radial-gradient(circle at 35% 30%, #fde68a, #f59e0b 55%, #b45309); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px}
+  .topbar .title{font-size:12px; font-weight:600}
+  .topbar .subtitle{font-size:10.5px; color:var(--muted); margin-top:1px}
+  .topbar .nav{display:flex; gap:6px; font-family:var(--font-ui); font-size:12px; flex-wrap:wrap}
+  .topbar .nav a{padding:6px 12px; border-radius:6px; color:var(--ink-soft); text-decoration:none; border:1px solid transparent}
+  .topbar .nav a:hover{border-color:var(--rule); background:var(--accent-soft); color:var(--accent)}
+  .topbar .nav a.active{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .layout{display:grid; grid-template-columns:260px 1fr; max-width:1400px; margin:0 auto; gap:28px; padding:28px 24px 80px}
+  @media(max-width:1000px){ .layout{grid-template-columns:1fr; gap:20px; padding:20px 16px 60px} .toc{position:static !important; max-height:none !important} }
+  .toc{position:sticky; top:80px; align-self:start; max-height:calc(100vh - 100px); overflow-y:auto; font-family:var(--font-ui); font-size:12.5px; padding-right:8px}
+  .toc h3{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 12px; padding-bottom:8px; border-bottom:1px solid var(--rule); font-weight:600}
+  .toc ol{margin:0; padding:0; list-style:none; counter-reset:tocnum}
+  .toc li{counter-increment:tocnum; margin-bottom:3px}
+  .toc li::before{content:counter(tocnum) ". "; color:var(--muted); font-family:var(--font-mono); font-size:11px}
+  .toc a{color:var(--ink-soft); text-decoration:none}
+  .toc a:hover{color:var(--accent); text-decoration:underline}
+  .paper{background:var(--paper); border:1px solid var(--rule); box-shadow:0 1px 3px rgba(0,0,0,.04); padding:44px 52px; max-width:880px}
+  @media(max-width:1000px){ .paper{padding:24px 20px} }
+  @media(max-width:600px){ .paper{padding:18px 14px; font-size:14px} }
+  .doc-header{border-bottom:2px solid var(--ink); padding-bottom:16px; margin-bottom:28px}
+  .doc-header .stamp{font-family:var(--font-ui); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:8px}
+  .doc-header h1{font-size:26px; margin:0 0 8px; letter-spacing:-.02em; line-height:1.25}
+  .doc-header .meta{font-family:var(--font-ui); font-size:12px; color:var(--muted); display:flex; gap:16px; flex-wrap:wrap; margin-top:12px}
+  section{margin-bottom:34px; scroll-margin-top:80px}
+  section h2{font-size:20px; margin:0 0 14px; border-bottom:1px solid var(--rule); padding-bottom:8px; display:flex; align-items:baseline; gap:12px; line-height:1.3}
+  section h2 .num{font-family:var(--font-mono); font-size:14px; color:var(--muted); font-weight:400; min-width:24px}
+  section h3{font-size:15px; margin:20px 0 10px}
+  p{margin:10px 0; color:var(--ink-soft)}
+  ul,ol{padding-left:24px; margin:10px 0; color:var(--ink-soft)}
+  li{margin:5px 0}
+  code{font-family:var(--font-mono); font-size:.9em; background:var(--code-bg); color:var(--code-ink); padding:1px 6px; border-radius:3px}
+  table{border-collapse:collapse; width:100%; margin:14px 0; font-family:var(--font-ui); font-size:12.5px}
+  th,td{border:1px solid var(--rule); padding:8px 12px; text-align:left; vertical-align:top}
+  th{background:var(--accent-soft); font-weight:600; font-size:11.5px}
+  tr:nth-child(even) td{background:var(--rule-soft)}
+  .callout{border-left:3px solid var(--accent); padding:12px 16px; margin:14px 0; background:var(--accent-soft); border-radius:0 4px 4px 0; font-size:13.5px}
+  .callout.ok{border-left-color:var(--ok-border); background:var(--ok-bg)}
+  .kbd{font-family:var(--font-mono); font-size:11px; background:var(--ink); color:var(--paper); padding:2px 6px; border-radius:3px; display:inline-block}
+  .footer{border-top:1px solid var(--rule); padding-top:20px; margin-top:40px; font-family:var(--font-ui); font-size:11.5px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px}
+  @media print{ .topbar,.toc,.footer .print-hide{display:none} .layout{display:block; padding:0; max-width:none} .paper{border:none; box-shadow:none; padding:0; max-width:none} body{background:#fff; color:#000; font-size:12pt} a{color:#000; text-decoration:none} }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">☀</div>
+    <div>
+      <div class="title">СППР Солнечная Энергетика РФ</div>
+      <div class="subtitle">Руководство пользователя · v6.1</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="index.html">← Платформа</a>
+    <a href="docs.html" class="active">Руководство</a>
+    <a href="sources.html">Источники</a>
+    <a href="methodology.html">Методика</a>
+    <a href="changelog.html">История</a>
+    <a href="license.html">Лицензия</a>
+    <a href="privacy.html">Политика</a>
+  </nav>
+</header>
+
+<div class="layout">
+  <aside class="toc">
+    <h3>Содержание</h3>
+    <ol>
+      <li><a href="#about">Общие сведения</a></li>
+      <li><a href="#quickstart">Быстрый старт</a></li>
+      <li><a href="#data">Форматы данных</a></li>
+      <li><a href="#checks">Проверки при импорте</a></li>
+      <li><a href="#sections">Разделы анализа</a></li>
+      <li><a href="#economics">Экономика СЭС</a></li>
+      <li><a href="#terminal">Терминал</a></li>
+      <li><a href="#hotkeys">Горячие клавиши</a></li>
+      <li><a href="#export">Экспорт</a></li>
+    </ol>
+  </aside>
+
+  <main class="paper">
+    <div class="doc-header">
+      <div class="stamp">Официальный документ · руководство пользователя</div>
+      <h1>Руководство пользователя</h1>
+      <div class="meta">
+        <span><b>Версия:</b> 6.1</span>
+        <span><b>Дата:</b> 2026</span>
+        <span><b>Область:</b> солнечная генерация РФ</span>
+      </div>
+    </div>
+
+    <section id="about">
+      <h2><span class="num">1.</span>Общие сведения</h2>
+      <p><b>СППР «Солнечная Энергетика РФ»</b> — система поддержки принятия решений о строительстве солнечных электростанций в Российской Федерации. Работает полностью в браузере, без серверной части, без передачи данных третьим лицам.</p>
+      <h3>Назначение</h3>
+      <ul>
+        <li>Сбор и нормализация данных о выработке СЭС по регионам РФ.</li>
+        <li>Построение официальных графиков и аналитических отчётов.</li>
+        <li>Статистический анализ: динамика, тренды, аномалии, структура, корреляции.</li>
+        <li>Оценка экономической целесообразности проекта СЭС (NPV, IRR, MIRR, LCOE, PI).</li>
+        <li>Сценарное моделирование и прогнозирование.</li>
+        <li>Экспорт в 12 форматов, включая PDF, DOCX, XLSX, ZIP.</li>
+      </ul>
+      <h3>Ключевые принципы</h3>
+      <ul>
+        <li><b>Только солнечная генерация.</b> В базе — регионы РФ с действующими СЭС.</li>
+        <li><b>Официальные источники.</b> Приоритет — СО ЕЭС и Минэнерго России.</li>
+        <li><b>Открытые формулы.</b> Каждая метрика описана в <a href="methodology.html">Методике</a>.</li>
+        <li><b>Автосохранение</b> в localStorage (при согласии пользователя).</li>
+      </ul>
+    </section>
+
+    <section id="quickstart">
+      <h2><span class="num">2.</span>Быстрый старт</h2>
+      <ol>
+        <li>Загрузите данные: раздел <b>1.1 Ввод данных СЭС</b> → «Загрузить базу СЭС» или вставьте CSV/JSON.</li>
+        <li>Проверьте качество: раздел <b>1.2 Качество данных</b>.</li>
+        <li>Постройте графики: раздел <b>2.1 Графики выработки</b>. <b>Выделите область мышью</b> для приближения, двойной клик — сброс.</li>
+        <li>Постройте тренды: раздел <b>2.4 Тренды и прогнозы</b>.</li>
+        <li>Оцените экономику: раздел <b>3.1 Окупаемость СЭС</b>.</li>
+        <li>Сформируйте отчёт: разделы <b>4.1 Оформление</b> → <b>4.2 Экспорт</b>.</li>
+      </ol>
+    </section>
+
+    <section id="data">
+      <h2><span class="num">3.</span>Форматы данных</h2>
+      <h3>3.1. Схема записи</h3>
+      <pre><code>{
+  region: string,    // название региона
+  year: number,      // 1990–2100
+  value: number,     // млн кВт·ч
+  status: "факт" | "оценка" | "прогноз",
+  note: string       // источник
+}</code></pre>
+      <h3>3.2. CSV</h3>
+      <pre><code>Регион;Год;Значение;Статус;Примечание
+Оренбургская обл.;2023;440;факт;СО ЕЭС
+Астраханская обл.;2023;320;факт;СО ЕЭС</code></pre>
+      <h3>3.3. Единицы измерения</h3>
+      <p>Внутренне — <b>млн кВт·ч</b>. Переключение в Настройках: млн / млрд / ТВт·ч.</p>
+    </section>
+
+    <section id="checks">
+      <h2><span class="num">4.</span>Проверки при импорте</h2>
+      <table>
+        <thead><tr><th>Проверка</th><th>Результат</th></tr></thead>
+        <tbody>
+          <tr><td>Год &lt; 1990 или &gt; 2100</td><td>Ошибка</td></tr>
+          <tr><td>Значение &lt; 0</td><td>Ошибка</td></tr>
+          <tr><td>Значение &gt; 100 000</td><td>Ошибка</td></tr>
+          <tr><td>Дубликат регион + год</td><td>Предупреждение, заменяется</td></tr>
+          <tr><td>Будущий год со статусом «факт»</td><td>Предупреждение</td></tr>
+          <tr><td>Неизвестный регион</td><td>Добавляется автоматически</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="sections">
+      <h2><span class="num">5.</span>Разделы анализа</h2>
+      <table>
+        <thead><tr><th>Раздел</th><th>Назначение</th></tr></thead>
+        <tbody>
+          <tr><td>1.1 Ввод данных СЭС</td><td>Ввод, база, CSV/JSON</td></tr>
+          <tr><td>1.2 Качество данных</td><td>Пропуски, скачки, статусы</td></tr>
+          <tr><td>1.3 Извлечение из документов</td><td>DeepSeek-промт</td></tr>
+          <tr><td>2.1 Графики выработки</td><td>Динамика по годам</td></tr>
+          <tr><td>2.2 Сравнение регионов</td><td>Индексы база = 100</td></tr>
+          <tr><td>2.3 Статистика</td><td>Сводная по регионам</td></tr>
+          <tr><td>2.4 Тренды и прогнозы</td><td>Тренды + прогноз 1–5 лет</td></tr>
+          <tr><td>2.5 Продвинутая аналитика</td><td>Джини, PCA, кластеры, Манн-Кендалл</td></tr>
+          <tr><td>2.6 Структура рынка</td><td>HHI, доли</td></tr>
+          <tr><td>2.7 Аномалии</td><td>z-score, IQR, MAD</td></tr>
+          <tr><td>2.8 Тепловые карты</td><td>Корреляции, распределение, box, водопад</td></tr>
+          <tr><td>2.9 Паспорт региона</td><td>Все метрики по одному региону</td></tr>
+          <tr><td>2.10 Сценарии</td><td>Сценарный рост/падение</td></tr>
+          <tr><td>3.1 Окупаемость СЭС</td><td>NPV, IRR, MIRR, LCOE, PI, окупаемость</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="economics">
+      <h2><span class="num">6.</span>Экономика СЭС</h2>
+      <p>Раздел <b>3.1</b> рассчитывает окупаемость и целесообразность. Введите:</p>
+      <ul>
+        <li>Мощность СЭС (МВт)</li>
+        <li>Удельная выработка (кВт·ч/кВт·год) — типично 1300–1600 для юга РФ</li>
+        <li>CAPEX (млн ₽) — типично 70–100 млн ₽ за 1 МВт</li>
+        <li>OPEX (% CAPEX/год) — типично 1–2%</li>
+        <li>Рост OPEX (%/год)</li>
+        <li>Тариф (₽/кВт·ч)</li>
+        <li>Рост тарифа (%/год)</li>
+        <li>Тип деградации: линейная / экспоненциальная</li>
+        <li>Деградация панелей (%/год) — 0.5–0.7%</li>
+        <li>Ставка дисконтирования (%) — либо через WACC</li>
+        <li>Срок жизни (25–30 лет)</li>
+        <li>Налог на прибыль (%) — 20% по умолчанию</li>
+        <li>Субсидия / ДПМ ВИЭ (млн ₽/год)</li>
+      </ul>
+      <p>Результаты:</p>
+      <ul>
+        <li>Срок окупаемости (простой и дисконтированный) — главный показатель.</li>
+        <li>NPV, IRR, MIRR, LCOE, PI, вердикт о целесообразности.</li>
+        <li>KPI: годовая выработка, суммарный CF, суммарная выручка, суммарный OPEX, суммарный налог, среднегодовой CF.</li>
+        <li>Три графика: накопительный CF, годовая динамика, DCF и NPV-кривая.</li>
+        <li>Детальная таблица по годам: выработка, тариф, выручка, OPEX, субсидия, EBITDA, налог, CF, DF, DCF, накопленные значения.</li>
+        <li>Экспорт таблицы в CSV и JSON.</li>
+        <li>Тепловая карта чувствительности NPV к тарифу и ставке дисконтирования.</li>
+      </ul>
+      <div class="callout">
+        <b>Совет.</b> Если NPV &lt; 0, но PI близок к 1 — попробуйте уменьшить ставку дисконтирования (например, льготный займ) или увеличить тариф (например, зелёный тариф).
+      </div>
+    </section>
+
+    <section id="terminal">
+      <h2><span class="num">7.</span>Терминал и команды</h2>
+      <p>Открывается клавишей <span class="kbd">~</span> или кнопкой ⌘. Вкладка «Команды» — полный список.</p>
+      <table>
+        <thead><tr><th>Команда</th><th>Описание</th></tr></thead>
+        <tbody>
+          <tr><td><code>help</code></td><td>Список</td></tr>
+          <tr><td><code>load demo</code></td><td>Демо-данные</td></tr>
+          <tr><td><code>stats</code></td><td>KPI по регионам</td></tr>
+          <tr><td><code>top / bottom</code></td><td>Топ / худшие</td></tr>
+          <tr><td><code>cagr &lt;регион&gt;</code></td><td>CAGR</td></tr>
+          <tr><td><code>forecast &lt;регион&gt; [лет]</code></td><td>Прогноз</td></tr>
+          <tr><td><code>export &lt;fmt&gt;</code></td><td>Экспорт</td></tr>
+          <tr><td><code>theme dark</code></td><td>Тёмная тема</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="hotkeys">
+      <h2><span class="num">8.</span>Горячие клавиши</h2>
+      <table>
+        <thead><tr><th>Клавиша</th><th>Действие</th></tr></thead>
+        <tbody>
+          <tr><td><span class="kbd">~</span></td><td>Терминал</td></tr>
+          <tr><td><span class="kbd">Ctrl</span>+<span class="kbd">K</span></td><td>Палитра команд</td></tr>
+          <tr><td><span class="kbd">Ctrl</span>+<span class="kbd">Z</span></td><td>Отменить</td></tr>
+          <tr><td><span class="kbd">Ctrl</span>+<span class="kbd">Y</span></td><td>Повторить</td></tr>
+          <tr><td><span class="kbd">Esc</span></td><td>Закрыть</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="export">
+      <h2><span class="num">9.</span>Экспорт</h2>
+      <table>
+        <thead><tr><th>Формат</th><th>Содержимое</th></tr></thead>
+        <tbody>
+          <tr><td>PNG / JPEG / WEBP</td><td>График 1600×900</td></tr>
+          <tr><td>SVG</td><td>Вектор</td></tr>
+          <tr><td>PDF</td><td>Отчёт с титулом и таблицами</td></tr>
+          <tr><td>HTML</td><td>Отчёт для печати</td></tr>
+          <tr><td>DOCX</td><td>Word-версия</td></tr>
+          <tr><td>CSV</td><td>Данные</td></tr>
+          <tr><td>XLSX</td><td>Данные + сводная</td></tr>
+          <tr><td>JSON</td><td>Полный снимок</td></tr>
+          <tr><td>Markdown</td><td>Отчёт .md</td></tr>
+          <tr><td>ZIP</td><td>CSV по каждому региону</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="footer">
+      <div>© 2026 · СППР Солнечная Энергетика РФ · Руководство · v6.1</div>
+      <div class="print-hide"><a href="index.html">Платформа</a> · <a href="sources.html">Источники</a> · <a href="methodology.html">Методика</a> · <a href="changelog.html">История</a> · <a href="license.html">Лицензия</a></div>
+    </div>
+  </main>
+</div>
+
+<script>
+try{var s=JSON.parse(localStorage.getItem("solar_rf_state")||"{}"); if(s.theme==="dark") document.documentElement.setAttribute("data-theme","dark");}catch(e){}
+</script>
+</body>
+</html>

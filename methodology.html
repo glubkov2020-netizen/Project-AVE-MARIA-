@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Методика расчётов · СППР Солнечная Энергетика РФ</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --paper:#ffffff; --ink:#111418; --ink-soft:#3a4150; --muted:#6b7280;
+    --rule:#d6dbe3; --rule-soft:#e8ecf2; --accent:#1e3a8a; --accent-soft:#eff3fb;
+    --code-bg:#f3f4f6; --ink-code:#111418;
+    --warn-bg:#fef6e7; --warn-border:#b45309;
+    --ok-bg:#ecfdf3; --ok-border:#047857;
+    --font-doc:"Times New Roman","PT Serif",Georgia,serif;
+    --font-ui:"Inter","Segoe UI",system-ui,sans-serif;
+    --font-mono:ui-monospace,"Cascadia Code",Consolas,monospace;
+  }
+  html[data-theme="dark"]{ --bg:#0c1220; --paper:#111a2b; --ink:#e6ecf5; --ink-soft:#b8c2d4; --muted:#8b98ac; --rule:#25324a; --rule-soft:#1a2438; --accent:#7ba3f0; --accent-soft:#15213a; --code-bg:#0a1220; --ink-code:#d6dde8; --warn-bg:#2a1f0c; --warn-border:#fbbf24; --ok-bg:#0c2418; --ok-border:#34d399; }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-doc); font-size:15px; line-height:1.7; -webkit-text-size-adjust:100%}
+  .topbar{position:sticky; top:0; z-index:100; background:var(--paper); border-bottom:1px solid var(--rule); padding:12px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .topbar .brand{display:flex; align-items:center; gap:12px; font-family:var(--font-ui)}
+  .topbar .logo{width:36px; height:36px; border-radius:10px; background:radial-gradient(circle at 35% 30%, #fde68a, #f59e0b 55%, #b45309); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px}
+  .topbar .title{font-size:12px; font-weight:600}
+  .topbar .subtitle{font-size:10.5px; color:var(--muted); margin-top:1px}
+  .topbar .nav{display:flex; gap:6px; font-family:var(--font-ui); font-size:12px; flex-wrap:wrap}
+  .topbar .nav a{padding:6px 12px; border-radius:6px; color:var(--ink-soft); text-decoration:none; border:1px solid transparent}
+  .topbar .nav a:hover{border-color:var(--rule); background:var(--accent-soft); color:var(--accent)}
+  .topbar .nav a.active{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .layout{display:grid; grid-template-columns:260px 1fr; max-width:1400px; margin:0 auto; gap:28px; padding:28px 24px 80px}
+  @media(max-width:1000px){ .layout{grid-template-columns:1fr; gap:20px; padding:20px 16px 60px} .toc{position:static !important; max-height:none !important} }
+  .toc{position:sticky; top:80px; align-self:start; max-height:calc(100vh - 100px); overflow-y:auto; font-family:var(--font-ui); font-size:12.5px; padding-right:8px}
+  .toc h3{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 12px; padding-bottom:8px; border-bottom:1px solid var(--rule); font-weight:600}
+  .toc ol{margin:0; padding:0; list-style:none; counter-reset:tocnum}
+  .toc li{counter-increment:tocnum; margin-bottom:3px}
+  .toc li::before{content:counter(tocnum) ". "; color:var(--muted); font-family:var(--font-mono); font-size:11px}
+  .toc a{color:var(--ink-soft); text-decoration:none}
+  .toc a:hover{color:var(--accent); text-decoration:underline}
+  .paper{background:var(--paper); border:1px solid var(--rule); box-shadow:0 1px 3px rgba(0,0,0,.04); padding:44px 52px; max-width:900px}
+  @media(max-width:1000px){ .paper{padding:24px 20px} }
+  @media(max-width:600px){ .paper{padding:18px 14px; font-size:14px} }
+  .doc-header{border-bottom:2px solid var(--ink); padding-bottom:16px; margin-bottom:28px}
+  .doc-header .stamp{font-family:var(--font-ui); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:8px}
+  .doc-header h1{font-size:26px; margin:0 0 8px; letter-spacing:-.02em; line-height:1.25}
+  .doc-header .meta{font-family:var(--font-ui); font-size:12px; color:var(--muted); display:flex; gap:16px; flex-wrap:wrap; margin-top:12px}
+  section{margin-bottom:34px; scroll-margin-top:80px}
+  section h2{font-size:20px; margin:0 0 14px; border-bottom:1px solid var(--rule); padding-bottom:8px; display:flex; align-items:baseline; gap:12px; line-height:1.3}
+  section h2 .num{font-family:var(--font-mono); font-size:14px; color:var(--muted); font-weight:400; min-width:24px}
+  section h3{font-size:15px; margin:20px 0 10px}
+  section h4{font-size:13.5px; margin:16px 0 8px; color:var(--ink-soft)}
+  p{margin:10px 0; color:var(--ink-soft)}
+  ul,ol{padding-left:24px; margin:10px 0; color:var(--ink-soft)}
+  li{margin:5px 0}
+  code{font-family:var(--font-mono); font-size:.9em; background:var(--code-bg); color:var(--ink-code); padding:1px 6px; border-radius:3px; border:1px solid var(--rule-soft)}
+  pre{background:var(--code-bg); color:var(--ink-code); padding:14px 18px; border-radius:6px; overflow:auto; font-family:var(--font-mono); font-size:12.5px; line-height:1.6; border:1px solid var(--rule-soft)}
+  table{border-collapse:collapse; width:100%; margin:14px 0; font-family:var(--font-ui); font-size:12.5px}
+  th,td{border:1px solid var(--rule); padding:8px 12px; text-align:left; vertical-align:top}
+  th{background:var(--accent-soft); font-weight:600; font-size:11.5px}
+  tr:nth-child(even) td{background:var(--rule-soft)}
+  .formula{background:var(--code-bg); color:var(--ink-code); padding:14px 18px; border-radius:6px; margin:12px 0; border-left:3px solid var(--accent); font-family:var(--font-mono); font-size:12.5px; line-height:1.75; overflow-x:auto}
+  .formula .label{display:block; font-family:var(--font-ui); font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--accent); font-weight:600; margin-bottom:6px}
+  .formula .note{display:block; font-family:var(--font-ui); font-size:11.5px; color:var(--muted); margin-top:6px; font-style:italic; text-transform:none; letter-spacing:0}
+  .callout{border-left:3px solid var(--accent); padding:12px 16px; margin:14px 0; background:var(--accent-soft); border-radius:0 4px 4px 0; font-size:13.5px}
+  .callout.warn{border-left-color:var(--warn-border); background:var(--warn-bg)}
+  .callout.ok{border-left-color:var(--ok-border); background:var(--ok-bg)}
+  .footer{border-top:1px solid var(--rule); padding-top:20px; margin-top:40px; font-family:var(--font-ui); font-size:11.5px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px}
+  @media print{ .topbar,.toc,.footer .print-hide{display:none} .layout{display:block; padding:0; max-width:none} .paper{border:none; box-shadow:none; padding:0; max-width:none} body{background:#fff; color:#000; font-size:12pt} section h2{page-break-after:avoid} .formula,table,.callout{page-break-inside:avoid} a{color:#000; text-decoration:none} }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">☀</div>
+    <div>
+      <div class="title">СППР Солнечная Энергетика РФ</div>
+      <div class="subtitle">Методика расчётов · v6.1</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="index.html">← Платформа</a>
+    <a href="docs.html">Руководство</a>
+    <a href="sources.html">Источники</a>
+    <a href="methodology.html" class="active">Методика</a>
+    <a href="changelog.html">История</a>
+    <a href="license.html">Лицензия</a>
+    <a href="privacy.html">Политика</a>
+  </nav>
+</header>
+
+<div class="layout">
+  <aside class="toc">
+    <h3>Содержание</h3>
+    <ol>
+      <li><a href="#intro">Введение</a></li>
+      <li><a href="#units">Единицы измерения</a></li>
+      <li><a href="#descriptive">Описательные статистики</a></li>
+      <li><a href="#trend">Тренды и прогнозы</a></li>
+      <li><a href="#quality">Качество модели</a></li>
+      <li><a href="#anomaly">Аномалии</a></li>
+      <li><a href="#structure">Структура и неравенство</a></li>
+      <li><a href="#correlation">Корреляции</a></li>
+      <li><a href="#timeseries">Временные ряды</a></li>
+      <li><a href="#ml">Кластеризация и PCA</a></li>
+      <li><a href="#economics">Экономика СЭС — формулы</a></li>
+      <li><a href="#assumptions">Допущения и ограничения</a></li>
+      <li><a href="#references">Литература</a></li>
+    </ol>
+  </aside>
+
+  <main class="paper">
+    <div class="doc-header">
+      <div class="stamp">Официальный документ · методика расчётов</div>
+      <h1>Методика расчётов</h1>
+      <div class="meta">
+        <span><b>Версия:</b> 6.1</span>
+        <span><b>Дата:</b> 2026</span>
+        <span><b>Область:</b> солнечная генерация РФ</span>
+      </div>
+    </div>
+
+    <section id="intro">
+      <h2><span class="num">1.</span>Введение</h2>
+      <p>Документ описывает все математические методы, применяемые в СППР «Солнечная Энергетика РФ». Каждая формула сопровождается описанием обозначений, допущений и примеров.</p>
+      <div class="callout ok">
+        <b>Открытость.</b> Все формулы открыты, реализованы в JavaScript, доступны для проверки в консоли браузера. При расхождении с ручным расчётом — приоритет за ручным.
+      </div>
+    </section>
+
+    <section id="units">
+      <h2><span class="num">2.</span>Единицы измерения</h2>
+      <p>Внутреннее представление — <b>миллионы киловатт-часов</b> (млн кВт·ч). При отображении допускается пересчёт:</p>
+      <table>
+        <thead><tr><th>Единица</th><th>Коэффициент от млн кВт·ч</th></tr></thead>
+        <tbody>
+          <tr><td>млн кВт·ч</td><td>× 1</td></tr>
+          <tr><td>млрд кВт·ч</td><td>÷ 1000</td></tr>
+          <tr><td>ГВт·ч</td><td>× 1</td></tr>
+          <tr><td>ТВт·ч</td><td>÷ 1000</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="descriptive">
+      <h2><span class="num">3.</span>Описательные статистики</h2>
+      <h3>3.1. Среднее арифметическое</h3>
+      <div class="formula">
+        <span class="label">x̄ = (Σ xᵢ) / n</span>
+        n — число наблюдений; xᵢ — i-е значение.
+        <span class="note">Чувствительно к выбросам.</span>
+      </div>
+      <h3>3.2. Медиана</h3>
+      <div class="formula">
+        <span class="label">Me = x₍₍ₙ₊₁₎/₂₎ (нечётное n)
+Me = (x₍ₙ/₂₎ + x₍ₙ/₂₊₁₎) / 2 (чётное n)</span>
+        <span class="note">Устойчива к выбросам.</span>
+      </div>
+      <h3>3.3. Стандартное отклонение</h3>
+      <div class="formula">
+        <span class="label">σ = √[ Σ (xᵢ − x̄)² / (n − 1) ]</span>
+        <span class="note">Поправка Бесселя.</span>
+      </div>
+      <h3>3.4. Коэффициент вариации</h3>
+      <div class="formula">
+        <span class="label">CV = (σ / x̄) × 100%</span>
+      </div>
+      <h3>3.5. CAGR — среднегодовой темп</h3>
+      <div class="formula">
+        <span class="label">CAGR = [(x_end / x_start)^(1/n) − 1] × 100%</span>
+        <span class="note">Только если оба значения положительные.</span>
+      </div>
+    </section>
+
+    <section id="trend">
+      <h2><span class="num">4.</span>Тренды и прогнозы</h2>
+      <h3>4.1. Линейный тренд (МНК)</h3>
+      <div class="formula">
+        <span class="label">ŷ = a + b·t
+b = Σ (tᵢ − t̄)(yᵢ − ȳ) / Σ (tᵢ − t̄)²
+a = ȳ − b·t̄</span>
+      </div>
+      <h3>4.2. Полиномиальный тренд 2-й степени</h3>
+      <div class="formula"><span class="label">ŷ = a₀ + a₁·t + a₂·t²</span>Метод Гаусса.</div>
+      <h3>4.3. Экспоненциальный тренд</h3>
+      <div class="formula"><span class="label">ŷ = a · e^(b·t)</span>МНК по ln(y).</div>
+      <h3>4.4. Прогноз</h3>
+      <div class="formula"><span class="label">ŷ_прогноз(t) = модель(t) для t > t_last</span>Экстраполяция.</div>
+    </section>
+
+    <section id="quality">
+      <h2><span class="num">5.</span>Качество модели</h2>
+      <h3>5.1. R²</h3>
+      <div class="formula">
+        <span class="label">R² = 1 − SS_res / SS_tot</span>
+      </div>
+      <h3>5.2. MAPE</h3>
+      <div class="formula">
+        <span class="label">MAPE = (100/n) × Σ |(yᵢ − ŷᵢ) / yᵢ|</span>
+      </div>
+    </section>
+
+    <section id="anomaly">
+      <h2><span class="num">6.</span>Аномалии</h2>
+      <h3>6.1. z-score</h3>
+      <div class="formula"><span class="label">z = (x − x̄) / σ</span>|z| &gt; 2 — выброс; |z| &gt; 3 — сильный.</div>
+      <h3>6.2. IQR</h3>
+      <div class="formula">
+        <span class="label">IQR = Q3 − Q1
+Выброс: x &lt; Q1 − 1.5·IQR или x &gt; Q3 + 1.5·IQR</span>
+      </div>
+      <h3>6.3. MAD</h3>
+      <div class="formula"><span class="label">MAD = median(|xᵢ − median(x)|)
+Выброс: |xᵢ − median(x)| &gt; 3·MAD</span></div>
+    </section>
+
+    <section id="structure">
+      <h2><span class="num">7.</span>Структура и неравенство</h2>
+      <h3>7.1. HHI</h3>
+      <div class="formula"><span class="label">HHI = Σ sᵢ²</span>sᵢ — доля в %. Диапазон 0…10000.</div>
+      <h3>7.2. Джини</h3>
+      <div class="formula"><span class="label">G = Σᵢ (2i − n − 1) · x₍ᵢ₎ / (n · Σx)</span></div>
+      <h3>7.3. CR-k</h3>
+      <div class="formula"><span class="label">CR_k = (Σ топ-k / Σ всех) × 100%</span></div>
+      <h3>7.4. Энтропия Шеннона</h3>
+      <div class="formula"><span class="label">H = −Σ pᵢ · ln(pᵢ)</span></div>
+    </section>
+
+    <section id="correlation">
+      <h2><span class="num">8.</span>Корреляции</h2>
+      <div class="formula">
+        <span class="label">r = Σ(xᵢ − x̄)(yᵢ − ȳ) / √[Σ(xᵢ − x̄)² · Σ(yᵢ − ȳ)²]</span>
+        <span class="note">|r| &lt; 0.3 — слабая; 0.3–0.7 — умеренная; &gt; 0.7 — сильная.</span>
+      </div>
+    </section>
+
+    <section id="timeseries">
+      <h2><span class="num">9.</span>Временные ряды</h2>
+      <h3>9.1. ACF</h3>
+      <div class="formula"><span class="label">ρ(k) = Σ(xᵢ − x̄)(xᵢ₊ₖ − x̄) / Σ(xᵢ − x̄)²</span></div>
+      <h3>9.2. Манн–Кендалл</h3>
+      <div class="formula">
+        <span class="label">S = Σᵢ Σⱼ₌ᵢ₊₁ sign(xⱼ − xᵢ)
+Var(S) = n(n−1)(2n+5) / 18
+Z = (S − sign(S)) / √Var(S)</span>
+        <span class="note">|Z| &gt; 1.96 — значимый тренд (5%).</span>
+      </div>
+    </section>
+
+    <section id="ml">
+      <h2><span class="num">10.</span>Кластеризация и PCA</h2>
+      <h3>10.1. k-means</h3>
+      <div class="formula">
+        <span class="label">1. Инициализация k-means++
+2. Назначение точек ближайшему центру
+3. Пересчёт центров
+4. До сходимости (≤50 итераций)</span>
+      </div>
+      <h3>10.2. PCA</h3>
+      <div class="formula">
+        <span class="label">1. Центрирование
+2. Ковариационная матрица
+3. Степенной метод
+4. Проекция в 2D</span>
+      </div>
+    </section>
+
+    <section id="economics">
+      <h2><span class="num">11.</span>Экономика СЭС — формулы</h2>
+      <p>Раздел «3.1 Окупаемость СЭС» рассчитывает ключевые показатели инвестиционного проекта солнечной электростанции. Методология: IEA LCOE, Lazard v16, IRENA. Все расчёты — в числах с плавающей точкой, без промежуточного округления.</p>
+
+      <h3>11.1. Годовая выработка</h3>
+      <div class="formula">
+        <span class="label">E_t = P × 1000 × Y_удельн × f_deg(t)</span>
+        P — мощность СЭС, МВт; Y_удельн — удельная выработка, кВт·ч/кВт·год; f_deg(t) — фактор деградации на год t.
+        <span class="note">P × 1000 переводит МВт в кВт. Типичный Y_удельн для юга РФ — 1300–1600 кВт·ч/кВт·год.</span>
+      </div>
+
+      <h3>11.2. Фактор деградации — два режима</h3>
+      <div class="formula">
+        <span class="label">Линейная: f_deg(t) = max(0, 1 − d × (t − 1))
+Экспоненциальная: f_deg(t) = (1 − d)^(t − 1)</span>
+        d — годовая деградация (доля, например 0.005 для 0.5%/год).
+        <span class="note">Линейная — консервативный вариант (деградация равномерно). Экспоненциальная — компаундная (в начале быстрее).</span>
+      </div>
+
+      <h3>11.3. Тариф и выручка</h3>
+      <div class="formula">
+        <span class="label">T_t = T_0 × (1 + g_T)^(t − 1)
+R_t = E_t × T_t</span>
+        T_0 — начальный тариф, ₽/кВт·ч; g_T — ежегодный рост тарифа (доля).
+      </div>
+
+      <h3>11.4. OPEX</h3>
+      <div class="formula">
+        <span class="label">OPEX_t = CAPEX × opex% × (1 + g_O)^(t − 1)</span>
+        CAPEX — капитальные затраты, ₽; opex% — доля операционных затрат в год; g_O — рост OPEX (доля).
+      </div>
+
+      <h3>11.5. EBITDA и налог на прибыль</h3>
+      <div class="formula">
+        <span class="label">EBITDA_t = R_t − OPEX_t + S_t
+Tax_t = max(0, EBITDA_t × τ)</span>
+        S_t — субсидия / ДПМ ВИЭ, ₽/год; τ — ставка налога на прибыль (20% для РФ по умолчанию).
+        <span class="note">Упрощение: амортизация и проценты по долгу не учитываются. Отрицательная EBITDA даёт налоговый щит 0.</span>
+      </div>
+
+      <h3>11.6. Чистый денежный поток и дисконтирование</h3>
+      <div class="formula">
+        <span class="label">CF_t = EBITDA_t − Tax_t
+DF_t = 1 / (1 + r)^t
+DCF_t = CF_t × DF_t</span>
+        r — ставка дисконтирования (доля).
+      </div>
+
+      <h3>11.7. NPV — чистый приведённый доход</h3>
+      <div class="formula">
+        <span class="label">NPV = −CAPEX + Σₜ₌₁ᴺ DCF_t</span>
+        <span class="note">NPV &gt; 0 — целесообразно; NPV &lt; 0 — нецелесообразно.</span>
+      </div>
+
+      <h3>11.8. Срок окупаемости (простой и дисконтированный)</h3>
+      <div class="formula">
+        <span class="label">Простой: PB = min{ T : Σₜ₌₁ᵀ CF_t ≥ CAPEX }
+Дисконтированный: DPB = min{ T : Σₜ₌₁ᵀ DCF_t ≥ CAPEX }</span>
+        <span class="note">С линейной интерполяцией внутри года окупаемости.</span>
+      </div>
+
+      <h3>11.9. IRR — внутренняя норма доходности</h3>
+      <div class="formula">
+        <span class="label">IRR = r* : NPV(r*) = 0</span>
+        Метод бисекции на интервале (-99%, 1000%).
+        <span class="note">IRR &gt; ставки дисконтирования — проект эффективен.</span>
+      </div>
+
+      <h3>11.10. MIRR — модифицированная IRR</h3>
+      <div class="formula">
+        <span class="label">MIRR = [ FV_positive / PV_negative ]^(1/N) − 1</span>
+        FV_positive — будущая стоимость положительных потоков по ставке реинвестирования; PV_negative — текущая стоимость отрицательных потоков по ставке дисконтирования.
+      </div>
+
+      <h3>11.11. LCOE — приведённая стоимость электроэнергии</h3>
+      <div class="formula">
+        <span class="label">LCOE = ( CAPEX + Σₜ₌₁ᴺ OPEX_t / (1+r)^t ) / Σₜ₌₁ᴺ E_t / (1+r)^t</span>
+        <span class="note">Формула IEA для levelized cost of electricity. Учитывает дисконтирование как затрат, так и выработки.</span>
+      </div>
+
+      <h3>11.12. PI — индекс доходности</h3>
+      <div class="formula">
+        <span class="label">PI = (NPV + CAPEX) / CAPEX</span>
+        <span class="note">PI &gt; 1 — проект эффективен.</span>
+      </div>
+
+      <h3>11.13. WACC — средневзвешенная стоимость капитала</h3>
+      <div class="formula">
+        <span class="label">WACC = w_d × r_d × (1 − τ) + w_e × r_e</span>
+        w_d — доля долга; r_d — ставка по долгу; w_e — доля собственного капитала; r_e — стоимость собственного капитала.
+        <span class="note">Если пользователь выбрал «рассчитывать ставку дисконтирования через WACC», поле ставки обновляется автоматически.</span>
+      </div>
+
+      <h3>11.14. Чувствительность NPV</h3>
+      <p>Тепловая карта NPV по сетке:</p>
+      <ul>
+        <li>тариф: −30%, −20%, −10%, 0, +10%, +20%, +30% от базового;</li>
+        <li>ставка дисконтирования: 5%, 8%, 10%, 12%, 15%, 18%, 20%, 25%.</li>
+      </ul>
+      <div class="formula">
+        <span class="label">NPV(r, T_база × (1+δ)) — для каждой пары (r, δ)</span>
+        <span class="note">Позволяет оценить, при каких отклонениях проект остаётся рентабельным.</span>
+      </div>
+
+      <div class="callout warn">
+        <b>Важно.</b> Расчёт экономики — оценочный. Не учитывает: субсидии сверх указанных, зелёные сертификаты, сезонность, ограничения сети, локальные климатические особенности, инфляцию сверх указанных темпов, амортизацию и долговое финансирование (упрощение). Для инвестиционного решения требуется ТЭО.
+      </div>
+    </section>
+
+    <section id="assumptions">
+      <h2><span class="num">12.</span>Допущения и ограничения</h2>
+      <ul>
+        <li>Все значения — в млн кВт·ч.</li>
+        <li>Год — целое число от 1990 до 2100.</li>
+        <li>Значение — неотрицательное, не более 100 000.</li>
+        <li>Статусы: «факт», «оценка», «прогноз».</li>
+        <li>Структурные сдвиги (ввод/вывод мощностей) при прогнозировании не учитываются.</li>
+        <li>Корреляция не означает причинно-следственную связь.</li>
+        <li>МНК при n &lt; 3 недостоверен.</li>
+        <li>Полином-2 при n &lt; 5 может быть неустойчив.</li>
+        <li>Экономика — упрощённая (без налоговых щитов через амортизацию, без долгового финансирования в CF).</li>
+      </ul>
+      <div class="callout warn">
+        <b>Важно.</b> Прогнозы, кластеризация, корреляции и экономические расчёты — инструменты поддержки принятия решений, а не готовые ответы. Перед использованием в официальных отчётах требуется экспертная интерпретация.
+      </div>
+    </section>
+
+    <section id="references">
+      <h2><span class="num">13.</span>Литература</h2>
+      <ol>
+        <li>Кобзарь А. И. Прикладная математическая статистика. — М.: ФИЗМАТЛИТ, 2006. — 816 с.</li>
+        <li>Манн П. С., Уитни Д. Р. О критерии проверки гипотез. — Annals of Mathematical Statistics, 1947.</li>
+        <li>Кендалл М. Дж., Стьюарт А. Статистические выводы и связи. — М.: Наука, 1973.</li>
+        <li>Херфиндаль О. К. Концентрация в сталелитейной промышленности. — 1950.</li>
+        <li>Хиршман А. О. Подход к шкале торговли. — American Economic Review, 1945.</li>
+        <li>Джини К. Вариативность и изменчивость признака. — 1912.</li>
+        <li>Шеннон К. Математическая теория связи. — Bell System Technical Journal, 1948.</li>
+        <li>Джоллифф И. Т. Principal Component Analysis. — Springer, 2002.</li>
+        <li>Маккуин Дж. Б. Some Methods for Classification. — 1967.</li>
+        <li>Brealey R., Myers S. Principles of Corporate Finance. — McGraw-Hill (для экономики).</li>
+        <li>IEA. Projected Costs of Generating Electricity. — 2020.</li>
+        <li>Lazard. Levelized Cost of Energy Analysis, v16. — 2023.</li>
+        <li>IRENA. Renewable Power Generation Costs in 2022. — 2023.</li>
+      </ol>
+    </section>
+
+    <div class="footer">
+      <div>© 2026 · СППР Солнечная Энергетика РФ · Методика · v6.1</div>
+      <div class="print-hide"><a href="index.html">Платформа</a> · <a href="docs.html">Руководство</a> · <a href="sources.html">Источники</a> · <a href="changelog.html">История</a> · <a href="license.html">Лицензия</a></div>
+    </div>
+  </main>
+</div>
+
+<script>
+try{var s=JSON.parse(localStorage.getItem("solar_rf_state")||"{}"); if(s.theme==="dark") document.documentElement.setAttribute("data-theme","dark");}catch(e){}
+</script>
+</body>
+</html>
